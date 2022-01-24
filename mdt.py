@@ -11,34 +11,15 @@ switch_hotkey = "ctrl+s"
 
 cards_dir = "./cards.json"
 
-with open("cards.json", "rb") as f:
-    cards_db = json.load(f)
-
 # 清理终端
 def cls():
     os.system("cls" if os.name == "nt" else "clear")
-
-
-pm = pymem.Pymem("masterduel.exe")
-print("Process id: %s" % pm.process_id)
-try:
-    baseAddress = pymem.process.module_from_name(
-        pm.process_handle, "GameAssembly.dll"
-    ).lpBaseOfDll
-    print("success")
-    # deck 组卡界面1 duel 决斗界面2
-    deck_addr = baseAddress + int("0x01CCD278", base=16)
-    duel_addr = baseAddress + int("0x01cb2b90", base=16)
-except:
-    print("baseAddress not_found")
-
 
 def read_longlongs(pm, base, offsets):
     value = pm.read_longlong(base)
     for offset in offsets:
         value = pm.read_longlong(value + offset)
     return value
-
 
 def get_cid(type: int):
     global pm
@@ -68,7 +49,6 @@ def get_cid(type: int):
             print({"duel_cid not_found"})
             return 0
 
-
 def translate(type: int):
     global baseAddress
     if baseAddress is None:
@@ -89,19 +69,20 @@ def translate(type: int):
         return
 
     end_time = time.time()
-    card_t = cards_db[str(cid)]
     print("匹配用时: %.6f 秒" % (end_time - start_time))
-    print(f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n{card_t['text']['desc']}\n")
+    if(cid):
+        card_t = cards_db[str(cid)]
+        print(
+            f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n{card_t['text']['desc']}\n"
+        )
     print("-----------------------------------")
     print(f"{switch_hotkey}切换检测卡组/决斗详细卡片信息,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
-
 
 # 循环
 translate_type = 0
 pause = True
 process_exit = False
 enable_debug = False
-
 
 def translate_check_thread():
     global translate_type
@@ -123,7 +104,6 @@ def translate_check_thread():
         time.sleep(1)
     print("程序结束")
 
-
 def status_change(switch: bool, need_pause: bool, exit: bool):
     global translate_type
     global pause
@@ -134,9 +114,22 @@ def status_change(switch: bool, need_pause: bool, exit: bool):
     if switch:
         translate_type = int(not bool(translate_type))
 
-
 if __name__ == "__main__":
-
+    with open("cards.json", "rb") as f:
+        cards_db = json.load(f)
+    pm = pymem.Pymem("masterduel.exe")
+    print("Process id: %s" % pm.process_id)
+    try:
+        baseAddress = pymem.process.module_from_name(
+            pm.process_handle, "GameAssembly.dll"
+        ).lpBaseOfDll
+        print("success")
+        # deck 组卡界面1 duel 决斗界面2
+        deck_addr = baseAddress + int("0x01CCD278", base=16)
+        duel_addr = baseAddress + int("0x01cb2b90", base=16)
+    except:
+        print("baseAddress not_found")
+        
     keyboard.add_hotkey(switch_hotkey, status_change, args=(True, False, False))
     keyboard.add_hotkey(exit_hotkey, status_change, args=(False, False, True))
     keyboard.add_hotkey(pause_hotkey, status_change, args=(False, True, False))
