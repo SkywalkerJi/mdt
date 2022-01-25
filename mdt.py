@@ -4,7 +4,15 @@ import pymem
 import keyboard
 import time
 import json
+import win32gui
+import win32con
 
+try:
+    hwnd = win32gui.FindWindow(None, 'C:\mdt\mdt.exe')
+    win32gui.SetWindowPos(hwnd,win32con.HWND_TOPMOST,400,400,400,400,0)
+    print('窗口置顶成功')
+except:
+    print('置顶失败,需要置顶请放入默认路径 C:\mdt\mdt.exe 下版本会添加自定义路径')
 pause_hotkey = "ctrl+p"
 exit_hotkey = "ctrl+q"
 switch_hotkey = "ctrl+s"
@@ -97,7 +105,7 @@ def translate_check_thread():
 
     while not process_exit:
         if pause:
-            cls()
+            #cls()
             print("暂停")
             print(f"{switch_hotkey}切换检测卡组/决斗,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
         elif translate_type == 0:
@@ -126,11 +134,14 @@ def status_change(switch: bool, need_pause: bool, exit: bool):
 
 
 if __name__ == "__main__":
-    with open("cards.json", "rb") as f:
-        cards_db = json.load(f)
-    pm = pymem.Pymem("masterduel.exe")
-    print("Process id: %s" % pm.process_id)
     try:
+        with open("cards.json", "rb") as f:
+            ards_db = json.load(f)
+    except:
+        print("未找到cards.json,请下载后放在同一目录")
+    try:
+        pm = pymem.Pymem("masterduel.exe")
+        print("Process id: %s" % pm.process_id)
         baseAddress = pymem.process.module_from_name(
             pm.process_handle, "GameAssembly.dll"
         ).lpBaseOfDll
@@ -139,7 +150,7 @@ if __name__ == "__main__":
         deck_addr = baseAddress + int("0x01CCD278", base=16)
         duel_addr = baseAddress + int("0x01cb2b90", base=16)
     except:
-        print("baseAddress not_found")
+        print("游戏未启动，请先启动游戏，baseAddress not_found")
 
     keyboard.add_hotkey(switch_hotkey, status_change, args=(True, False, False))
     keyboard.add_hotkey(exit_hotkey, status_change, args=(False, False, True))
