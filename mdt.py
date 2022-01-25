@@ -39,7 +39,7 @@ def get_cid(type: int):
             # print({"deck_cid": deck_cid})
             return deck_cid
         except:
-            print({"deck_cid not_found"})
+            print(f"使用卡组模式检测 deck_cid not_found 可尝试{switch_hotkey}切换模式")
             return 0
 
     while type == 2:
@@ -50,7 +50,7 @@ def get_cid(type: int):
             # print({"duel_cid": duel_cid})
             return duel_cid
         except:
-            print({"duel_cid not_found"})
+            print(f"使用决斗模式检测 duel_cid not_found 可尝试{switch_hotkey}切换模式")
             return 0
 
 
@@ -120,9 +120,9 @@ def status_change(switch: bool, need_pause: bool, exit: bool):
     if switch:
         translate_type = int(not bool(translate_type))
         if translate_type == 1:
-            print("翻译卡组卡片")
+            print("已切换至决斗卡片检测模式")
         elif translate_type == 0:
-            print("翻译决斗卡片")
+            print("已切换至卡组卡片检测模式")
 
 
 if __name__ == "__main__":

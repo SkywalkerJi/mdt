@@ -4,11 +4,18 @@
 
 你可以在[Releases](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的版本。
 
+如果是windows7用户请使用后缀win7的版本。
+
 ## Usage
-```
+
 打开游戏后，运行mdt.exe，根据提示使用快捷键。
-卡组界面和决斗界面需要 ctrl+s 切换模式。
-```
+
+| 快捷键 | 功能                  |
+| ------ | --------------------- |
+| ctrl+s | 切换检测卡组/决斗模式 |
+| ctrl+p | 暂停检测              |
+| ctrl+q | 退出程序              |
+
 ## Contributing
 
 有其他指针可以提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)或PR。
