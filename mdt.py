@@ -1,4 +1,5 @@
 import os
+from random import expovariate
 from threading import Thread
 import pymem
 import keyboard
@@ -82,10 +83,13 @@ def translate(type: int):
         get_at = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         print(f"检测时间:{get_at}")
         cid_temp = cid
-        card_t = cards_db[str(cid)]
-        print(
-            f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n{card_t['text']['desc']}\n"
-        )
+        try:
+            card_t = cards_db[str(cid)]
+            print(
+                f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n{card_t['text']['desc']}\n"
+            )
+        except:
+            print('数据库中未查到该卡，如果是新卡请提交issue。如果是token衍生物请忽略。')
         print("-----------------------------------")
         print(f"{switch_hotkey}切换检测卡组/决斗详细卡片信息,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
 
@@ -136,7 +140,7 @@ def status_change(switch: bool, need_pause: bool, exit: bool):
 if __name__ == "__main__":
     try:
         with open("cards.json", "rb") as f:
-            ards_db = json.load(f)
+            cards_db = json.load(f)
     except:
         print("未找到cards.json,请下载后放在同一目录")
     try:
