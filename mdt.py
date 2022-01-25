@@ -15,6 +15,10 @@ translate_type = 0
 pause = True
 process_exit = False
 enable_debug = False
+baseAddress=None
+pm={}
+deck_addr=None
+duel_addr=None
 
 # 清理终端
 def cls():
@@ -61,8 +65,11 @@ def translate(type: int):
     global cid_temp
     global baseAddress
     if baseAddress is None:
-        print("地址没找到，不执行检测")
-        return
+        try:
+            get_baseAddress()
+        except:
+            print("地址没找到，不执行检测")
+            return
     if type == 1:
         # print("翻译卡组卡片")
         cid = get_cid(type)
@@ -80,8 +87,11 @@ def translate(type: int):
         try:
             card_t = cards_db[str(cid)]
             print(
-                f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n{card_t['text']['desc']}\n"
+                f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n"
             )
+            if(card_t['text']['pdesc']):
+                print(f"灵摆效果:{card_t['text']['pdesc']}\n")
+            print(f"{card_t['text']['desc']}\n")
         except:
             print(f"数据库中未查到该卡,cid:{cid}，如果是新卡请提交issue。如果是token衍生物请忽略。")
         print("-----------------------------------")
@@ -123,6 +133,20 @@ def status_change(switch: bool, need_pause: bool, exit: bool):
         elif translate_type == 0:
             print("已切换至卡组卡片检测模式")
 
+def get_baseAddress():
+    global pm
+    global baseAddress
+    global deck_addr
+    global duel_addr
+    pm = pymem.Pymem("masterduel.exe")
+    print("Process id: %s" % pm.process_id)
+    baseAddress = pymem.process.module_from_name(
+        pm.process_handle, "GameAssembly.dll"
+    ).lpBaseOfDll
+    print("成功找到模块")
+    # deck 组卡界面1 duel 决斗界面2
+    deck_addr = baseAddress + int("0x01CCD278", base=16)
+    duel_addr = baseAddress + int("0x01cb2b90", base=16)    
 
 if __name__ == "__main__":
     # 加载配置文件
@@ -166,15 +190,7 @@ if __name__ == "__main__":
         print(f"未找到{config['cards_db']},请下载后放在同一目录")
     # 加载游戏
     try:
-        pm = pymem.Pymem("masterduel.exe")
-        print("Process id: %s" % pm.process_id)
-        baseAddress = pymem.process.module_from_name(
-            pm.process_handle, "GameAssembly.dll"
-        ).lpBaseOfDll
-        print("success")
-        # deck 组卡界面1 duel 决斗界面2
-        deck_addr = baseAddress + int("0x01CCD278", base=16)
-        duel_addr = baseAddress + int("0x01cb2b90", base=16)
+        get_baseAddress()
     except:
         print("游戏未启动，请先启动游戏，baseAddress not_found")
 
