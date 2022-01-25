@@ -7,20 +7,14 @@ import time
 import json
 import win32gui
 import win32con
+import configparser
 
-try:
-    hwnd = win32gui.FindWindow(None, 'C:\mdt\mdt.exe')
-    win32gui.SetWindowPos(hwnd,win32con.HWND_TOPMOST,400,400,400,400,0)
-    print('窗口置顶成功')
-except:
-    print('置顶失败,需要置顶请放入默认路径 C:\mdt\mdt.exe 下版本会添加自定义路径')
-pause_hotkey = "ctrl+p"
-exit_hotkey = "ctrl+q"
-switch_hotkey = "ctrl+s"
-
-cards_dir = "./cards.json"
-
+config_file = "config.ini"
 cid_temp = 0
+translate_type = 0
+pause = True
+process_exit = False
+enable_debug = False
 
 # 清理终端
 def cls():
@@ -89,16 +83,9 @@ def translate(type: int):
                 f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n{card_t['text']['desc']}\n"
             )
         except:
-            print('数据库中未查到该卡，如果是新卡请提交issue。如果是token衍生物请忽略。')
+            print(f"数据库中未查到该卡,cid:{cid}，如果是新卡请提交issue。如果是token衍生物请忽略。")
         print("-----------------------------------")
         print(f"{switch_hotkey}切换检测卡组/决斗详细卡片信息,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
-
-
-# 循环
-translate_type = 0
-pause = True
-process_exit = False
-enable_debug = False
 
 
 def translate_check_thread():
@@ -109,7 +96,7 @@ def translate_check_thread():
 
     while not process_exit:
         if pause:
-            #cls()
+            # cls()
             print("暂停")
             print(f"{switch_hotkey}切换检测卡组/决斗,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
         elif translate_type == 0:
@@ -138,11 +125,46 @@ def status_change(switch: bool, need_pause: bool, exit: bool):
 
 
 if __name__ == "__main__":
+    # 加载配置文件
+    con = configparser.ConfigParser()
     try:
-        with open("cards.json", "rb") as f:
+        con.read(config_file, encoding="utf-8")
+        config = con.items("config")
+        config = dict(config)
+        pause_hotkey = config["pause_hotkey"]
+        exit_hotkey = config["exit_hotkey"]
+        switch_hotkey = config["switch_hotkey"]
+    except:
+        print(f"未找到{config_file}配置文件或配置文件格式有误。")
+    # 置顶功能
+    if (config["window_on_top"] == "1") and config["lp_window_name"]:
+        try:
+            hwnd = win32gui.FindWindow(None, config["lp_window_name"])
+            win32gui.SetWindowPos(
+                hwnd,
+                win32con.HWND_TOPMOST,
+                int(config["window_pos_x"]),
+                int(config["window_pos_y"]),
+                int(config["window_pos_cx"]),
+                int(config["window_pos_cy"]),
+                0,
+            )
+            print(f"窗口置顶成功,如需调整默认位置大小，可配置{config_file}")
+        except:
+            print(
+                f"置顶失败,目前配置窗口名为：{config['lp_window_name']}。请在配置文件中更改lp_window_name，一般与软件路径一致。"
+            )
+    elif config["window_on_top"] == "0":
+        print("置顶功能已关闭")
+    else:
+        print(f"置顶功能配置异常，请检查{config_file}")
+    # 加载卡片文本
+    try:
+        with open(config["cards_db"], "rb") as f:
             cards_db = json.load(f)
     except:
-        print("未找到cards.json,请下载后放在同一目录")
+        print(f"未找到{config['cards_db']},请下载后放在同一目录")
+    # 加载游戏
     try:
         pm = pymem.Pymem("masterduel.exe")
         print("Process id: %s" % pm.process_id)
