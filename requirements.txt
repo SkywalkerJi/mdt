@@ -1,0 +1,4 @@
+pyinstaller
+pymem
+keyboard
+pywin32
