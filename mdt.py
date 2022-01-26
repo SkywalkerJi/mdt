@@ -8,7 +8,7 @@ import json
 import win32gui
 import win32con
 import configparser
-import ctypes,sys
+import ctypes, sys
 
 config_file = "config.ini"
 cid_temp = 0
@@ -20,8 +20,9 @@ baseAddress = None
 pm = {}
 deck_addr = None
 duel_addr = None
-core_path='core'
-sleep_time=1
+core_path = "core"
+sleep_time = 1
+show_all_info = 0
 
 # 清理终端
 def cls():
@@ -67,6 +68,7 @@ def get_cid(type: int):
 def translate(type: int):
     global cid_temp
     global baseAddress
+    global show_all_info
     if baseAddress is None:
         try:
             get_baseAddress()
@@ -89,9 +91,11 @@ def translate(type: int):
         cid_temp = cid
         try:
             card_t = cards_db[str(cid)]
-            print(
-                f"{card_t['cn_name']}(密码:{card_t['id']})\n英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}\n"
-            )
+            print(f"{card_t['cn_name']}(密码:{card_t['id']})")
+            if show_all_info == 1:
+                print(
+                    f"英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}"
+                )
             if card_t["text"]["pdesc"]:
                 print(f"灵摆效果:{card_t['text']['pdesc']}\n")
             print(f"{card_t['text']['desc']}\n")
@@ -153,17 +157,21 @@ def get_baseAddress():
     deck_addr = baseAddress + int("0x01CCD278", base=16)
     duel_addr = baseAddress + int("0x01cb2b90", base=16)
 
+
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
 
+
 if __name__ == "__main__":
-    #判断UAC
+    # 判断UAC
     if not is_admin():
-        stdout=os.popen('cd '+core_path+ ' && start mdt.exe ')
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+        stdout = os.popen("cd " + core_path + " && start mdt.exe ")
+        ctypes.windll.shell32.ShellExecuteW(
+            None, "runas", sys.executable, " ".join(sys.argv), None, 1
+        )
         sys.exit()
     # 加载配置文件
     con = configparser.ConfigParser()
@@ -175,6 +183,7 @@ if __name__ == "__main__":
         exit_hotkey = config["exit_hotkey"]
         switch_hotkey = config["switch_hotkey"]
         sleep_time = int(config["sleep_time"])
+        show_all_info = int(config["show_all_info"])
     except:
         print(f"未找到{config_file}配置文件或配置文件格式有误。")
     # 置顶功能
@@ -193,7 +202,7 @@ if __name__ == "__main__":
             print(f"窗口置顶成功,如需调整默认位置大小，可配置{config_file}")
         except:
             print(
-                f"置顶失败,目前配置中窗口名为：{config['lp_window_name']}。请在配置文件中更改lp_window_name与上方窗口名一致，一般等于mdt.exe路径。"
+                f"置顶失败,目前配置中窗口名为：{config['lp_window_name']}。请在{config_file}配置文件中更改lp_window_name与黑窗口名一致，一般等于mdt.exe路径。"
             )
     elif config["window_on_top"] == "0":
         print("置顶功能已关闭")
@@ -209,7 +218,7 @@ if __name__ == "__main__":
     try:
         get_baseAddress()
     except:
-        print("游戏未启动，请先启动游戏，baseAddress not_found")
+        print("未找到地址，可能是游戏未启动 或 没有使用管理员权限运行MDT")
 
     keyboard.add_hotkey(switch_hotkey, status_change, args=(True, False, False))
     keyboard.add_hotkey(exit_hotkey, status_change, args=(False, False, True))

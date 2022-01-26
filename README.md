@@ -11,9 +11,11 @@ Yu-Gi-Oh! Master Duel translation script
 
 ## Download
 
-你可以在[Releases](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的版本。
+你可以在[Releases](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的MDT版本。
 
 如果是windows7用户请使用后缀win7的版本。
+
+你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
 
 ## Usage
 
@@ -53,11 +55,15 @@ window_pos_cy = 400
 ; 这四个参数是控制窗口置顶时默认的窗口大小，分别代表窗口左侧坐标，窗口顶部坐标，窗口宽度，窗口高度。取值为正整数。
 sleep_time = 1
 ; 控制轮询间隔，如果你觉得太快可以把这个值改大。一般不用动。
+show_all_info = 1
+; 如果你想要只显示中文卡名+卡密+效果，可以把这一项改成0。
 ```
 
 4.视频演示
 
 [v0.1.2版本](https://www.bilibili.com/video/av593463793)
+[v0.1.4版本](https://www.bilibili.com/video/av850928534)
+[卡图反和谐补丁](https://www.bilibili.com/video/av765979539)
 
 ## Contributing
 
@@ -65,9 +71,12 @@ sleep_time = 1
 
 你也可以通过[Twitter](https://twitter.com/Skywalker_Ji)或[NGA](https://bbs.nga.cn/read.php?tid=30415633)进行反馈
 
+或者你可以加入Q群：710144213
+
 ## Related Efforts
 
 * [MasterDuelSimpleTranslateTool](https://github.com/PatchouliTC/MasterDuelSimpleTranslateTool) 基于图像指纹识别的CLI工具，提供了本项目的CLI-UI基础。
+* [Yu-Gi-Oh! Master Duel - Uncensor Patch](https://www.youtube.com/watch?v=hXGVXXHT6us) 反和谐卡图替换补丁
 
 ## License
 
