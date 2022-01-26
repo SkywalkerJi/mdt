@@ -22,7 +22,7 @@ deck_addr = None
 duel_addr = None
 core_path = "core"
 sleep_time = 1
-show_all_info = 0
+show_all_info = 1
 
 # 清理终端
 def cls():

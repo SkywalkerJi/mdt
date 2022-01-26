@@ -61,9 +61,18 @@ show_all_info = 1
 
 4.视频演示
 
-[v0.1.2版本](https://www.bilibili.com/video/av593463793)
-[v0.1.4版本](https://www.bilibili.com/video/av850928534)
-[卡图反和谐补丁](https://www.bilibili.com/video/av765979539)
+**v0.1.2版本**
+
+[bilibili](https://www.bilibili.com/video/av593463793)
+
+**v0.1.4版本**
+
+[bilibili](https://www.bilibili.com/video/av850928534)   [Youtube](https://www.youtube.com/watch?v=mx0KaT3cRsQ)
+
+**卡图反和谐补丁**
+
+[bilibili](https://www.bilibili.com/video/av765979539)   [Youtube](https://www.youtube.com/watch?v=ickw082Snwo)
+
 
 ## Contributing
 
