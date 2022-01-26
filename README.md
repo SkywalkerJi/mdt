@@ -19,8 +19,10 @@ Yu-Gi-Oh! Master Duel translation script
 
 ## Usage
 
+**从预打包版本启动（适合大部分用户）**
+
 1. 打开游戏
-2. 使用管理员权限运行mdt.exe，根据提示使用快捷键。
+2. 使用**管理员权限**运行mdt.exe，根据提示使用快捷键。
 
 | 快捷键 | 功能                  |
 | ------ | --------------------- |
@@ -59,20 +61,19 @@ show_all_info = 1
 ; 如果你想要只显示中文卡名+卡密+效果，可以把这一项改成0。
 ```
 
-4.视频演示
+**视频演示**
 
-**v0.1.2版本**
+*v0.1.2版本*
 
 [bilibili](https://www.bilibili.com/video/av593463793)
 
-**v0.1.4版本**
+*v0.1.4版本*
 
 [bilibili](https://www.bilibili.com/video/av850928534)   [Youtube](https://www.youtube.com/watch?v=mx0KaT3cRsQ)
 
-**卡图反和谐补丁**
+*卡图反和谐补丁*
 
 [bilibili](https://www.bilibili.com/video/av765979539)   [Youtube](https://www.youtube.com/watch?v=ickw082Snwo)
-
 
 ## Contributing
 
@@ -98,3 +99,5 @@ GPLv3
 ## Assets
 
 Card texts come from [ygocdb.com](https://ygocdb.com)
+
+Some multimedia content is NOT under GPLv3 License. Get in touch with Konami if you want to use it.
