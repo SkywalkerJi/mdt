@@ -9,6 +9,8 @@ Yu-Gi-Oh! Master Duel translation script
 * 开源，你可以直接执行源代码。
 * 高兼容性，点开即用。
 
+![MDT](https://github.com/SkywalkerJi/mdt/raw/dev/IMG/gui.png "MDT GUI")
+
 ## Download
 
 你可以在[Releases](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的MDT版本。
@@ -19,23 +21,30 @@ Yu-Gi-Oh! Master Duel translation script
 
 ## Usage
 
-**从预打包版本启动（适合大部分用户）**
+**从预打包的GUI版本（v0.2.x）启动（适合大部分用户）**
 
-1. 打开游戏
-2. 使用**管理员权限**运行mdt.exe，根据提示使用快捷键。
+1. 打开游戏。
+2. 使用**管理员权限**运行mdt.exe。
+3. 在组卡界面点击一张卡。
 
-| 快捷键 | 功能                  |
-| ------ | --------------------- |
-| ctrl+s | 切换检测卡组/决斗模式 |
-| ctrl+p | 暂停检测              |
-| ctrl+q | 退出程序              |
+**使用预打包的CLI版本**
 
-3. 可在config.ini文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
+1. MDT同时自带一个命令行界面。这是MDT v0.1.X版本的默认UI。
+2. 打开游戏。使用管理员权限运行mdt.exe。
+3. 根据提示使用快捷键。
 
-   如果要进行窗口置顶设置，尤其要注意窗口名（lp_window_name）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可。
+| 快捷键 | 功能     |
+| ------ | -------- |
+| ctrl+s | 开启检测 |
+| ctrl+p | 暂停检测 |
+| ctrl+q | 退出程序 |
+
+1. 可在config.ini文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
+
+   如果要进行CLI窗口置顶设置，尤其要注意窗口名（lp_window_name）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。
 ```
 [config] 
-; 基本设置
+; CLI基本设置
 cards_db = cards.json
 ; 翻译文件名
 pause_hotkey = ctrl+p
@@ -44,8 +53,8 @@ exit_hotkey = ctrl+q
 ; 退出快捷键
 switch_hotkey = ctrl+s
 ; 切换模式快捷键
-window_on_top = 1
-; 是否开启窗口置顶 1开启 0关闭
+window_on_top = 0
+; 是否开启CLI窗口置顶 1开启 0关闭 注意与GUI窗口无关，GUI默认置顶
 lp_window_name = C:\mdt\mdt.exe
 ; 开启窗口置顶时需要提供窗口名，一般是软件安装路径
 ; 参考路径格式 C:\mdt\mdt.exe
@@ -54,7 +63,7 @@ window_pos_x = 400
 window_pos_y = 400
 window_pos_cx = 400
 window_pos_cy = 400
-; 这四个参数是控制窗口置顶时默认的窗口大小，分别代表窗口左侧坐标，窗口顶部坐标，窗口宽度，窗口高度。取值为正整数。
+; 这四个参数是控制CLI窗口置顶时默认的窗口大小，分别代表窗口左侧坐标，窗口顶部坐标，窗口宽度，窗口高度。取值为正整数。
 sleep_time = 1
 ; 控制轮询间隔，如果你觉得太快可以把这个值改大。一般不用动。
 show_all_info = 1

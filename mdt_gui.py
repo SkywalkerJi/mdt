@@ -71,7 +71,7 @@ def main():
     ]
 
     window = sg.Window(
-        "MDT v0.1.6",
+        "MDT v0.2.0 @SkywalkerJi",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", 12),
