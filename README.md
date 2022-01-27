@@ -2,10 +2,11 @@
 
 Yu-Gi-Oh! Master Duel translation script
 
+* 自动切换，自动查卡。
 * 高正确性，除非卡图数据本身有错。
 * 超快识别率，低于0.000001s。
 * 极低占用，CPU占用忽略不计。
-* 直接使用win32api，不使用第三方dll。
+* 直接调用win32api，不使用第三方dll。
 * 开源，你可以直接执行源代码。
 * 高兼容性，点开即用。
 
@@ -40,7 +41,6 @@ Yu-Gi-Oh! Master Duel translation script
 | ctrl+q | 退出程序 |
 
 1. 可在config.ini文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
-
    如果要进行CLI窗口置顶设置，尤其要注意窗口名（lp_window_name）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。
 ```
 [config] 
