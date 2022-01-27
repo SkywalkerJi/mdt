@@ -10,13 +10,15 @@ Yu-Gi-Oh! Master Duel translation script
 * 开源，你可以直接执行源代码。
 * 高兼容性，点开即用。
 
-![MDT](https://github.com/SkywalkerJi/mdt/raw/dev/IMG/gui.png "MDT GUI")
+![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/gui.png "MDT GUI")
 
 ## Download
 
 你可以在[Releases](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的MDT版本。
 
 如果是windows7用户请使用后缀win7的版本。
+
+中国大陆下载点[lanzou](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
 
 你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
 
@@ -40,7 +42,7 @@ Yu-Gi-Oh! Master Duel translation script
 | ctrl+p | 暂停检测 |
 | ctrl+q | 退出程序 |
 
-1. 可在config.ini文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
+4. 可在config.ini文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
    如果要进行CLI窗口置顶设置，尤其要注意窗口名（lp_window_name）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。
 ```
 [config] 
@@ -72,17 +74,21 @@ show_all_info = 1
 
 **视频演示**
 
-*v0.1.2版本*
+*v0.2.0版本*
 
-[bilibili](https://www.bilibili.com/video/av593463793)
+[bilibili](https://www.bilibili.com/video/av466062188)   [Youtube](https://www.youtube.com/watch?v=Vav013Cx3BQ)
+
+*卡图反和谐补丁*
+
+[bilibili](https://www.bilibili.com/video/av765979539)   [Youtube](https://www.youtube.com/watch?v=ickw082Snwo)
 
 *v0.1.4版本*
 
 [bilibili](https://www.bilibili.com/video/av850928534)   [Youtube](https://www.youtube.com/watch?v=mx0KaT3cRsQ)
 
-*卡图反和谐补丁*
+*v0.1.2版本*
 
-[bilibili](https://www.bilibili.com/video/av765979539)   [Youtube](https://www.youtube.com/watch?v=ickw082Snwo)
+[bilibili](https://www.bilibili.com/video/av593463793)
 
 ## Contributing
 
@@ -91,6 +97,37 @@ show_all_info = 1
 你也可以通过[Twitter](https://twitter.com/Skywalker_Ji)或[NGA](https://bbs.nga.cn/read.php?tid=30415633)进行反馈
 
 或者你可以加入Q群：710144213
+
+## Changelog
+
+v0.2.0
+现在有一个初步的GUI界面。
+目前版本依然保留CLI界面。
+
+v0.1.6
+自动切换模式，现在不用手动切换卡组或者决斗模式。
+支持回放模式中查询对手卡组。
+由 @zealyahweh 贡献
+
+v0.1.5
+添加UAC判断，非管理员权限运行会执行重开。由 @RyoLee 贡献
+添加一个配置项，可选精简卡查内容。
+
+v0.1.4
+新增配置文件。可自定义快捷键，窗口置顶等。
+置顶功能不再限制目录。
+修复灵摆效果不显示的bug。
+修复一个崩溃bug。
+
+v0.1.3
+增加窗口置顶功能
+修复部分崩溃问题
+
+v0.1.2
+处理窗口闪烁。
+
+v0.1.1
+提供win7兼容版本。
 
 ## Related Efforts
 
