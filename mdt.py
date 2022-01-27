@@ -1,5 +1,4 @@
 import os
-from random import expovariate
 from threading import Thread
 import pymem
 import keyboard
@@ -12,14 +11,17 @@ import ctypes, sys
 
 config_file = "config.ini"
 cid_temp = 0
-translate_type = 0
-pause = True
+cid_temp_duel = 0
+cid_temp_deck = 0
+cid_temp_oppo = 0
+cid_show_gui = 232323
+pause = False
 process_exit = False
-enable_debug = False
 baseAddress = None
 pm = {}
 deck_addr = None
 duel_addr = None
+oppo_addr = None
 core_path = "core"
 sleep_time = 1
 show_all_info = 1
@@ -40,33 +42,46 @@ def get_cid(type: int):
     global pm
     global deck_addr
     global duel_addr
+    global oppo_addr
     while type == 1:
         try:
             deck_pointer_value = (
                 read_longlongs(pm, deck_addr, [0xB8, 0x0, 0xF8, 0x1D8]) + 0x20
             )
-
             deck_cid = pm.read_int(deck_pointer_value)
-            # print({"deck_cid": deck_cid})
             return deck_cid
         except:
-            print(f"使用卡组模式检测 deck_cid not_found 可尝试{switch_hotkey}切换模式")
             return 0
-
     while type == 2:
         try:
             duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x0]) + 0x44
-
             duel_cid = pm.read_int(duel_pointer_value)
-            # print({"duel_cid": duel_cid})
             return duel_cid
         except:
-            print(f"使用决斗模式检测 duel_cid not_found 可尝试{switch_hotkey}切换模式")
+            return 0
+    while type == 3:
+        try:
+            oppo_pointer_value = (
+                read_longlongs(pm, oppo_addr, [0xB8, 0x0, 0xF8, 0x140]) + 0x20
+            )
+            oppo_addr = pm.read_int(oppo_pointer_value)
+            return oppo_addr
+        except:
             return 0
 
 
-def translate(type: int):
-    global cid_temp
+def valid_cid(cid: int):
+    if cid > 4000 and cid < 20000:
+        return True
+    else:
+        return False
+
+
+def translate():
+    global cid_temp_duel
+    global cid_temp_deck
+    global cid_temp_oppo
+    global cid_show_gui
     global baseAddress
     global show_all_info
     if baseAddress is None:
@@ -75,20 +90,39 @@ def translate(type: int):
         except:
             print("地址没找到，不执行检测")
             return
-    if type == 1:
-        # print("翻译卡组卡片")
-        cid = get_cid(type)
-    elif type == 2:
-        # print("翻译决斗卡片")
-        cid = get_cid(type)
-    else:
-        print("not support")
-        return
-    if cid and cid_temp != cid:
+    cid_duel = get_cid(1)
+    cid_deck = get_cid(2)
+    cid_oppo = get_cid(3)
+    cid_update = False
+
+    if valid_cid(cid_oppo) and cid_oppo != cid_temp_oppo:
+        cid_temp_oppo = cid_oppo
+        cid_update = True
+        cid_show_gui = cid_oppo
+    if valid_cid(cid_deck) and cid_deck != cid_temp_deck:
+        cid_temp_deck = cid_deck
+        cid_update = True
+        cid_show_gui = cid_deck
+    if valid_cid(cid_duel) and cid_duel != cid_temp_duel:
+        cid_temp_duel = cid_duel
+        cid_update = True
+        cid_show_gui = cid_duel
+    if cid_update:
         cls()
-        get_at = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        print(f"检测时间:{get_at}")
-        cid_temp = cid
+        if show_all_info == 1:
+            get_at = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            print(f"检测时间:{get_at}")
+            print("-----------------------------------")
+        print_card(cid_duel)
+        print_card(cid_deck)
+        if not valid_cid(cid_duel) and (not valid_cid(cid_deck)):
+            print_card(cid_oppo)
+        print(f"{switch_hotkey}开启检测,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
+
+
+def print_card(cid: int):
+    global show_all_info
+    if valid_cid(cid):
         try:
             card_t = cards_db[str(cid)]
             print(f"{card_t['cn_name']}(密码:{card_t['id']})")
@@ -102,44 +136,32 @@ def translate(type: int):
         except:
             print(f"数据库中未查到该卡,cid:{cid}，如果是新卡请提交issue。如果是token衍生物请忽略。")
         print("-----------------------------------")
-        print(f"{switch_hotkey}切换检测卡组/决斗详细卡片信息,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
+    else:
+        return 0
 
 
 def translate_check_thread():
-    global translate_type
     global pause
     global process_exit
-    global enable_debug
     global sleep_time
-
     while not process_exit:
         if pause:
-            # cls()
-            print("暂停")
-            print(f"{switch_hotkey}切换检测卡组/决斗,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
-        elif translate_type == 0:
-            translate(translate_type + 1)
-        elif translate_type == 1:
-            translate(translate_type + 1)
+            cls()
+            print("暂停检测")
+            print(f"{switch_hotkey}开启检测,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
         else:
-            print("Unknown Operator")
+            translate()
         time.sleep(sleep_time)
     print("程序结束")
 
 
 def status_change(switch: bool, need_pause: bool, exit: bool):
-    global translate_type
     global pause
     global process_exit
-    global enable_debug
     process_exit = exit
     pause = need_pause
     if switch:
-        translate_type = int(not bool(translate_type))
-        if translate_type == 1:
-            print("已切换至决斗卡片检测模式")
-        elif translate_type == 0:
-            print("已切换至卡组卡片检测模式")
+        print("已开启检测，请点击一张卡片")
 
 
 def get_baseAddress():
@@ -147,17 +169,20 @@ def get_baseAddress():
     global baseAddress
     global deck_addr
     global duel_addr
+    global oppo_addr
     pm = pymem.Pymem("masterduel.exe")
     print("Process id: %s" % pm.process_id)
     baseAddress = pymem.process.module_from_name(
         pm.process_handle, "GameAssembly.dll"
     ).lpBaseOfDll
     print("成功找到模块")
-    # deck 组卡界面1 duel 决斗界面2
+    # deck 组卡界面 duel 决斗界面 oppo 回放
     deck_addr = baseAddress + int("0x01CCD278", base=16)
     duel_addr = baseAddress + int("0x01cb2b90", base=16)
+    oppo_addr = baseAddress + int("0x01CCD278", base=16)
 
 
+# UAC判断
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -165,15 +190,24 @@ def is_admin():
         return False
 
 
-if __name__ == "__main__":
-    # 判断UAC
+# UAC重开
+def uac_reload():
     if not is_admin():
         stdout = os.popen("cd " + core_path + " && start mdt.exe ")
         ctypes.windll.shell32.ShellExecuteW(
             None, "runas", sys.executable, " ".join(sys.argv), None, 1
         )
         sys.exit()
-    # 加载配置文件
+
+
+# 加载配置文件
+def config_load():
+    global pause_hotkey
+    global exit_hotkey
+    global switch_hotkey
+    global sleep_time
+    global show_all_info
+    global cards_db
     con = configparser.ConfigParser()
     try:
         con.read(config_file, encoding="utf-8")
@@ -186,7 +220,7 @@ if __name__ == "__main__":
         show_all_info = int(config["show_all_info"])
     except:
         print(f"未找到{config_file}配置文件或配置文件格式有误。")
-    # 置顶功能
+    # cli置顶功能
     if (config["window_on_top"] == "1") and config["lp_window_name"]:
         try:
             hwnd = win32gui.FindWindow(None, config["lp_window_name"])
@@ -199,13 +233,13 @@ if __name__ == "__main__":
                 int(config["window_pos_cy"]),
                 0,
             )
-            print(f"窗口置顶成功,如需调整默认位置大小，可配置{config_file}")
+            print(f"CLI窗口置顶成功,如需调整默认位置大小，可配置{config_file}")
         except:
             print(
-                f"置顶失败,目前配置中窗口名为：{config['lp_window_name']}。请在{config_file}配置文件中更改lp_window_name与黑窗口名一致，一般等于mdt.exe路径。"
+                f"CLI置顶失败,目前配置中窗口名为：{config['lp_window_name']}。请在{config_file}配置文件中更改lp_window_name与CLI窗口名一致，一般等于mdt.exe路径。"
             )
     elif config["window_on_top"] == "0":
-        print("置顶功能已关闭")
+        print("CLI置顶功能已关闭,请使用GUI界面")
     else:
         print(f"置顶功能配置异常，请检查{config_file}")
     # 加载卡片文本
@@ -214,16 +248,23 @@ if __name__ == "__main__":
             cards_db = json.load(f)
     except:
         print(f"未找到{config['cards_db']},请下载后放在同一目录")
+
+
+def main():
+    uac_reload()
     # 加载游戏
     try:
         get_baseAddress()
     except:
         print("未找到地址，可能是游戏未启动 或 没有使用管理员权限运行MDT")
-
+    config_load()
     keyboard.add_hotkey(switch_hotkey, status_change, args=(True, False, False))
     keyboard.add_hotkey(exit_hotkey, status_change, args=(False, False, True))
     keyboard.add_hotkey(pause_hotkey, status_change, args=(False, True, False))
-
     p = Thread(target=translate_check_thread)
     p.start()
     p.join()
+
+
+if __name__ == "__main__":
+    main()
