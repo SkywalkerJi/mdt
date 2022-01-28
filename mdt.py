@@ -193,7 +193,6 @@ def is_admin():
 # UAC重开
 def uac_reload():
     if not is_admin():
-        stdout = os.popen("cd " + core_path + " && start mdt.exe ")
         ctypes.windll.shell32.ShellExecuteW(
             None, "runas", sys.executable, " ".join(sys.argv), None, 1
         )
