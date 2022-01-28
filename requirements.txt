@@ -2,3 +2,4 @@ pyinstaller
 pymem
 keyboard
 pywin32
+PySimpleGUI
