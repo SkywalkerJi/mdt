@@ -4,10 +4,10 @@ Yu-Gi-Oh! Master Duel translation script
 
 * 自动切换，自动查卡。
 * 高正确性，除非卡图数据本身有错。
-* 超快识别率，低于0.000001s。
+* 超快识别速度，低于0.000001s。
 * 极低占用，CPU占用忽略不计。
 * 直接调用win32api，不使用第三方dll。
-* 开源，你可以直接执行源代码。
+* 开源，你可以直接执行源代码并定制你自己的版本。
 * 高兼容性，点开即用。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.1.png "MDT v0.2.1")
@@ -36,7 +36,7 @@ Yu-Gi-Oh! Master Duel translation script
 <details>
    <summary>点击CLI使用说明</summary>
 
-1. MDT同时自带一个命令行界面。这是MDT v0.1.X版本的默认UI。
+1. MDT同时自带一个命令行界面。这是MDT v0.1.x版本的默认UI。
 2. 打开游戏。使用管理员权限运行`mdt.exe`。
 3. 根据提示使用快捷键。
 
@@ -121,18 +121,22 @@ python mdt_gui.py
 
 你也可以通过[Twitter](https://twitter.com/Skywalker_Ji)或[NGA](https://bbs.nga.cn/read.php?tid=30415633)进行反馈
 
-或者你可以加入Q群：710144213
+或者你可以加入QQ二群：710144213
 
 ## Changelog
 
 *v0.2.1*
 
-* 增加了日文和英文的显示。
-* 优化了UI,比如效果文本可以随着窗口生成滚动条。
+* 增加了日文卡名、英文卡名、卡片密码的显示。
+* 优化了UI，比如效果文本可以随着窗口生成滚动条。
 * 增加了透明度效果。
-* 点击中·日·英文卡名可以直接复制到系统剪贴板。
+* 增加了字体大小设置。
+* 点击中·日·英文卡名、卡密可以直接复制到系统剪贴板。
 * 提高了默认轮询速度。
 * 设置自动保存在配置文件中。
+* 支持在solo模式入口查看租用卡组和AI对手卡组内容。
+* 支持回放模式查看对手卡组。
+* 修复一个崩溃问题。
 
 <details>
    <summary>展开过往版本</summary>

@@ -55,7 +55,15 @@ def main():
     config_load()
     cards_db = None
     cid_temp = 0
-    text_keys = ["-cn_name-", "-pdesc-", "-desc-", "-types-", "-en_name-", "-jp_name-"]
+    text_keys = (
+        "-cn_name-",
+        "-pdesc-",
+        "-desc-",
+        "-types-",
+        "-en_name-",
+        "-jp_name-",
+        "-id-",
+    )
     option_slider = [
         [
             sg.Slider(
@@ -175,6 +183,15 @@ def main():
                 title_color="#61E7DC",
             )
         ],
+        [
+            sg.Frame(
+                "卡密",
+                [
+                    [sg.T(key="-id-", s=(38, None), enable_events=True)],
+                ],
+                title_color="#61E7DC",
+            )
+        ],
     ]
 
     layout = [[card_frame], [sg.Column(option_slider), sg.Column(option_checkbox)]]
@@ -208,6 +225,7 @@ def main():
                 window["-cn_name-"].update(card_t["cn_name"])
                 window["-en_name-"].update(card_t["en_name"])
                 window["-jp_name-"].update(card_t["jp_name"])
+                window["-id-"].update(card_t["id"])
                 window["-types-"].update(card_t["text"]["types"])
                 if card_t["text"]["pdesc"]:
                     window["-pdesc_frame-"].update(visible=True)
@@ -219,7 +237,7 @@ def main():
                 print("数据库中未查到该卡")
         if event in (sg.WIN_CLOSED, "Exit"):
             break
-        elif event in ("-en_name-", "-cn_name-", "-jp_name-", "-types-"):
+        elif event in text_keys:
             pyperclip.copy(window[event].get())
         # 透明度滑块
         elif event == "-window_alpha-":

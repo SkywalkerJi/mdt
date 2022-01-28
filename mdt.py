@@ -63,8 +63,8 @@ def get_cid(type: int):
             oppo_pointer_value = (
                 read_longlongs(pm, oppo_addr, [0xB8, 0x0, 0xF8, 0x140]) + 0x20
             )
-            oppo_addr = pm.read_int(oppo_pointer_value)
-            return oppo_addr
+            oppo_cid = pm.read_int(oppo_pointer_value)
+            return oppo_cid
         except:
             return 0
 
@@ -89,8 +89,8 @@ def translate():
         except:
             print("地址没找到，不执行检测")
             return
-    cid_duel = get_cid(1)
-    cid_deck = get_cid(2)
+    cid_deck = get_cid(1)
+    cid_duel = get_cid(2)
     cid_oppo = get_cid(3)
     cid_update = False
 
@@ -112,11 +112,16 @@ def translate():
             get_at = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             print(f"检测时间:{get_at}")
             print("-----------------------------------")
-        print_card(cid_duel)
-        print_card(cid_deck)
-        if not valid_cid(cid_duel) and (not valid_cid(cid_deck)):
-            print_card(cid_oppo)
-        print(f"{switch_hotkey}开启检测,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
+        print_card(cid_show_gui)
+        # print("----------↓回放模式↓----------------")
+        # print_card(cid_oppo)
+        # print("----------↓决斗模式↓----------------")
+        # print_card(cid_duel)
+        # print("----------↓卡组模式↓-----------------")
+        # print_card(cid_deck)
+        if show_all_info == 1:
+            print("-----------------------------------")
+            print(f"{switch_hotkey}开启检测,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
 
 
 def print_card(cid: int):
@@ -137,7 +142,6 @@ def print_card(cid: int):
             print(f"{card_t['text']['desc']}\n")
         except:
             print(f"数据库中未查到该卡,cid:{cid}，如果是新卡请提交issue。如果是token衍生物请忽略。")
-        print("-----------------------------------")
     else:
         return 0
 
