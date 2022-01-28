@@ -64,8 +64,8 @@ def get_cid(type: int):
             oppo_pointer_value = (
                 read_longlongs(pm, oppo_addr, [0xB8, 0x0, 0xF8, 0x140]) + 0x20
             )
-            oppo_addr = pm.read_int(oppo_pointer_value)
-            return oppo_addr
+            oppo_cid = pm.read_int(oppo_pointer_value)
+            return oppo_cid
         except:
             return 0
 
