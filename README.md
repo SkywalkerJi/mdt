@@ -113,7 +113,7 @@ python mdt_gui.py
 
 [bilibili](https://www.bilibili.com/video/av593463793)
 
-<details>
+</details>
 
 ## Contributing
 
@@ -181,7 +181,7 @@ python mdt_gui.py
 
 提供win7兼容版本。
 
-<details>
+</details>
 
 ## Related Efforts
 
