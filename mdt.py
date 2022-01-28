@@ -113,10 +113,11 @@ def translate():
             get_at = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             print(f"检测时间:{get_at}")
             print("-----------------------------------")
-        print_card(cid_duel)
-        print_card(cid_deck)
-        if not valid_cid(cid_duel) and (not valid_cid(cid_deck)):
-            print_card(cid_oppo)
+        print_card(cid_show_gui)
+        # print_card(cid_duel)
+        # print_card(cid_deck)
+        # if not valid_cid(cid_duel) and (not valid_cid(cid_deck)):
+        #    print_card(cid_oppo)
         print(f"{switch_hotkey}开启检测,{pause_hotkey}暂停检测,{exit_hotkey}退出程序\n")
 
 
