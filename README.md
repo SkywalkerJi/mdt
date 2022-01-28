@@ -10,7 +10,7 @@ Yu-Gi-Oh! Master Duel translation script
 * 开源，你可以直接执行源代码。
 * 高兼容性，点开即用。
 
-![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/gui.png "MDT GUI")
+![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.1.png "MDT v0.2.1")
 
 ## Download
 
@@ -18,7 +18,7 @@ Yu-Gi-Oh! Master Duel translation script
 
 如果是windows7用户请使用后缀win7的版本。
 
-中国大陆下载点[lanzou](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
+[中国大陆用户下载点](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
 
 你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
 
@@ -27,13 +27,17 @@ Yu-Gi-Oh! Master Duel translation script
 **从预打包的GUI版本（v0.2.x）启动（适合大部分用户）**
 
 1. 打开游戏。
-2. 使用**管理员权限**运行mdt.exe。
+2. 使用**管理员权限**运行`mdt.exe`。
 3. 在组卡界面点击一张卡。
+4. enjoy it。
 
 **使用预打包的CLI版本**
 
+<details>
+   <summary>点击CLI使用说明</summary>
+
 1. MDT同时自带一个命令行界面。这是MDT v0.1.X版本的默认UI。
-2. 打开游戏。使用管理员权限运行mdt.exe。
+2. 打开游戏。使用管理员权限运行`mdt.exe`。
 3. 根据提示使用快捷键。
 
 | 快捷键 | 功能     |
@@ -42,10 +46,10 @@ Yu-Gi-Oh! Master Duel translation script
 | ctrl+p | 暂停检测 |
 | ctrl+q | 退出程序 |
 
-4. 可在config.ini文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
-   如果要进行CLI窗口置顶设置，尤其要注意窗口名（lp_window_name）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。
+4. 可在`config.ini`文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
+   如果要进行CLI窗口置顶设置，尤其要注意窗口名（`lp_window_name`）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。注意ini时注意注释行开头必须是`; `
 ```
-[config] 
+[cli] 
 ; CLI基本设置
 cards_db = cards.json
 ; 翻译文件名
@@ -56,21 +60,38 @@ exit_hotkey = ctrl+q
 switch_hotkey = ctrl+s
 ; 切换模式快捷键
 window_on_top = 0
-; 是否开启CLI窗口置顶 1开启 0关闭 注意与GUI窗口无关，GUI默认置顶
+; 是否开启CLI窗口置顶 1置顶 0取消
 lp_window_name = C:\mdt\mdt.exe
 ; 开启窗口置顶时需要提供窗口名，一般是软件安装路径
-; 参考路径格式 C:\mdt\mdt.exe
-; 直接运行py源代码时一般为 C:\WINDOWS\py.exe
 window_pos_x = 400
 window_pos_y = 400
 window_pos_cx = 400
 window_pos_cy = 400
-; 这四个参数是控制CLI窗口置顶时默认的窗口大小，分别代表窗口左侧坐标，窗口顶部坐标，窗口宽度，窗口高度。取值为正整数。
-sleep_time = 1
-; 控制轮询间隔，如果你觉得太快可以把这个值改大。一般不用动。
+; 这四个参数是控制CLI窗口置顶时默认的窗口大小。
 show_all_info = 1
 ; 如果你想要只显示中文卡名+卡密+效果，可以把这一项改成0。
+
+[gui]
+font_size = 12
+; 字体大小 整数
+window_alpha = 0.96
+; 透明度 
+keep_on_top = 1
+; gui窗口置顶 1置顶 0取消
 ```
+</details>
+
+**从源代码执行**
+
+<details>
+   <summary>点击展开</summary>
+
+```
+pip install -r requirements.txt
+python mdt_gui.py
+```
+
+</details>
 
 **视频演示**
 
@@ -82,6 +103,8 @@ show_all_info = 1
 
 [bilibili](https://www.bilibili.com/video/av765979539)   [Youtube](https://www.youtube.com/watch?v=ickw082Snwo)
 
+<details>
+   <summary>旧版演示</summary>
 *v0.1.4版本*
 
 [bilibili](https://www.bilibili.com/video/av850928534)   [Youtube](https://www.youtube.com/watch?v=mx0KaT3cRsQ)
@@ -89,6 +112,8 @@ show_all_info = 1
 *v0.1.2版本*
 
 [bilibili](https://www.bilibili.com/video/av593463793)
+
+<details>
 
 ## Contributing
 
@@ -99,6 +124,18 @@ show_all_info = 1
 或者你可以加入Q群：710144213
 
 ## Changelog
+
+*v0.2.1*
+
+* 增加了日文和英文的显示。
+* 优化了UI,比如效果文本可以随着窗口生成滚动条。
+* 增加了透明度效果。
+* 点击中·日·英文卡名可以直接复制到系统剪贴板。
+* 提高了默认轮询速度。
+* 设置自动保存在配置文件中。
+
+<details>
+   <summary>展开过往版本</summary>
 
 *v0.2.0*
 
@@ -143,6 +180,8 @@ show_all_info = 1
 *v0.1.1*
 
 提供win7兼容版本。
+
+<details>
 
 ## Related Efforts
 

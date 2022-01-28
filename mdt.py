@@ -22,8 +22,7 @@ pm = {}
 deck_addr = None
 duel_addr = None
 oppo_addr = None
-core_path = "core"
-sleep_time = 1
+sleep_time = 0.1
 show_all_info = 1
 
 # 清理终端
@@ -127,9 +126,12 @@ def print_card(cid: int):
             card_t = cards_db[str(cid)]
             print(f"{card_t['cn_name']}(密码:{card_t['id']})")
             if show_all_info == 1:
-                print(
-                    f"英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}"
-                )
+                try:
+                    print(
+                        f"英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}"
+                    )
+                except:
+                    print(f"cid:{cid}卡信息有误，请提交issue。\n")
             if card_t["text"]["pdesc"]:
                 print(f"灵摆效果:{card_t['text']['pdesc']}\n")
             print(f"{card_t['text']['desc']}\n")
@@ -204,18 +206,16 @@ def config_load():
     global pause_hotkey
     global exit_hotkey
     global switch_hotkey
-    global sleep_time
     global show_all_info
     global cards_db
     con = configparser.ConfigParser()
     try:
         con.read(config_file, encoding="utf-8")
-        config = con.items("config")
+        config = con.items("cli")
         config = dict(config)
         pause_hotkey = config["pause_hotkey"]
         exit_hotkey = config["exit_hotkey"]
         switch_hotkey = config["switch_hotkey"]
-        sleep_time = int(config["sleep_time"])
         show_all_info = int(config["show_all_info"])
     except:
         print(f"未找到{config_file}配置文件或配置文件格式有误。")
