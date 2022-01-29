@@ -3,12 +3,13 @@ import PySimpleGUI as sg
 import mdt_service as service
 import pyperclip
 import configparser
+import webbrowser
 
 config_file = "config.ini"
 font_size = 12
 window_alpha = 0.96
 keep_on_top = True
-ui_lock = 0
+ui_lock = False
 cfg = configparser.ConfigParser()
 sync_ui = 0
 
@@ -28,6 +29,13 @@ def uac_reload():
         sys.exit()
 
 
+def set_ui_lock(window, bool):
+    window["-keep_on_top-"].update(disabled=bool)
+    window["-window_alpha-"].update(disabled=bool)
+    window["-font_size-"].update(disabled=bool)
+    config_set("ui_lock", str(int(bool)))
+
+
 def config_load():
     global font_size
     global window_alpha
@@ -40,8 +48,8 @@ def config_load():
         config = dict(config)
         font_size = int(config["font_size"])
         window_alpha = float(config["window_alpha"])
-        keep_on_top = bool(config["keep_on_top"])
-        ui_lock = bool(config["ui_lock"])
+        keep_on_top = bool(int(config["keep_on_top"]))
+        ui_lock = bool(int(config["ui_lock"]))
     except:
         print(f"未找到{config_file}配置文件或配置文件格式有误。")
 
@@ -94,12 +102,11 @@ def main():
         ],
     ]
     option_checkbox = [
-        [sg.Checkbox(key="-keep_on_top-", text="置顶", default=True, enable_events=True)],
+        [sg.Checkbox(key="-keep_on_top-", text="置顶", enable_events=True)],
         [
             sg.Checkbox(
                 key="-ui_lock-",
                 text="界面锁定",
-                default=False,
                 enable_events=True,
             )
         ],
@@ -198,16 +205,16 @@ def main():
     ]
     right_click_menu = [
         "&Right",
-        ["恢复默认界面"],
+        ["恢复默认界面", "检查更新", "反和谐补丁", "加入Q群"],
     ]
     layout = [[card_frame], [sg.Column(option_slider), sg.Column(option_checkbox)]]
 
     window = sg.Window(
-        "MDT v0.2.1 @SkywalkerJi GPLv3",
+        "MDT v0.2.2 @SkywalkerJi GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
-        keep_on_top=bool(keep_on_top),
+        keep_on_top=keep_on_top,
         resizable=True,
         alpha_channel=window_alpha,
         right_click_menu=right_click_menu,
@@ -218,12 +225,15 @@ def main():
         event, values = window.read(timeout=100)
         cid = service.get_cid()
         # print(event, values)
+        # 载入选项初始值
         if sync_ui == 0:
-            window["-keep_on_top-"].update(value=bool(keep_on_top))
+            window["-keep_on_top-"].update(value=keep_on_top)
             window["-window_alpha-"].update(value=window_alpha)
             window["-font_size-"].update(value=font_size)
             window["-ui_lock-"].update(value=ui_lock)
+            set_ui_lock(window, ui_lock)
             sync_ui = 1
+        # 载入db
         if not cards_db:
             cards_db = service.get_cards_db()
         if cid != cid_temp:
@@ -278,15 +288,17 @@ def main():
         # ui锁定
         elif event == "-ui_lock-":
             if values["-ui_lock-"] == True:
-                window["-keep_on_top-"].update(disabled=True)
-                window["-window_alpha-"].update(disabled=True)
-                window["-font_size-"].update(disabled=True)
-                config_set("ui_lock", "1")
+                set_ui_lock(window, True)
             else:
-                window["-window_alpha-"].update(disabled=False)
-                window["-keep_on_top-"].update(disabled=False)
-                window["-font_size-"].update(disabled=False)
-                config_set("ui_lock", "0")
+                set_ui_lock(window, False)
+        elif event == "检查更新":
+            webbrowser.open("https://github.com/SkywalkerJi/mdt/releases/latest")
+        elif event == "反和谐补丁":
+            webbrowser.open(
+                "https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch"
+            )
+        elif event == "加入Q群":
+            webbrowser.open("https://jq.qq.com/?_wv=1027&k=uyFt3qi0")
     service.exit()
     window.close()
 

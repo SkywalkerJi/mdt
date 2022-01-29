@@ -87,7 +87,7 @@ def translate():
         try:
             get_baseAddress()
         except:
-            print("地址没找到，不执行检测")
+            print("游戏未找到，请打开游戏")
             return
     cid_deck = get_cid(1)
     cid_duel = get_cid(2)

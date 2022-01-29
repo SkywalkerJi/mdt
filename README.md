@@ -130,14 +130,16 @@ python mdt_gui.py
 
 你也可以通过[Twitter](https://twitter.com/Skywalker_Ji)或[NGA](https://bbs.nga.cn/read.php?tid=30415633)进行反馈。
 
-或者你可以加入Q群：710144213
+或者你可以加入Q群[710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
 
 ## Changelog
 
 *v0.2.2*
+
 * 修复OCG专有卡和dbsp卡包的英文卡名缺失问题。
-* 添加右键菜单，现在改为右键恢复默认界面。
+* 添加右键菜单。
 * UI锁定功能改为独立选项。
+* 右键可恢复默认界面和检查更新页面。
 
 <details>
    <summary>展开过往版本</summary>
@@ -216,6 +218,6 @@ GPLv3
 
 ## Assets
 
-Card texts come from [ygocdb.com](https://ygocdb.com)
+Card texts come from [ygocdb.com](https://ygocdb.com) and [ygopro-database](https://github.com/mycard/ygopro-database)
 
 Some multimedia content is NOT under GPLv3 License. Get in touch with Konami if you want to use it.
