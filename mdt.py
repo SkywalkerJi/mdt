@@ -24,6 +24,7 @@ duel_addr = None
 oppo_addr = None
 sleep_time = 0.1
 show_all_info = 1
+cards_db={}
 
 # 清理终端
 def cls():
