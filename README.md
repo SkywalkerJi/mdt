@@ -80,6 +80,8 @@ window_alpha = 0.96
 ; 透明度 
 keep_on_top = 1
 ; gui窗口置顶 1置顶 0取消
+ui_lock = 0
+; gui窗口ui锁定 1锁定 0取消
 ```
 </details>
 
@@ -132,6 +134,14 @@ python mdt_gui.py
 
 ## Changelog
 
+*v0.2.2*
+* 修复OCG专有卡和dbsp卡包的英文卡名缺失问题。
+* 添加右键菜单，现在改为右键恢复默认界面。
+* UI锁定功能改为独立选项。
+
+<details>
+   <summary>展开过往版本</summary>
+
 *v0.2.1*
 
 * 增加了日文卡名、英文卡名、卡片密码的显示。
@@ -144,9 +154,6 @@ python mdt_gui.py
 * 支持在solo模式入口查看租用卡组和AI对手卡组内容。由 @zealyahweh 贡献
 * 修复回放模式查看对手卡组。由 @zealyahweh 贡献
 * 修复一个崩溃问题。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.0*
 

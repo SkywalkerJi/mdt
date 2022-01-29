@@ -8,6 +8,7 @@ config_file = "config.ini"
 font_size = 12
 window_alpha = 0.96
 keep_on_top = True
+ui_lock = 0
 cfg = configparser.ConfigParser()
 sync_ui = 0
 
@@ -31,6 +32,7 @@ def config_load():
     global font_size
     global window_alpha
     global keep_on_top
+    global ui_lock
     global cfg
     try:
         cfg.read(config_file, encoding="utf-8")
@@ -39,6 +41,7 @@ def config_load():
         font_size = int(config["font_size"])
         window_alpha = float(config["window_alpha"])
         keep_on_top = bool(config["keep_on_top"])
+        ui_lock = bool(config["ui_lock"])
     except:
         print(f"未找到{config_file}配置文件或配置文件格式有误。")
 
@@ -94,8 +97,8 @@ def main():
         [sg.Checkbox(key="-keep_on_top-", text="置顶", default=True, enable_events=True)],
         [
             sg.Checkbox(
-                key="-restore_default-",
-                text="恢复默认并锁定",
+                key="-ui_lock-",
+                text="界面锁定",
                 default=False,
                 enable_events=True,
             )
@@ -193,7 +196,10 @@ def main():
             )
         ],
     ]
-
+    right_click_menu = [
+        "&Right",
+        ["恢复默认界面"],
+    ]
     layout = [[card_frame], [sg.Column(option_slider), sg.Column(option_checkbox)]]
 
     window = sg.Window(
@@ -204,17 +210,19 @@ def main():
         keep_on_top=bool(keep_on_top),
         resizable=True,
         alpha_channel=window_alpha,
+        right_click_menu=right_click_menu,
     )
 
     while True:
         global sync_ui
-        event, values = window.read(timeout=1000)
+        event, values = window.read(timeout=100)
         cid = service.get_cid()
         # print(event, values)
         if sync_ui == 0:
             window["-keep_on_top-"].update(value=bool(keep_on_top))
             window["-window_alpha-"].update(value=window_alpha)
             window["-font_size-"].update(value=font_size)
+            window["-ui_lock-"].update(value=ui_lock)
             sync_ui = 1
         if not cards_db:
             cards_db = service.get_cards_db()
@@ -256,22 +264,29 @@ def main():
                 window.keep_on_top_clear()
             config_set("keep_on_top", str(int(values["-keep_on_top-"])))
         # 恢复默认
-        elif event == "-restore_default-":
-            if values["-restore_default-"] == True:
-                window.keep_on_top_set()
-                window["-keep_on_top-"].update(value=True, disabled=True)
-                window.set_alpha(0.96)
-                window["-window_alpha-"].update(value=0.96, disabled=True)
-                for key in text_keys:
-                    window[key].update(font=("Microsoft YaHei", 12))
-                window["-font_size-"].update(value=12.0, disabled=True)
-                config_set("keep_on_top", "1")
-                config_set("font_size", "12")
-                config_set("window_alpha", "0.96")
+        elif event == "恢复默认界面":
+            window.keep_on_top_set()
+            window["-keep_on_top-"].update(value=True)
+            window.set_alpha(0.96)
+            window["-window_alpha-"].update(value=0.96)
+            for key in text_keys:
+                window[key].update(font=("Microsoft YaHei", 12))
+            window["-font_size-"].update(value=12.0)
+            config_set("keep_on_top", "1")
+            config_set("font_size", "12")
+            config_set("window_alpha", "0.96")
+        # ui锁定
+        elif event == "-ui_lock-":
+            if values["-ui_lock-"] == True:
+                window["-keep_on_top-"].update(disabled=True)
+                window["-window_alpha-"].update(disabled=True)
+                window["-font_size-"].update(disabled=True)
+                config_set("ui_lock", "1")
             else:
                 window["-window_alpha-"].update(disabled=False)
                 window["-keep_on_top-"].update(disabled=False)
                 window["-font_size-"].update(disabled=False)
+                config_set("ui_lock", "0")
     service.exit()
     window.close()
 
