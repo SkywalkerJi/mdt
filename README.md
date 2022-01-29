@@ -8,7 +8,7 @@ Yu-Gi-Oh! Master Duel translation script
 * 极低占用，CPU占用忽略不计。
 * 直接调用win32api，不使用第三方dll。
 * 开源，你可以直接执行源代码并定制你自己的版本。
-* 高兼容性，点开即用，支持各种语言，支持win7。
+* 高兼容性，点开即用，支持各种语言，最低可支持win7。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.1.png "MDT v0.2.1")
 
@@ -23,6 +23,8 @@ Yu-Gi-Oh! Master Duel translation script
 你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
 
 ## Usage
+
+目前MDT拥有两个版本，v0.2.x的有GUI界面的版本（推荐）和v0.1.x的纯命令行界面。
 
 **从预打包的GUI版本（v0.2.x）启动（适合大部分用户）**
 
@@ -136,11 +138,11 @@ python mdt_gui.py
 * 优化了UI，比如效果文本可以随着窗口生成滚动条。
 * 增加了透明度效果。
 * 增加了字体大小设置。
-* 点击中·日·英文卡名、卡密可以直接复制到系统剪贴板。
-* 提高了默认轮询速度。
+* 点击中·日·英文卡名、卡密、卡片类型可以直接复制到系统剪贴板。
+* 修复查询延迟，提高了默认轮询速度。由 @GenBill 修复
 * 设置自动保存在配置文件中。
-* 支持在solo模式入口查看租用卡组和AI对手卡组内容。
-* 支持回放模式查看对手卡组。
+* 支持在solo模式入口查看租用卡组和AI对手卡组内容。由 @zealyahweh 贡献
+* 修复回放模式查看对手卡组。由 @zealyahweh 贡献
 * 修复一个崩溃问题。
 
 <details>
