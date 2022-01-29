@@ -2,13 +2,13 @@
 
 Yu-Gi-Oh! Master Duel translation script
 
-* 自动切换，自动查卡。
-* 高正确性，除非卡图数据本身有错。
+* 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay模式。
+* 高正确性，除非卡片数据本身有错。
 * 超快识别速度，低于0.000001s。
 * 极低占用，CPU占用忽略不计。
 * 直接调用win32api，不使用第三方dll。
 * 开源，你可以直接执行源代码并定制你自己的版本。
-* 高兼容性，点开即用。
+* 高兼容性，点开即用，支持各种语言，支持win7。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.1.png "MDT v0.2.1")
 
@@ -95,9 +95,9 @@ python mdt_gui.py
 
 **视频演示**
 
-*v0.2.0版本*
+*v0.2.1版本*
 
-[bilibili](https://www.bilibili.com/video/av466062188)   [Youtube](https://www.youtube.com/watch?v=Vav013Cx3BQ)
+[bilibili](https://www.bilibili.com/video/av636086411)   [Youtube](https://www.youtube.com/watch?v=TfHoNeEVqf4)
 
 *卡图反和谐补丁*
 
@@ -105,6 +105,11 @@ python mdt_gui.py
 
 <details>
    <summary>旧版演示</summary>
+
+*v0.2.0版本*
+
+[bilibili](https://www.bilibili.com/video/av466062188)   [Youtube](https://www.youtube.com/watch?v=Vav013Cx3BQ)
+
 *v0.1.4版本*
 
 [bilibili](https://www.bilibili.com/video/av850928534)   [Youtube](https://www.youtube.com/watch?v=mx0KaT3cRsQ)
@@ -117,11 +122,11 @@ python mdt_gui.py
 
 ## Contributing
 
-有其他指针可以提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)或PR。
+有其他指针或功能欢迎提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)或PR。
 
-你也可以通过[Twitter](https://twitter.com/Skywalker_Ji)或[NGA](https://bbs.nga.cn/read.php?tid=30415633)进行反馈
+你也可以通过[Twitter](https://twitter.com/Skywalker_Ji)或[NGA](https://bbs.nga.cn/read.php?tid=30415633)进行反馈。
 
-或者你可以加入QQ二群：710144213
+或者你可以加入Q群：710144213
 
 ## Changelog
 
