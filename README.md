@@ -24,12 +24,12 @@ Yu-Gi-Oh! Master Duel translation script
 
 ## Usage
 
-目前MDT拥有两个版本，v0.2.x的有GUI界面的版本（推荐）和v0.1.x的纯命令行界面。
+目前MDT拥有两个版本，有GUI界面的版本（推荐）和纯命令行CLI界面。
 
 **从预打包的GUI版本（v0.2.x）启动（适合大部分用户）**
 
 1. 打开游戏。
-2. 使用**管理员权限**运行`mdt.exe`。
+2. 右键使用**管理员权限**运行`mdt.exe`。
 3. 在组卡界面点击一张卡。
 4. enjoy it。
 
@@ -38,8 +38,12 @@ Yu-Gi-Oh! Master Duel translation script
 <details>
    <summary>点击CLI使用说明</summary>
 
-1. MDT同时自带一个命令行界面。这是MDT v0.1.x版本的默认UI。
-2. 打开游戏。使用管理员权限运行`mdt.exe`。
+命令行界面这是MDT v0.1.x版本的默认UI，在v0.2.3开始进行了拆分。
+
+并不是每次release都会更新CLI，所以你可能要往前找一下后缀`_cli`的打包。
+
+1. 打开游戏。
+2. 右键使用**管理员权限**运行`mdt.exe`。
 3. 根据提示使用快捷键。
 
 | 快捷键 | 功能     |
@@ -93,6 +97,7 @@ ui_lock = 0
 ```
 pip install -r requirements.txt
 python mdt_gui.py
+python mdt_cli.py
 ```
 
 </details>
@@ -126,11 +131,18 @@ python mdt_gui.py
 
 ## Contributing
 
-有其他指针或功能欢迎提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)或PR。
+有其他指针或功能欢迎提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)或Pull Request。
 
-你也可以通过[Twitter](https://twitter.com/Skywalker_Ji)或[NGA](https://bbs.nga.cn/read.php?tid=30415633)进行反馈。
+## Contact us
 
-或者你可以加入Q群[710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
+如果你有错误报告、建议、想法，请随时通过以下方式联系开发者：
+
+* [issue](https://github.com/SkywalkerJi/mdt/issues/new)
+* [Telegram](https://t.me/KancolleRTA_bot)
+* [Twitter](https://twitter.com/Skywalker_Ji)
+* [NGA](https://bbs.nga.cn/read.php?tid=30415633)
+* [Q群 710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
+* 或其他途径。
 
 ## Changelog
 
@@ -203,14 +215,23 @@ python mdt_gui.py
 
 </details>
 
+## Donation
+
+<ins>注意本项目并没有开放捐赠。</ins>但是依然感谢以下捐赠者。
+
+* xay罘
+* 国王的冕冠
+
+请向你的朋友推荐本项目就好:)
+
 ## Related Efforts
 
-* [MasterDuelSimpleTranslateTool](https://github.com/PatchouliTC/MasterDuelSimpleTranslateTool) 基于图像指纹识别的CLI工具，提供了本项目的CLI-UI基础。
 * [Yu-Gi-Oh! Master Duel - Uncensor Patch](https://www.youtube.com/watch?v=hXGVXXHT6us) 反和谐卡图替换补丁
+* [MasterDuelSimpleTranslateTool](https://github.com/PatchouliTC/MasterDuelSimpleTranslateTool) 基于图像指纹识别的CLI工具，提供了本项目的CLI版本UI基础。
 
 ## License
 
-GPLv3
+[GNU General Public License v3.0](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE) 
 
 ## Disclaimers
 
