@@ -33,7 +33,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 1. 打开游戏。
 2. 右键使用**管理员权限**运行`mdt.exe`。
 3. 在组卡界面点击一张卡。
-4. enjoy it。
+4. 右键可打开设置。
 
 **使用预打包的CLI版本**
 
@@ -116,9 +116,9 @@ python mdt_cli.py
 
 **视频演示**
 
-*v0.2.1版本*
+*v0.2.3版本*
 
-[bilibili](https://www.bilibili.com/video/av636086411)   [Youtube](https://www.youtube.com/watch?v=TfHoNeEVqf4)
+[bilibili](https://www.bilibili.com/video/av978731073)   [Youtube](https://www.youtube.com/watch?v=YUNeiOCAd6M)
 
 *卡图反和谐补丁*
 
@@ -126,6 +126,10 @@ python mdt_cli.py
 
 <details>
    <summary>旧版演示</summary>
+
+*v0.2.1版本*
+
+[bilibili](https://www.bilibili.com/video/av636086411)   [Youtube](https://www.youtube.com/watch?v=TfHoNeEVqf4)
 
 *v0.2.0版本*
 
@@ -162,6 +166,7 @@ python mdt_cli.py
 * 拆分GUI版本和CLI版本。
 * 添加详情显示选项。关闭后只显示中文卡名+效果描述。
 * 添加网页卡查跳转选项，开启后点击中文卡名会跳转百鸽（ygocdb.com)，英文和日文卡名会跳转K社官方数据库,点击卡密会跳转ourocg。
+* 打开时Windows将主动询问管理员权限。
 * 移动设置选项，右键可以打开设置窗口。
 * 可横向扩展效果描述框。
 * 可记录窗口位置、尺寸。
