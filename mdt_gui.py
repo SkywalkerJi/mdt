@@ -72,7 +72,7 @@ def config_load():
         y_len = int(config["y_len"])
     except:
         pass
-        # print(f"未找到{config_file}配置文件或配置文件格式有误。")
+        # print(f"未找到{config_file}配置文件或配置檔案格式有誤。")
 
 
 def config_set(option: str, value: str):
@@ -106,7 +106,7 @@ def main():
                 [
                     [
                         sg.T(
-                            text="等待检测",
+                            text="等待偵測",
                             key="-cn_name-",
                             enable_events=True,
                             expand_x=True,
@@ -120,7 +120,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "灵摆",
+                    "靈擺",
                     [
                         [
                             sg.Multiline(
@@ -166,7 +166,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "类型",
+                    "類型",
                     [
                         [
                             sg.T(
@@ -226,7 +226,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "卡密",
+                    "卡號",
                     [
                         [
                             sg.T(
@@ -246,7 +246,7 @@ def main():
     ]
     right_click_menu = [
         "&Right",
-        ["设置", "保存窗口位置", "恢复默认", "检查更新", "反和谐补丁", "联系开发者"],
+        ["設定", "保存視窗位置", "恢復預設", "檢查更新", "反和諧補丁", "聯繫開發者"],
     ]
     layout = [[card_frame]]
     window = sg.Window(
@@ -261,7 +261,7 @@ def main():
         location=(x_loc, y_loc),
         size=(x_len, y_len),
     )
-    # 判断屏幕尺寸
+    # 判斷螢幕尺寸
     screen = window.get_screen_dimensions()
     if screen[0] < x_loc or screen[1] < y_loc:
         config_set("x_loc", str(screen[0] / 2))
@@ -272,7 +272,7 @@ def main():
         event, values = window.read(timeout=100)
         cid = service.get_cid()
         # print(event, values)
-        # 载入db
+        # 載入db
 
         if not cards_db:
             cards_db = service.get_cards_db()
@@ -293,7 +293,7 @@ def main():
                 window["-desc-"].update(card_t["text"]["desc"])
             except:
                 pass
-                # print("数据库中未查到该卡")
+                # print("資料庫中未查到該卡")
         if event in (sg.WIN_CLOSED, "Exit"):
             break
         elif event in text_keys:
@@ -312,8 +312,8 @@ def main():
                     )
                 elif event == "-id-":
                     webbrowser.open(f"https://www.ourocg.cn/search/{id}/")
-        # 恢复默认
-        elif event == "恢复默认":
+        # 恢復預設
+        elif event == "恢復預設":
             window["-types_frame-"].update(visible=True)
             window["-en_name_frame-"].update(visible=True)
             window["-jp_name_frame-"].update(visible=True)
@@ -332,22 +332,22 @@ def main():
             # config_set("y_loc", "540")
             # config_set("x_len", "400")
             # config_set("y_len", "600")
-        elif event == "保存窗口位置":
+        elif event == "保存視窗位置":
             win_loc = window.CurrentLocation()
             win_size = window.size
             config_set("x_loc", str(win_loc[0]))
             config_set("y_loc", str(win_loc[1]))
             config_set("x_len", str(win_size[0]))
             config_set("y_len", str(win_size[1]))
-        elif event == "检查更新":
+        elif event == "檢查更新":
             webbrowser.open("https://github.com/SkywalkerJi/mdt/releases/latest")
-        elif event == "反和谐补丁":
+        elif event == "反和諧補丁":
             webbrowser.open(
                 "https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch"
             )
-        elif event == "联系开发者":
+        elif event == "聯繫開發者":
             webbrowser.open("https://github.com/SkywalkerJi/mdt#contact-us")
-        if not settings_active and event == "设置":
+        if not settings_active and event == "設定":
             settings_active = True
             sync_ui = 0
             option_slider = [
@@ -364,7 +364,7 @@ def main():
                                     orientation="horizontal",
                                     disable_number_display=False,
                                     enable_events=True,
-                                    tooltip="调整透明度",
+                                    tooltip="調整透明度",
                                 )
                             ]
                         ],
@@ -373,7 +373,7 @@ def main():
                 ],
                 [
                     sg.Frame(
-                        "字体尺寸",
+                        "字體尺寸",
                         [
                             [
                                 sg.Slider(
@@ -384,7 +384,7 @@ def main():
                                     orientation="horizontal",
                                     disable_number_display=False,
                                     enable_events=True,
-                                    tooltip="调整字体尺寸",
+                                    tooltip="調整字體尺寸",
                                 )
                             ]
                         ],
@@ -393,25 +393,25 @@ def main():
                 ],
             ]
             option_checkbox = [
-                [sg.Checkbox(key="-keep_on_top-", text="置顶", enable_events=True)],
+                [sg.Checkbox(key="-keep_on_top-", text="置頂", enable_events=True)],
                 [
                     sg.Checkbox(
                         key="-show_all_info-",
-                        text="详情显示",
+                        text="詳情顯示",
                         enable_events=True,
                     )
                 ],
                 [
                     sg.Checkbox(
                         key="-ui_lock-",
-                        text="界面锁定",
+                        text="界面鎖定",
                         enable_events=True,
                     )
                 ],
                 [
                     sg.Checkbox(
                         key="-web_search-",
-                        text="网页卡查",
+                        text="網頁卡查",
                         enable_events=True,
                     )
                 ],
@@ -419,18 +419,18 @@ def main():
 
             settings_layout = [
                 [sg.Column(option_slider), sg.Column(option_checkbox)],
-                [sg.Button("关闭")],
+                [sg.Button("關閉")],
             ]
             settings_win = sg.Window(
-                "设置",
+                "設定",
                 settings_layout,
                 font=("Microsoft YaHei", 12),
                 keep_on_top=keep_on_top,
             )
         if settings_active:
             ev, vals = settings_win.read(timeout=100)
-            # 设置页面载入选项初始值
-            if sync_ui == 0 or event == "恢复默认":
+            # 設定頁面載入選項初始值
+            if sync_ui == 0 or event == "恢復預設":
                 config_load()
                 settings_win["-keep_on_top-"].update(value=keep_on_top)
                 settings_win["-window_alpha-"].update(value=window_alpha)
@@ -440,38 +440,38 @@ def main():
                 settings_win["-web_search-"].update(value=web_search)
                 set_ui_lock(settings_win, ui_lock)
                 sync_ui = 1
-            if ev == sg.WIN_CLOSED or ev == "关闭":
+            if ev == sg.WIN_CLOSED or ev == "關閉":
                 settings_active = False
                 settings_win.close()
-            # 透明度滑块
+            # 透明度滑塊
             elif ev == "-window_alpha-":
                 window.set_alpha(vals["-window_alpha-"])
                 config_set("window_alpha", str(vals["-window_alpha-"]))
-            # 字体滑块
+            # 字體滑塊
             elif ev == "-font_size-":
                 for key in text_keys:
                     window[key].update(
                         font=("Microsoft YaHei", int(vals["-font_size-"]))
                     )
                 config_set("font_size", str(int(vals["-font_size-"])))
-            # 详情显示
+            # 詳情顯示
             elif ev == "-show_all_info-":
                 window["-types_frame-"].update(visible=vals["-show_all_info-"])
                 window["-en_name_frame-"].update(visible=vals["-show_all_info-"])
                 window["-jp_name_frame-"].update(visible=vals["-show_all_info-"])
                 window["-id_frame-"].update(visible=vals["-show_all_info-"])
                 config_set("show_all_info", str(int(vals["-show_all_info-"])))
-            # 网页卡查
+            # 網頁卡查
             elif ev == "-web_search-":
                 web_search = vals["-web_search-"]
-            # 置顶选项
+            # 置頂選項
             elif ev == "-keep_on_top-":
                 if vals["-keep_on_top-"] == True:
                     window.keep_on_top_set()
                 elif vals["-keep_on_top-"] == False:
                     window.keep_on_top_clear()
                 config_set("keep_on_top", str(int(vals["-keep_on_top-"])))
-            # ui锁定
+            # ui鎖定
             elif ev == "-ui_lock-":
                 if vals["-ui_lock-"] == True:
                     set_ui_lock(settings_win, True)
