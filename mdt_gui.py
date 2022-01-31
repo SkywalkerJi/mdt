@@ -12,6 +12,12 @@ keep_on_top = True
 ui_lock = False
 cfg = configparser.ConfigParser()
 sync_ui = 0
+show_all_info = True
+web_search = True
+x_loc = 960
+y_loc = 540
+x_len = 400
+y_len = 600
 
 
 def is_admin():
@@ -21,8 +27,8 @@ def is_admin():
         return False
 
 
-def uac_reload():
-    if not is_admin():
+def uac_reload(bool=False):
+    if not is_admin() or bool:
         ctypes.windll.shell32.ShellExecuteW(
             None, "runas", sys.executable, " ".join(sys.argv), None, 1
         )
@@ -33,6 +39,8 @@ def set_ui_lock(window, bool):
     window["-keep_on_top-"].update(disabled=bool)
     window["-window_alpha-"].update(disabled=bool)
     window["-font_size-"].update(disabled=bool)
+    window["-show_all_info-"].update(disabled=bool)
+    window["-web_search-"].update(disabled=bool)
     config_set("ui_lock", str(int(bool)))
 
 
@@ -41,6 +49,12 @@ def config_load():
     global window_alpha
     global keep_on_top
     global ui_lock
+    global show_all_info
+    global web_search
+    global x_loc
+    global y_loc
+    global x_len
+    global y_len
     global cfg
     try:
         cfg.read(config_file, encoding="utf-8")
@@ -50,8 +64,15 @@ def config_load():
         window_alpha = float(config["window_alpha"])
         keep_on_top = bool(int(config["keep_on_top"]))
         ui_lock = bool(int(config["ui_lock"]))
+        show_all_info = bool(int(config["show_all_info"]))
+        web_search = bool(int(config["web_search"]))
+        x_loc = int(config["x_loc"])
+        y_loc = int(config["y_loc"])
+        x_len = int(config["x_len"])
+        y_len = int(config["y_len"])
     except:
-        print(f"未找到{config_file}配置文件或配置文件格式有误。")
+        pass
+        # print(f"未找到{config_file}配置文件或配置文件格式有误。")
 
 
 def config_set(option: str, value: str):
@@ -61,6 +82,9 @@ def config_set(option: str, value: str):
 
 
 def main():
+    global sync_ui
+    global web_search
+    settings_active = False
     uac_reload()
     service.start()
     config_load()
@@ -75,42 +99,6 @@ def main():
         "-jp_name-",
         "-id-",
     )
-    option_slider = [
-        [
-            sg.Slider(
-                key="-window_alpha-",
-                range=[0.15, 1],
-                default_value=0.96,
-                resolution=0.01,
-                orientation="horizontal",
-                disable_number_display=True,
-                enable_events=True,
-                tooltip="调整透明度",
-            )
-        ],
-        [
-            sg.Slider(
-                key="-font_size-",
-                range=(6, 25),
-                default_value=12,
-                resolution=1,
-                orientation="horizontal",
-                disable_number_display=True,
-                enable_events=True,
-                tooltip="调整字体大小",
-            )
-        ],
-    ]
-    option_checkbox = [
-        [sg.Checkbox(key="-keep_on_top-", text="置顶", enable_events=True)],
-        [
-            sg.Checkbox(
-                key="-ui_lock-",
-                text="界面锁定",
-                enable_events=True,
-            )
-        ],
-    ]
     card_frame = [
         [
             sg.Frame(
@@ -120,12 +108,13 @@ def main():
                         sg.T(
                             text="等待检测",
                             key="-cn_name-",
-                            s=(38, None),
                             enable_events=True,
+                            expand_x=True,
                         )
                     ],
                 ],
                 title_color="#61E7DC",
+                expand_x=True,
             )
         ],
         [
@@ -136,81 +125,132 @@ def main():
                         [
                             sg.Multiline(
                                 key="-pdesc-",
-                                s=(40, 5),
+                                s=(None, 5),
                                 background_color="#64778D",
                                 text_color="white",
                                 write_only=True,
+                                auto_refresh=True,
+                                rstrip=True,
                             )
                         ],
                     ],
                     title_color="#61E7DC",
                     visible=False,
                     key="-pdesc_frame-",
-                )
+                ),
+                expand_x=True,
             )
         ],
         [
             sg.Frame(
-                "效果",
+                "描述",
                 [
                     [
                         sg.Multiline(
                             key="-desc-",
-                            s=(40, 10),
                             background_color="#64778D",
                             text_color="white",
                             write_only=True,
+                            auto_refresh=True,
+                            rstrip=True,
+                            expand_x=True,
+                            expand_y=True,
                         )
                     ]
                 ],
                 title_color="#61E7DC",
+                expand_x=True,
+                expand_y=True,
             )
         ],
         [
-            sg.Frame(
-                "类型",
-                [
-                    [sg.T(key="-types-", s=(38, None), enable_events=True)],
-                ],
-                title_color="#61E7DC",
+            sg.pin(
+                sg.Frame(
+                    "类型",
+                    [
+                        [
+                            sg.T(
+                                key="-types-",
+                                enable_events=True,
+                                s=(40, 2),
+                            )
+                        ],
+                    ],
+                    title_color="#61E7DC",
+                    visible=show_all_info,
+                    key="-types_frame-",
+                ),
+                expand_x=True,
             )
         ],
         [
-            sg.Frame(
-                "英文名",
-                [
-                    [sg.T(key="-en_name-", s=(38, None), enable_events=True)],
-                ],
-                title_color="#61E7DC",
+            sg.pin(
+                sg.Frame(
+                    "英文名",
+                    [
+                        [
+                            sg.T(
+                                key="-en_name-",
+                                enable_events=True,
+                                s=(40, 1),
+                            )
+                        ],
+                    ],
+                    title_color="#61E7DC",
+                    visible=show_all_info,
+                    key="-en_name_frame-",
+                ),
+                expand_x=True,
             )
         ],
         [
-            sg.Frame(
-                "日文名",
-                [
-                    [sg.T(key="-jp_name-", s=(38, None), enable_events=True)],
-                ],
-                title_color="#61E7DC",
+            sg.pin(
+                sg.Frame(
+                    "日文名",
+                    [
+                        [
+                            sg.T(
+                                key="-jp_name-",
+                                enable_events=True,
+                                s=(40, 1),
+                            )
+                        ],
+                    ],
+                    title_color="#61E7DC",
+                    visible=show_all_info,
+                    key="-jp_name_frame-",
+                ),
+                expand_x=True,
             )
         ],
         [
-            sg.Frame(
-                "卡密",
-                [
-                    [sg.T(key="-id-", s=(38, None), enable_events=True)],
-                ],
-                title_color="#61E7DC",
+            sg.pin(
+                sg.Frame(
+                    "卡密",
+                    [
+                        [
+                            sg.T(
+                                key="-id-",
+                                enable_events=True,
+                                s=(40, 1),
+                            )
+                        ],
+                    ],
+                    title_color="#61E7DC",
+                    visible=show_all_info,
+                    key="-id_frame-",
+                ),
+                expand_x=True,
             )
         ],
     ]
     right_click_menu = [
         "&Right",
-        ["恢复默认界面", "检查更新", "反和谐补丁", "加入Q群"],
+        ["设置", "保存窗口位置", "恢复默认", "检查更新", "反和谐补丁", "联系开发者"],
     ]
-    layout = [[card_frame], [sg.Column(option_slider), sg.Column(option_checkbox)]]
-
+    layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.2 @SkywalkerJi GPLv3",
+        "MDT v0.2.3 @SkywalkerJi GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -218,22 +258,22 @@ def main():
         resizable=True,
         alpha_channel=window_alpha,
         right_click_menu=right_click_menu,
+        location=(x_loc, y_loc),
+        size=(x_len, y_len),
     )
+    # 判断屏幕尺寸
+    screen = window.get_screen_dimensions()
+    if screen[0] < x_loc or screen[1] < y_loc:
+        config_set("x_loc", str(screen[0] / 2))
+        config_set("y_len", str(screen[1] / 2))
+        uac_reload(True)
 
     while True:
-        global sync_ui
         event, values = window.read(timeout=100)
         cid = service.get_cid()
         # print(event, values)
-        # 载入选项初始值
-        if sync_ui == 0:
-            window["-keep_on_top-"].update(value=keep_on_top)
-            window["-window_alpha-"].update(value=window_alpha)
-            window["-font_size-"].update(value=font_size)
-            window["-ui_lock-"].update(value=ui_lock)
-            set_ui_lock(window, ui_lock)
-            sync_ui = 1
         # 载入db
+
         if not cards_db:
             cards_db = service.get_cards_db()
         if cid != cid_temp:
@@ -252,53 +292,191 @@ def main():
                     window["-pdesc_frame-"].update(visible=False)
                 window["-desc-"].update(card_t["text"]["desc"])
             except:
-                print("数据库中未查到该卡")
+                pass
+                # print("数据库中未查到该卡")
         if event in (sg.WIN_CLOSED, "Exit"):
             break
         elif event in text_keys:
             pyperclip.copy(window[event].get())
-        # 透明度滑块
-        elif event == "-window_alpha-":
-            window.set_alpha(values["-window_alpha-"])
-            config_set("window_alpha", str(values["-window_alpha-"]))
-        # 字体滑块
-        elif event == "-font_size-":
-            for key in text_keys:
-                window[key].update(font=("Microsoft YaHei", int(values["-font_size-"])))
-            config_set("font_size", str(int(values["-font_size-"])))
-        # 置顶选项
-        elif event == "-keep_on_top-":
-            if values["-keep_on_top-"] == True:
-                window.keep_on_top_set()
-            elif values["-keep_on_top-"] == False:
-                window.keep_on_top_clear()
-            config_set("keep_on_top", str(int(values["-keep_on_top-"])))
+            if web_search:
+                id = window["-id-"].get()
+                if event == "-cn_name-":
+                    webbrowser.open(f"https://ygocdb.com/?search={id}")
+                elif event == "-en_name-":
+                    webbrowser.open(
+                        f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=en"
+                    )
+                elif event == "-jp_name-":
+                    webbrowser.open(
+                        f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=ja"
+                    )
+                elif event == "-id-":
+                    webbrowser.open(f"https://www.ourocg.cn/search/{id}/")
         # 恢复默认
-        elif event == "恢复默认界面":
+        elif event == "恢复默认":
+            window["-types_frame-"].update(visible=True)
+            window["-en_name_frame-"].update(visible=True)
+            window["-jp_name_frame-"].update(visible=True)
+            window["-id_frame-"].update(visible=True)
+            web_search = True
             window.keep_on_top_set()
-            window["-keep_on_top-"].update(value=True)
             window.set_alpha(0.96)
-            window["-window_alpha-"].update(value=0.96)
             for key in text_keys:
                 window[key].update(font=("Microsoft YaHei", 12))
-            window["-font_size-"].update(value=12.0)
             config_set("keep_on_top", "1")
             config_set("font_size", "12")
             config_set("window_alpha", "0.96")
-        # ui锁定
-        elif event == "-ui_lock-":
-            if values["-ui_lock-"] == True:
-                set_ui_lock(window, True)
-            else:
-                set_ui_lock(window, False)
+            config_set("show_all_info", "1")
+            config_set("web_search", "1")
+            # config_set("x_loc", "960")
+            # config_set("y_loc", "540")
+            # config_set("x_len", "400")
+            # config_set("y_len", "600")
+        elif event == "保存窗口位置":
+            win_loc = window.CurrentLocation()
+            win_size = window.size
+            config_set("x_loc", str(win_loc[0]))
+            config_set("y_loc", str(win_loc[1]))
+            config_set("x_len", str(win_size[0]))
+            config_set("y_len", str(win_size[1]))
         elif event == "检查更新":
             webbrowser.open("https://github.com/SkywalkerJi/mdt/releases/latest")
         elif event == "反和谐补丁":
             webbrowser.open(
                 "https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch"
             )
-        elif event == "加入Q群":
-            webbrowser.open("https://jq.qq.com/?_wv=1027&k=uyFt3qi0")
+        elif event == "联系开发者":
+            webbrowser.open("https://github.com/SkywalkerJi/mdt#contact-us")
+        if not settings_active and event == "设置":
+            settings_active = True
+            sync_ui = 0
+            option_slider = [
+                [
+                    sg.Frame(
+                        "透明度",
+                        [
+                            [
+                                sg.Slider(
+                                    key="-window_alpha-",
+                                    range=[0.15, 1],
+                                    default_value=0.96,
+                                    resolution=0.01,
+                                    orientation="horizontal",
+                                    disable_number_display=False,
+                                    enable_events=True,
+                                    tooltip="调整透明度",
+                                )
+                            ]
+                        ],
+                        title_color="#61E7DC",
+                    )
+                ],
+                [
+                    sg.Frame(
+                        "字体尺寸",
+                        [
+                            [
+                                sg.Slider(
+                                    key="-font_size-",
+                                    range=(6, 25),
+                                    default_value=12,
+                                    resolution=1,
+                                    orientation="horizontal",
+                                    disable_number_display=False,
+                                    enable_events=True,
+                                    tooltip="调整字体尺寸",
+                                )
+                            ]
+                        ],
+                        title_color="#61E7DC",
+                    )
+                ],
+            ]
+            option_checkbox = [
+                [sg.Checkbox(key="-keep_on_top-", text="置顶", enable_events=True)],
+                [
+                    sg.Checkbox(
+                        key="-show_all_info-",
+                        text="详情显示",
+                        enable_events=True,
+                    )
+                ],
+                [
+                    sg.Checkbox(
+                        key="-ui_lock-",
+                        text="界面锁定",
+                        enable_events=True,
+                    )
+                ],
+                [
+                    sg.Checkbox(
+                        key="-web_search-",
+                        text="网页卡查",
+                        enable_events=True,
+                    )
+                ],
+            ]
+
+            settings_layout = [
+                [sg.Column(option_slider), sg.Column(option_checkbox)],
+                [sg.Button("关闭")],
+            ]
+            settings_win = sg.Window(
+                "设置",
+                settings_layout,
+                font=("Microsoft YaHei", 12),
+                keep_on_top=keep_on_top,
+            )
+        if settings_active:
+            ev, vals = settings_win.read(timeout=100)
+            # 设置页面载入选项初始值
+            if sync_ui == 0 or event == "恢复默认":
+                config_load()
+                settings_win["-keep_on_top-"].update(value=keep_on_top)
+                settings_win["-window_alpha-"].update(value=window_alpha)
+                settings_win["-font_size-"].update(value=font_size)
+                settings_win["-ui_lock-"].update(value=ui_lock)
+                settings_win["-show_all_info-"].update(value=show_all_info)
+                settings_win["-web_search-"].update(value=web_search)
+                set_ui_lock(settings_win, ui_lock)
+                sync_ui = 1
+            if ev == sg.WIN_CLOSED or ev == "关闭":
+                settings_active = False
+                settings_win.close()
+            # 透明度滑块
+            elif ev == "-window_alpha-":
+                window.set_alpha(vals["-window_alpha-"])
+                config_set("window_alpha", str(vals["-window_alpha-"]))
+            # 字体滑块
+            elif ev == "-font_size-":
+                for key in text_keys:
+                    window[key].update(
+                        font=("Microsoft YaHei", int(vals["-font_size-"]))
+                    )
+                config_set("font_size", str(int(vals["-font_size-"])))
+            # 详情显示
+            elif ev == "-show_all_info-":
+                window["-types_frame-"].update(visible=vals["-show_all_info-"])
+                window["-en_name_frame-"].update(visible=vals["-show_all_info-"])
+                window["-jp_name_frame-"].update(visible=vals["-show_all_info-"])
+                window["-id_frame-"].update(visible=vals["-show_all_info-"])
+                config_set("show_all_info", str(int(vals["-show_all_info-"])))
+            # 网页卡查
+            elif ev == "-web_search-":
+                web_search = vals["-web_search-"]
+            # 置顶选项
+            elif ev == "-keep_on_top-":
+                if vals["-keep_on_top-"] == True:
+                    window.keep_on_top_set()
+                elif vals["-keep_on_top-"] == False:
+                    window.keep_on_top_clear()
+                config_set("keep_on_top", str(int(vals["-keep_on_top-"])))
+            # ui锁定
+            elif ev == "-ui_lock-":
+                if vals["-ui_lock-"] == True:
+                    set_ui_lock(settings_win, True)
+                else:
+                    set_ui_lock(settings_win, False)
     service.exit()
     window.close()
 

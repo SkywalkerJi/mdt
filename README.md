@@ -1,6 +1,6 @@
 # Yu-Gi-Oh! Master Duel 中文卡查
 
-Yu-Gi-Oh! Master Duel translation script
+Yu-Gi-Oh! Master Duel Translation Script
 
 * 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay模式。
 * 高正确性，除非卡片数据本身有错。
@@ -9,18 +9,20 @@ Yu-Gi-Oh! Master Duel translation script
 * 直接调用win32api，不使用第三方dll。
 * 开源，你可以直接执行源代码并定制你自己的版本。
 * 高兼容性，点开即用，支持各种语言，最低可支持win7。
+* 可一键直达网页卡查和官方数据库。
 
-![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.1.png "MDT v0.2.1")
+![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.3.png "MDT v0.2.3")
 
 ## Download
 
 你可以在[Releases](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的MDT版本。
 
-如果是windows7用户请使用后缀win7的版本。
+如果是Windows7系统请下载后缀`_win7`的版本，如果想使用CLI请下载`_CLI`的版本。
 
-[中国大陆用户下载点](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
+中国大陆用户可在[此处下载](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
 
 你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
+
 
 ## Usage
 
@@ -31,7 +33,7 @@ Yu-Gi-Oh! Master Duel translation script
 1. 打开游戏。
 2. 右键使用**管理员权限**运行`mdt.exe`。
 3. 在组卡界面点击一张卡。
-4. enjoy it。
+4. 右键可打开设置。
 
 **使用预打包的CLI版本**
 
@@ -86,6 +88,16 @@ keep_on_top = 1
 ; gui窗口置顶 1置顶 0取消
 ui_lock = 0
 ; gui窗口ui锁定 1锁定 0取消
+show_all_info = 1
+; 1显示全部内容 0精简显示
+web_search = 1
+; 1开启网页卡查 0关闭
+x_loc = 960
+y_loc = 540
+; gui窗口位置
+x_len = 400
+y_len = 600
+; gui窗口大小
 ```
 </details>
 
@@ -104,9 +116,9 @@ python mdt_cli.py
 
 **视频演示**
 
-*v0.2.1版本*
+*v0.2.3版本*
 
-[bilibili](https://www.bilibili.com/video/av636086411)   [Youtube](https://www.youtube.com/watch?v=TfHoNeEVqf4)
+[bilibili](https://www.bilibili.com/video/av978731073)   [Youtube](https://www.youtube.com/watch?v=YUNeiOCAd6M)
 
 *卡图反和谐补丁*
 
@@ -114,6 +126,10 @@ python mdt_cli.py
 
 <details>
    <summary>旧版演示</summary>
+
+*v0.2.1版本*
+
+[bilibili](https://www.bilibili.com/video/av636086411)   [Youtube](https://www.youtube.com/watch?v=TfHoNeEVqf4)
 
 *v0.2.0版本*
 
@@ -146,15 +162,25 @@ python mdt_cli.py
 
 ## Changelog
 
+*v0.2.3*
+* 拆分GUI版本和CLI版本。
+* 添加详情显示选项。关闭后只显示中文卡名+效果描述。
+* 添加网页卡查跳转选项，开启后点击中文卡名会跳转百鸽（ygocdb.com)，英文和日文卡名会跳转K社官方数据库,点击卡密会跳转ourocg。
+* 打开时Windows将主动询问管理员权限。
+* 移动设置选项，右键可以打开设置窗口。
+* 可横向扩展效果描述框。
+* 可记录窗口位置、尺寸。
+* 将"效果"改为"描述"，避免部分通常怪兽造成误解。
+
+<details>
+   <summary>展开过往版本</summary>
+
 *v0.2.2*
 
 * 修复OCG专有卡和dbsp卡包的英文卡名缺失问题。
 * 添加右键菜单。
 * UI锁定功能改为独立选项。
 * 右键可恢复默认界面和检查更新页面。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.1*
 
@@ -222,12 +248,12 @@ python mdt_cli.py
 * xay罘
 * 国王的冕冠
 
-请向你的朋友推荐本项目就好:)
+请多多分享本项目就好:)
 
 ## Related Efforts
 
 * [Yu-Gi-Oh! Master Duel - Uncensor Patch](https://www.youtube.com/watch?v=hXGVXXHT6us) 反和谐卡图替换补丁
-* [MasterDuelSimpleTranslateTool](https://github.com/PatchouliTC/MasterDuelSimpleTranslateTool) 基于图像指纹识别的CLI工具，提供了本项目的CLI版本UI基础。
+* [MasterDuelSimpleTranslateTool](https://github.com/PatchouliTC/MasterDuelSimpleTranslateTool) 基于图像指纹识别的翻译工具，提供了本项目的CLI版本UI基础。
 
 ## License
 
