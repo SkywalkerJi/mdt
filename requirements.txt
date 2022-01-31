@@ -3,3 +3,4 @@ pymem
 keyboard
 pywin32
 PySimpleGUI
+pyperclip
