@@ -242,15 +242,15 @@ def config_load():
                 f"CLI置顶失败,目前配置中窗口名为：{config['lp_window_name']}。请在{config_file}配置文件中更改lp_window_name与CLI窗口名一致，一般等于mdt.exe路径。"
             )
     elif config["window_on_top"] == "0":
-        print("CLI置顶功能已关闭,请使用GUI界面")
+        print(f"CLI置顶功能已关闭,如有需要请在{config_file}中开启")
     else:
         print(f"置顶功能配置异常，请检查{config_file}")
     # 加载卡片文本
     try:
-        with open(config["cards_db"], "rb") as f:
+        with open("./locales/zh-CN/cards.json", "rb") as f:
             cards_db = json.load(f)
     except:
-        print(f"未找到{config['cards_db']},请下载后放在同一目录")
+        print(f"未找到cards_db.json,请下载后放在/locales/zh-CN/下")
 
 
 def main():

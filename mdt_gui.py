@@ -4,6 +4,8 @@ import mdt_service as service
 import pyperclip
 import configparser
 import webbrowser
+import i18n
+import os
 
 config_file = "config.ini"
 font_size = 12
@@ -18,6 +20,8 @@ x_loc = 960
 y_loc = 540
 x_len = 400
 y_len = 600
+_ = i18n.t
+locale = "zh-CN"
 
 
 def is_admin():
@@ -33,6 +37,10 @@ def uac_reload(bool=False):
             None, "runas", sys.executable, " ".join(sys.argv), None, 1
         )
         sys.exit()
+
+
+def restart():
+    os.execv(sys.executable, ["python"] + sys.argv)
 
 
 def set_ui_lock(window, bool):
@@ -56,6 +64,7 @@ def config_load():
     global x_len
     global y_len
     global cfg
+    global locale
     try:
         cfg.read(config_file, encoding="utf-8")
         config = cfg.items("gui")
@@ -70,6 +79,7 @@ def config_load():
         y_loc = int(config["y_loc"])
         x_len = int(config["x_len"])
         y_len = int(config["y_len"])
+        locale = config["locale"]
     except:
         pass
         # print(f"未找到{config_file}配置文件或配置文件格式有误。")
@@ -81,13 +91,23 @@ def config_set(option: str, value: str):
         cfg.write(f)
 
 
+def i18n_set(locale: str):
+    i18n.set("locale", locale)
+
+
 def main():
     global sync_ui
     global web_search
+    global locale
     settings_active = False
     uac_reload()
     service.start()
     config_load()
+    i18n.set("filename_format", "{locale}.{format}")
+    i18n.set("available_locales", ["zh-CN", "zh-TW"])
+    i18n.set("file_format", "json")
+    i18n.set("locale", locale)
+    i18n.load_path.append("./locales")
     cards_db = None
     cid_temp = 0
     text_keys = (
@@ -102,11 +122,11 @@ def main():
     card_frame = [
         [
             sg.Frame(
-                "卡名",
+                _("卡名"),
                 [
                     [
                         sg.T(
-                            text="等待检测",
+                            text=_("等待检测"),
                             key="-cn_name-",
                             enable_events=True,
                             expand_x=True,
@@ -120,7 +140,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "灵摆",
+                    _("灵摆"),
                     [
                         [
                             sg.Multiline(
@@ -143,7 +163,7 @@ def main():
         ],
         [
             sg.Frame(
-                "描述",
+                _("描述"),
                 [
                     [
                         sg.Multiline(
@@ -166,7 +186,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "类型",
+                    _("类型"),
                     [
                         [
                             sg.T(
@@ -186,7 +206,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "英文名",
+                    _("英文名"),
                     [
                         [
                             sg.T(
@@ -206,7 +226,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "日文名",
+                    _("日文名"),
                     [
                         [
                             sg.T(
@@ -226,7 +246,7 @@ def main():
         [
             sg.pin(
                 sg.Frame(
-                    "卡密",
+                    _("卡密"),
                     [
                         [
                             sg.T(
@@ -246,11 +266,20 @@ def main():
     ]
     right_click_menu = [
         "&Right",
-        ["设置", "保存窗口位置", "恢复默认", "检查更新", "反和谐补丁", "联系开发者"],
+        [
+            _("设置"),
+            _("保存窗口位置"),
+            _("恢复默认"),
+            _("切换语言"),
+            _("重启检测"),
+            _("检查更新"),
+            _("反和谐补丁"),
+            _("联系开发者"),
+        ],
     ]
     layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.3 @SkywalkerJi GPLv3",
+        "MDT v0.2.4 @SkywalkerJi GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -275,7 +304,7 @@ def main():
         # 载入db
 
         if not cards_db:
-            cards_db = service.get_cards_db()
+            cards_db = service.get_cards_db(locale)
         if cid != cid_temp:
             cid_temp = cid
             try:
@@ -300,20 +329,34 @@ def main():
             pyperclip.copy(window[event].get())
             if web_search:
                 id = window["-id-"].get()
-                if event == "-cn_name-":
-                    webbrowser.open(f"https://ygocdb.com/?search={id}")
-                elif event == "-en_name-":
-                    webbrowser.open(
-                        f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=en"
-                    )
-                elif event == "-jp_name-":
-                    webbrowser.open(
-                        f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=ja"
-                    )
-                elif event == "-id-":
-                    webbrowser.open(f"https://www.ourocg.cn/search/{id}/")
+                if id:
+                    if event == "-cn_name-":
+                        webbrowser.open(f"https://ygocdb.com/?search={id}")
+                    elif event == "-id-":
+                        webbrowser.open(f"https://www.ourocg.cn/search/{id}/")
+                if cid:
+                    if event == "-en_name-":
+                        webbrowser.open(
+                            f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=en"
+                        )
+                    elif event == "-jp_name-":
+                        webbrowser.open(
+                            f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=ja"
+                        )
+        # 切换语言
+        elif event == _("切换语言"):
+            if locale == "zh-CN":
+                locale = "zh-TW"
+            elif locale == "zh-TW":
+                locale = "zh-CN"
+            i18n.set("locale", locale)
+            config_set("locale", locale)
+            restart()
+        # 重启
+        elif event == _("重启检测"):
+            restart()
         # 恢复默认
-        elif event == "恢复默认":
+        elif event == _("恢复默认"):
             window["-types_frame-"].update(visible=True)
             window["-en_name_frame-"].update(visible=True)
             window["-jp_name_frame-"].update(visible=True)
@@ -332,28 +375,28 @@ def main():
             # config_set("y_loc", "540")
             # config_set("x_len", "400")
             # config_set("y_len", "600")
-        elif event == "保存窗口位置":
+        elif event == _("保存窗口位置"):
             win_loc = window.CurrentLocation()
             win_size = window.size
             config_set("x_loc", str(win_loc[0]))
             config_set("y_loc", str(win_loc[1]))
             config_set("x_len", str(win_size[0]))
             config_set("y_len", str(win_size[1]))
-        elif event == "检查更新":
+        elif event == _("检查更新"):
             webbrowser.open("https://github.com/SkywalkerJi/mdt/releases/latest")
-        elif event == "反和谐补丁":
+        elif event == _("反和谐补丁"):
             webbrowser.open(
                 "https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch"
             )
-        elif event == "联系开发者":
+        elif event == _("联系开发者"):
             webbrowser.open("https://github.com/SkywalkerJi/mdt#contact-us")
-        if not settings_active and event == "设置":
+        if not settings_active and event == _("设置"):
             settings_active = True
             sync_ui = 0
             option_slider = [
                 [
                     sg.Frame(
-                        "透明度",
+                        _("透明度"),
                         [
                             [
                                 sg.Slider(
@@ -364,7 +407,7 @@ def main():
                                     orientation="horizontal",
                                     disable_number_display=False,
                                     enable_events=True,
-                                    tooltip="调整透明度",
+                                    tooltip=_("调整透明度"),
                                 )
                             ]
                         ],
@@ -373,7 +416,7 @@ def main():
                 ],
                 [
                     sg.Frame(
-                        "字体尺寸",
+                        _("字体尺寸"),
                         [
                             [
                                 sg.Slider(
@@ -384,7 +427,7 @@ def main():
                                     orientation="horizontal",
                                     disable_number_display=False,
                                     enable_events=True,
-                                    tooltip="调整字体尺寸",
+                                    tooltip=_("调整字体尺寸"),
                                 )
                             ]
                         ],
@@ -393,25 +436,25 @@ def main():
                 ],
             ]
             option_checkbox = [
-                [sg.Checkbox(key="-keep_on_top-", text="置顶", enable_events=True)],
+                [sg.Checkbox(key="-keep_on_top-", text=_("置顶"), enable_events=True)],
                 [
                     sg.Checkbox(
                         key="-show_all_info-",
-                        text="详情显示",
+                        text=_("详情显示"),
                         enable_events=True,
                     )
                 ],
                 [
                     sg.Checkbox(
                         key="-ui_lock-",
-                        text="界面锁定",
+                        text=_("界面锁定"),
                         enable_events=True,
                     )
                 ],
                 [
                     sg.Checkbox(
                         key="-web_search-",
-                        text="网页卡查",
+                        text=_("网页卡查"),
                         enable_events=True,
                     )
                 ],
@@ -419,10 +462,10 @@ def main():
 
             settings_layout = [
                 [sg.Column(option_slider), sg.Column(option_checkbox)],
-                [sg.Button("关闭")],
+                [sg.Button(_("关闭"))],
             ]
             settings_win = sg.Window(
-                "设置",
+                _("设置"),
                 settings_layout,
                 font=("Microsoft YaHei", 12),
                 keep_on_top=keep_on_top,
@@ -430,7 +473,7 @@ def main():
         if settings_active:
             ev, vals = settings_win.read(timeout=100)
             # 设置页面载入选项初始值
-            if sync_ui == 0 or event == "恢复默认":
+            if sync_ui == 0 or event == _("恢复默认"):
                 config_load()
                 settings_win["-keep_on_top-"].update(value=keep_on_top)
                 settings_win["-window_alpha-"].update(value=window_alpha)
@@ -440,7 +483,7 @@ def main():
                 settings_win["-web_search-"].update(value=web_search)
                 set_ui_lock(settings_win, ui_lock)
                 sync_ui = 1
-            if ev == sg.WIN_CLOSED or ev == "关闭":
+            if ev == sg.WIN_CLOSED or ev == _("关闭"):
                 settings_active = False
                 settings_win.close()
             # 透明度滑块
