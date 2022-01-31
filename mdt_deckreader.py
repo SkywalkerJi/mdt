@@ -11,12 +11,6 @@ ma_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x90, 0x10, 0x20]
 ex_cards_static = 0x01CCD278
 ex_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x98, 0x10, 0x20]
 
-pm = pymem.Pymem("masterduel.exe")
-base_address = pymem.process.module_from_name(
-    pm.process_handle, "GameAssembly.dll"
-).lpBaseOfDll
-
-
 def read_memory_int(process, base, offsets):
     offset_final = offsets.pop()
     address_next = process.read_longlong(base)
@@ -43,6 +37,10 @@ def deck_bytes_to_list(bytes: bytes, count: int):
         card_list.append(int.from_bytes(bytes[i * inc:i * inc + 2], byteorder="little"))
     return card_list
 
+pm = pymem.Pymem("masterduel.exe")
+base_address = pymem.process.module_from_name(
+    pm.process_handle, "GameAssembly.dll"
+).lpBaseOfDll
 
 with open("cards.json", "rb") as f:
     cards_db = json.load(f)
