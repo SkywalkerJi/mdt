@@ -12,8 +12,9 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 高兼容性，点开即用，支持各种游戏内语言，最低可支持win7。
 * 一键导出Master Duel游戏卡组，兼容ygopro格式。
 * 可一键直达网页卡查和官方数据库。
+* 支持全屏置顶、无边框、半透明。
 
-![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.3.png "MDT v0.2.3")
+![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.5.png "MDT v0.2.5")
 
 ## Download
 
@@ -159,6 +160,7 @@ python mdt_cli.py
 
 <details>
    <summary>Q1：杀毒软件报告MDT有病毒？如何解决？</summary>
+  
 确认你是从本页所列途径下载的版本那就是误报。
 
 源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。
@@ -191,7 +193,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 </details>
 
 <details>
-   <summary>Q4：使用MDT时需要注意什么？</summary>
+   <summary>Q5：使用MDT时需要注意什么？</summary>
 
 请遵循[GPLv3协议](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE)。
 
