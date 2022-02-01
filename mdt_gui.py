@@ -592,20 +592,20 @@ def main():
                     set_ui_lock(settings_win, True)
                 else:
                     set_ui_lock(settings_win, False)
-            elif ev == "保存卡组":
+            elif ev == _("保存卡组"):
                 now = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))
                 deck = service.get_deck_dict()
-                deck_string = service.get_deck_string()
+                deck_string = service.get_deck_string(locale)
                 ydk = "#created by MDT https://github.com/SkywalkerJi/mdt \n#main\n"
                 for cid in deck["ma_cid_list"]:
                     ydk += f"{cards_db[str(cid)]['id']}\n"
                 ydk += "#extra\n"
                 for cid in deck["ex_cid_list"]:
                     ydk += f"{cards_db[str(cid)]['id']}\n"
-                with open("ygopro卡组" + now + ".ydk", "w", encoding="utf8") as f:
+                with open(_("ygopro卡组") + now + ".ydk", "w", encoding="utf8") as f:
                     f.write(ydk)
                     f.close()
-                with open("卡组文本" + now + ".txt", "w", encoding="utf8") as f:
+                with open(_("卡组文本") + now + ".txt", "w", encoding="utf8") as f:
                     f.write(deck_string)
                     f.close()
     service.exit()

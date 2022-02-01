@@ -1,6 +1,7 @@
 import pymem
 import json
-
+import i18n
+_ = i18n.t
 
 def pointer_to_address(process, base, offsets):
     offset_final = offsets.pop()
@@ -61,7 +62,7 @@ def get_deck_dict():
     ma_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x90, 0x10, 0x20]
     ex_cards_static = 0x01CCD278
     ex_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x98, 0x10, 0x20]
-    deck_dict = {"error": "无法读取卡组信息"}
+    deck_dict = {"error": _("无法读取卡组信息")}
     try:
         pm = get_process(main_name)
         base_address = get_base_address(pm, module_name)
@@ -99,15 +100,15 @@ def get_deck_dict():
         return deck_dict
 
 
-def get_deck_string():
-    db_name = "./locales/zh-CN/cards.json"
+def get_deck_string(locale: str):
+    db_name = "./locales/"+locale+"/cards.json"
     deck_string = ""
     try:
         cards_db = get_database(db_name)
         deck = get_deck_dict()
     except Exception as e:
         print(e)
-        deck_string += "无法读取卡组信息"
+        deck_string += _("无法读取卡组信息")
         return deck_string
 
     deck_string += f"----------------主卡组: {deck['ma_count']}----------------\n"
@@ -125,7 +126,7 @@ def get_deck_string():
             card_string += f"{card_info['jp_name']}    "
             card_string += f"{card_info['en_name']}"
         except:
-            card_string += "    该卡信息有缺失"
+            card_string += "    "+"该卡信息有缺失"
         deck_string += f"{c:<2} {card_string}\n"
 
     deck_string += f"----------------额外卡组: {deck['ex_count']}----------------\n"
@@ -143,7 +144,7 @@ def get_deck_string():
             card_string += f"{card_info['jp_name']}    "
             card_string += f"{card_info['en_name']}"
         except:
-            card_string += "    该卡信息有缺失"
+            card_string += "    "+"该卡信息有缺失"
         deck_string += f"{c:<2} {card_string}\n"
 
     return deck_string

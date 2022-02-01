@@ -44,5 +44,5 @@ def get_deck_dict():
     return reader.get_deck_dict()
 
 
-def get_deck_string():
-    return reader.get_deck_string()
+def get_deck_string(locale: str):
+    return reader.get_deck_string(locale)

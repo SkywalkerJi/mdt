@@ -3,6 +3,7 @@
 Yu-Gi-Oh! Master Duel Translation Script
 
 * 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay模式。
+* 一键导出Master Duel游戏卡组，支持ygopro格式。
 * 高正确性，除非卡片数据本身有错。
 * 超快识别速度，低于0.000001s。
 * 极低占用，CPU占用忽略不计。
@@ -34,7 +35,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 1. 打开游戏。
 2. 右键使用**管理员权限**运行`mdt.exe`。
 3. 在组卡界面点击一张卡。
-4. 右键可打开设置。繁体中文用户右键切换语言。
+4. 右键可打开更多功能。繁体中文用户右键切换语言。
 
 **使用预打包的CLI版本**
 
@@ -169,6 +170,18 @@ python mdt_cli.py
 不会。我第一赛季是白金1结算。另外这个游戏没有反作弊，从经济角度考虑一个99%依赖服务端的游戏根本必要进行检测，参考游戏王duel link。
 </details>
 
+<details>
+   <summary>Q4：CLI版本是否还会进行后续开发？</summary>
+CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可用性维护，原则上不再添加新功能。
+</details>
+
+<details>
+   <summary>Q4：使用MDT时需要注意什么？</summary>
+请遵循[GPLv3协议](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE)。
+
+如果你参与我们的社区，请遵循[贡献者契约行为准则](https://github.com/SkywalkerJi/mdt/blob/master/CODE_OF_CONDUCT.md)。
+</details>
+
 ## Contributing
 
 有其他指针或功能欢迎提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)或Pull Request。
@@ -178,28 +191,31 @@ python mdt_cli.py
 如果你有错误报告、建议、想法，请随时通过以下方式联系开发者：
 
 * [issue](https://github.com/SkywalkerJi/mdt/issues/new)
-* [Telegram](https://t.me/KancolleRTA_bot)
-* [Twitter](https://twitter.com/Skywalker_Ji)
 * [NGA](https://bbs.nga.cn/read.php?tid=30415633)
 * [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=725&snA=54550&tnum=1)
 * [Q群 710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
+* [Telegram](https://t.me/ygomasterduel)
+* [Twitter](https://twitter.com/Skywalker_Ji)
 * 或其他途径。
 
 ## Changelog
 
 *v0.2.5*
-* 添加无边框窗口支持。
-* 悬停时添加右键提示。
-* 拆分英日文卡名和卡类型显示选项，现在可以分别勾选。
+* 支持masterduel卡组一键导出！由 @zealyahweh 贡献。可同时生成ygopro卡组`.ydk`格式和文本格式。
+* 拆分英日文卡名和卡类型显示选项，现在可以分别勾选“原始卡名”和“卡片类型”。
 * 主题配色改为暗色。
+* 添加无边框模式，可更好融入游戏。
+* 窗口整体可拖拽。
+* 右键添加关闭选项。
+* 鼠标悬停时添加右键提示。
+
+<details>
+   <summary>展开过往版本</summary>
 
 *v0.2.4*
 * 添加对繁体中文的i18n支持。右键可以切换语言。UI文本由 @ranke96 贡献，卡片翻译来自 @stillfiy0529 。
 * 针对重启游戏后无法检测的问题，可以右键重启检测。
 * 未查询到卡片的状态下不再唤起网页卡查。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.3*
 * 拆分GUI版本和CLI版本。
@@ -294,6 +310,10 @@ python mdt_cli.py
 ## License
 
 [GNU General Public License v3.0](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE) 
+
+## Code of conduct
+
+[Contributor Covenant Code of Conduct](https://github.com/SkywalkerJi/mdt/blob/master/CODE_OF_CONDUCT.md)
 
 ## Disclaimers
 
