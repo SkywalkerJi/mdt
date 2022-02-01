@@ -26,8 +26,14 @@ def get_cid():
         return None
 
 
-def get_cards_db():
-    if mdt.cards_db:
-        return mdt.cards_db
-    else:
-        return None
+def get_cards_db(locale: str):
+    if locale == "zh-CN":
+        if mdt.cards_db_CN:
+            return mdt.cards_db_CN
+        else:
+            return None
+    elif locale == "zh-TW":
+        if mdt.cards_db_TW:
+            return mdt.cards_db_TW
+        else:
+            return None
