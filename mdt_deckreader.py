@@ -51,7 +51,7 @@ def get_database(path):
 def get_deck_string():
     main_name = "masterduel.exe"
     module_name = "GameAssembly.dll"
-    db_name = "cards.json"
+    db_name = "./locales/zh-CN/cards.json"
     ma_count_static = 0x01CCD278
     ma_count_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x90, 0x18]
     ex_count_static = 0x01CCD278
@@ -77,7 +77,8 @@ def get_deck_string():
         ex_cid_list = deck_bytes_to_list(
             read_memory_bytes(pm, pointer_to_address(pm, ex_cards_addr, ex_cards_offsets), ex_count), ex_count
         )
-    except:
+    except Exception as e:
+        print(e)
         deck_string += "无法读取卡组信息"
         return deck_string
 
@@ -120,4 +121,4 @@ def get_deck_string():
     return deck_string
 
 
-# print(get_deck_string())
+print(get_deck_string())
