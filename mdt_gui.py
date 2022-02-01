@@ -6,6 +6,7 @@ import configparser
 import webbrowser
 import i18n
 import os
+import time
 
 config_file = "config.ini"
 font_size = 12
@@ -500,10 +501,33 @@ def main():
 
             settings_layout = [
                 [sg.Column(option_slider), sg.Column(option_checkbox)],
-                [sg.Button(_("关闭"), button_color=("white", "#238636"), border_width=1)],
+                [
+                    sg.Column(
+                        [
+                            [
+                                sg.Button(
+                                    _("关闭"),
+                                    button_color=("white", "#238636"),
+                                    border_width=1,
+                                )
+                            ]
+                        ]
+                    ),
+                    sg.Column(
+                        [
+                            [
+                                sg.Button(
+                                    _("保存卡组"),
+                                    button_color=("white", "#238636"),
+                                    border_width=1,
+                                )
+                            ]
+                        ]
+                    ),
+                ],
             ]
             settings_win = sg.Window(
-                _("设置"),
+                _("功能 & 设置"),
                 settings_layout,
                 font=("Microsoft YaHei", 12),
                 keep_on_top=keep_on_top,
@@ -568,6 +592,22 @@ def main():
                     set_ui_lock(settings_win, True)
                 else:
                     set_ui_lock(settings_win, False)
+            elif ev == "保存卡组":
+                now = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))
+                deck = service.get_deck_dict()
+                deck_string = service.get_deck_string()
+                ydk = "#created by MDT https://github.com/SkywalkerJi/mdt \n#main\n"
+                for cid in deck["ma_cid_list"]:
+                    ydk += f"{cards_db[str(cid)]['id']}\n"
+                ydk += "#extra\n"
+                for cid in deck["ex_cid_list"]:
+                    ydk += f"{cards_db[str(cid)]['id']}\n"
+                with open("ygopro卡组" + now + ".ydk", "w", encoding="utf8") as f:
+                    f.write(ydk)
+                    f.close()
+                with open("卡组文本" + now + ".txt", "w", encoding="utf8") as f:
+                    f.write(deck_string)
+                    f.close()
     service.exit()
     window.close()
 

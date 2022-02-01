@@ -1,4 +1,5 @@
 import mdt as mdt
+import mdt_deck_reader as reader
 from threading import Thread
 
 
@@ -37,3 +38,11 @@ def get_cards_db(locale: str):
             return mdt.cards_db_TW
         else:
             return None
+
+
+def get_deck_dict():
+    return reader.get_deck_dict()
+
+
+def get_deck_string():
+    return reader.get_deck_string()
