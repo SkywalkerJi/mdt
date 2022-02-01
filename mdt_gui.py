@@ -16,7 +16,7 @@ cfg = configparser.ConfigParser()
 sync_ui = 0
 show_names = True
 show_types = True
-win_border = False
+borderless = True
 web_search = True
 x_loc = 960
 y_loc = 540
@@ -51,7 +51,7 @@ def set_ui_lock(window, bool):
     window["-font_size-"].update(disabled=bool)
     window["-show_names-"].update(disabled=bool)
     window["-show_types-"].update(disabled=bool)
-    window["-win_border-"].update(disabled=bool)
+    window["-borderless-"].update(disabled=bool)
     window["-web_search-"].update(disabled=bool)
     config_set("ui_lock", str(int(bool)))
 
@@ -60,7 +60,7 @@ def config_load():
     global font_size
     global window_alpha
     global keep_on_top
-    global win_border
+    global borderless
     global ui_lock
     global show_names
     global show_types
@@ -79,7 +79,7 @@ def config_load():
         window_alpha = float(config["window_alpha"])
         keep_on_top = bool(int(config["keep_on_top"]))
         ui_lock = bool(int(config["ui_lock"]))
-        win_border = bool(int(config["win_border"]))
+        borderless = bool(int(config["borderless"]))
         show_names = bool(int(config["show_names"]))
         show_types = bool(int(config["show_types"]))
         web_search = bool(int(config["web_search"]))
@@ -307,7 +307,7 @@ def main():
         right_click_menu=right_click_menu,
         location=(x_loc, y_loc),
         size=(x_len, y_len),
-        no_titlebar=win_border,
+        no_titlebar=borderless,
         grab_anywhere=True,
         debugger_enabled=False,
     )
@@ -398,7 +398,7 @@ def main():
             # config_set("y_loc", "540")
             # config_set("x_len", "400")
             # config_set("y_len", "600")
-            # config_set("win_border", "0")
+            # config_set("borderless", "0")
         elif event == _("保存窗口位置"):
             win_loc = window.CurrentLocation()
             win_size = window.size
@@ -477,8 +477,8 @@ def main():
                 ],
                 [
                     sg.Checkbox(
-                        key="-win_border-",
-                        text=_("窗口边框"),
+                        key="-borderless-",
+                        text=_("无边框"),
                         enable_events=True,
                     )
                 ],
@@ -518,7 +518,7 @@ def main():
                 settings_win["-window_alpha-"].update(value=window_alpha)
                 settings_win["-font_size-"].update(value=font_size)
                 settings_win["-ui_lock-"].update(value=ui_lock)
-                settings_win["-win_border-"].update(value=win_border)
+                settings_win["-borderless-"].update(value=borderless)
                 settings_win["-show_names-"].update(value=show_names)
                 settings_win["-show_types-"].update(value=show_types)
                 settings_win["-web_search-"].update(value=web_search)
@@ -549,8 +549,8 @@ def main():
                 window["-types_frame-"].update(visible=vals["-show_types-"])
                 config_set("show_types", str(int(vals["-show_types-"])))
             # 无边框
-            elif ev == "-win_border-":
-                config_set("win_border", str(int(vals["-win_border-"])))
+            elif ev == "-borderless-":
+                config_set("borderless", str(int(vals["-borderless-"])))
                 restart()
             # 网页卡查
             elif ev == "-web_search-":

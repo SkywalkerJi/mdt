@@ -97,8 +97,8 @@ y_len = 600
 ; gui窗口大小
 locale = zh-CN
 ; zh-CN简体，zh-TW繁体
-win_border = 1
-; 无边框 1有边框 0无边框
+borderless = 1
+; 无边框 1开启 0取消
 show_names = 1
 ; 英日文卡名卡密 1开启 0取消
 show_types = 1
