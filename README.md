@@ -8,9 +8,9 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 极低占用，CPU占用忽略不计。
 * 直接调用win32api，不使用第三方dll。
 * 开源，你可以直接执行源代码并定制你自己的版本。
+* i18n，支持简体中文和繁体中文。
 * 高兼容性，点开即用，支持各种游戏内语言，最低可支持win7。
 * 可一键直达网页卡查和官方数据库。
-* i18n支持简体中文和繁体中文。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.3.png "MDT v0.2.3")
 
@@ -144,6 +144,23 @@ python mdt_cli.py
 
 [bilibili](https://www.bilibili.com/video/av593463793)
 
+</details>
+
+## Q＆A
+
+<details>
+   <summary>Q1：杀毒软件报告MDT有病毒？如何解决？</summary>
+确认你是从本页所列途径下载的版本那就是误报。源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。
+</details>
+
+<details>
+   <summary>Q2：管理员权限开启后依然无法检测？点击后exe消失？提示没有权限？被杀毒软件拦截隔离？</summary>
+先确认你是从本页所列途径下载的版本。然后在你使用的杀毒软件以及Windows自带的安全系统里添加信任。
+</details>
+
+<details>
+   <summary>Q3：是否可以排位？是否会封号？</summary>
+不会。我第一赛季是白金1结算。另外这个游戏没有反作弊，从经济角度考虑一个99%依赖服务端的游戏根本必要进行检测，参考游戏王duel link。
 </details>
 
 ## Contributing
