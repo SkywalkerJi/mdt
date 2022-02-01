@@ -3,7 +3,6 @@
 Yu-Gi-Oh! Master Duel Translation Script
 
 * 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay模式。
-* 一键导出Master Duel游戏卡组，支持ygopro格式。
 * 高正确性，除非卡片数据本身有错。
 * 超快识别速度，低于0.000001s。
 * 极低占用，CPU占用忽略不计。
@@ -11,6 +10,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 开源，你可以直接执行源代码并定制你自己的版本。
 * i18n，支持简体中文和繁体中文。
 * 高兼容性，点开即用，支持各种游戏内语言，最低可支持win7。
+* 一键导出Master Duel游戏卡组，兼容ygopro格式。
 * 可一键直达网页卡查和官方数据库。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.3.png "MDT v0.2.3")
@@ -122,9 +122,9 @@ python mdt_cli.py
 
 **视频演示**
 
-*v0.2.3版本*
+*v0.2.5版本*
 
-[bilibili](https://www.bilibili.com/video/av978731073)   [Youtube](https://www.youtube.com/watch?v=YUNeiOCAd6M)
+[bilibili](https://www.bilibili.com/video/av636233915)   [Youtube](https://www.youtube.com/watch?v=YUNeiOCAd6M)
 
 *卡图反和谐补丁*
 
@@ -132,6 +132,10 @@ python mdt_cli.py
 
 <details>
    <summary>旧版演示</summary>
+
+*v0.2.3版本*
+
+[bilibili](https://www.bilibili.com/video/av978731073)   [Youtube](https://www.youtube.com/watch?v=YUNeiOCAd6M)
 
 *v0.2.1版本*
 
@@ -155,31 +159,44 @@ python mdt_cli.py
 
 <details>
    <summary>Q1：杀毒软件报告MDT有病毒？如何解决？</summary>
-确认你是从本页所列途径下载的版本那就是误报。源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。
+确认你是从本页所列途径下载的版本那就是误报。
+
+源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。
 
 目前MDT以功能开发为主，不打算主动解决此问题，请直接添加信任。
 </details>
 
 <details>
    <summary>Q2：管理员权限开启后依然无法检测？点击后exe消失？提示没有权限？被杀毒软件拦截隔离？</summary>
-先确认你是从本页所列途径下载的版本。然后在你使用的杀毒软件以及Windows自带的安全系统里添加信任。
+
+先确认你是从本页所列途径下载的版本。
+
+然后在你使用的杀毒软件以及Windows自带的安全系统里添加信任。
 </details>
 
 <details>
    <summary>Q3：是否可以排位？是否会封号？</summary>
-不会。我第一赛季是白金1结算。另外这个游戏没有反作弊，从经济角度考虑一个99%依赖服务端的游戏根本必要进行检测，参考游戏王duel link。
+
+不会。我第一赛季是白金1结算。
+
+另外这个游戏没有反作弊，从经济角度考虑一个99%依赖服务端的游戏根本必要进行检测，参考游戏王duel link。
+
 </details>
 
 <details>
    <summary>Q4：CLI版本是否还会进行后续开发？</summary>
-CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可用性维护，原则上不再添加新功能。
+
+CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可用性维护，原则上不再添加新功能。但欢迎PR。
+
 </details>
 
 <details>
    <summary>Q4：使用MDT时需要注意什么？</summary>
+
 请遵循[GPLv3协议](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE)。
 
 如果你参与我们的社区，请遵循[贡献者契约行为准则](https://github.com/SkywalkerJi/mdt/blob/master/CODE_OF_CONDUCT.md)。
+
 </details>
 
 ## Contributing
