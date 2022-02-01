@@ -8,7 +8,8 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 极低占用，CPU占用忽略不计。
 * 直接调用win32api，不使用第三方dll。
 * 开源，你可以直接执行源代码并定制你自己的版本。
-* 高兼容性，点开即用，支持各种语言，最低可支持win7。
+* i18n，支持简体中文和繁体中文。
+* 高兼容性，点开即用，支持各种游戏内语言，最低可支持win7。
 * 可一键直达网页卡查和官方数据库。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.3.png "MDT v0.2.3")
@@ -33,7 +34,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 1. 打开游戏。
 2. 右键使用**管理员权限**运行`mdt.exe`。
 3. 在组卡界面点击一张卡。
-4. 右键可打开设置。
+4. 右键可打开设置。繁体中文用户右键切换语言。
 
 **使用预打包的CLI版本**
 
@@ -59,8 +60,6 @@ Yu-Gi-Oh! Master Duel Translation Script
 ```
 [cli] 
 ; CLI基本设置
-cards_db = cards.json
-; 翻译文件名
 pause_hotkey = ctrl+p
 ; 暂停快捷键
 exit_hotkey = ctrl+q
@@ -98,6 +97,8 @@ y_loc = 540
 x_len = 400
 y_len = 600
 ; gui窗口大小
+locale = zh-CN
+; zh-CN简体，zh-TW繁体
 ```
 </details>
 
@@ -145,6 +146,23 @@ python mdt_cli.py
 
 </details>
 
+## Q＆A
+
+<details>
+   <summary>Q1：杀毒软件报告MDT有病毒？如何解决？</summary>
+确认你是从本页所列途径下载的版本那就是误报。源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。
+</details>
+
+<details>
+   <summary>Q2：管理员权限开启后依然无法检测？点击后exe消失？提示没有权限？被杀毒软件拦截隔离？</summary>
+先确认你是从本页所列途径下载的版本。然后在你使用的杀毒软件以及Windows自带的安全系统里添加信任。
+</details>
+
+<details>
+   <summary>Q3：是否可以排位？是否会封号？</summary>
+不会。我第一赛季是白金1结算。另外这个游戏没有反作弊，从经济角度考虑一个99%依赖服务端的游戏根本必要进行检测，参考游戏王duel link。
+</details>
+
 ## Contributing
 
 有其他指针或功能欢迎提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)或Pull Request。
@@ -157,10 +175,19 @@ python mdt_cli.py
 * [Telegram](https://t.me/KancolleRTA_bot)
 * [Twitter](https://twitter.com/Skywalker_Ji)
 * [NGA](https://bbs.nga.cn/read.php?tid=30415633)
+* [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=725&snA=54550&tnum=1)
 * [Q群 710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
 * 或其他途径。
 
 ## Changelog
+
+*v0.2.4*
+* 添加对繁体中文的i18n支持。右键可以切换语言。UI文本由 @ranke96 贡献，卡片翻译来自 @stillfiy0529 。
+* 针对重启游戏后无法检测的问题，可以右键重启检测。
+* 未查询到卡片的状态下不再唤起网页卡查。
+
+<details>
+   <summary>展开过往版本</summary>
 
 *v0.2.3*
 * 拆分GUI版本和CLI版本。
@@ -171,9 +198,6 @@ python mdt_cli.py
 * 可横向扩展效果描述框。
 * 可记录窗口位置、尺寸。
 * 将"效果"改为"描述"，避免部分通常怪兽造成误解。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.2*
 
@@ -189,9 +213,9 @@ python mdt_cli.py
 * 增加了透明度效果。
 * 增加了字体大小设置。
 * 点击中·日·英文卡名、卡密、卡片类型可以直接复制到系统剪贴板。
-* 修复查询延迟，提高了默认轮询速度。由 @GenBill 修复
+* 修复查询延迟，提高了默认轮询速度。由 @GenBill 修复。
 * 设置自动保存在配置文件中。
-* 支持在solo模式入口查看租用卡组和AI对手卡组内容。由 @zealyahweh 贡献
+* 支持在solo模式入口查看租用卡组和AI对手卡组内容。由 @zealyahweh 贡献。
 * 修复回放模式查看对手卡组。由 @zealyahweh 贡献
 * 修复一个崩溃问题。
 
@@ -211,7 +235,7 @@ python mdt_cli.py
 
 *v0.1.5*
 
-添加UAC判断，非管理员权限运行会执行重开。由 @RyoLee 贡献
+添加UAC判断，非管理员权限运行会执行重开。由 @RyoLee 贡献。
 
 添加一个配置项，可选精简卡查内容。
 

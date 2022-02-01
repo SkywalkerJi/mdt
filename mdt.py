@@ -20,7 +20,8 @@ deck_addr = None
 duel_addr = None
 oppo_addr = None
 sleep_time = 0.1
-cards_db = {}
+cards_db_CN = {}
+cards_db_TW = {}
 pause_hotkey="ctrl+p"
 switch_hotkey="ctrl+s"
 
@@ -151,7 +152,8 @@ def uac_reload():
 def config_load():
     global pause_hotkey
     global switch_hotkey
-    global cards_db
+    global cards_db_CN
+    global cards_db_TW
     con = configparser.ConfigParser()
     try:
         con.read(config_file, encoding="utf-8")
@@ -163,11 +165,15 @@ def config_load():
         pass
     # 加载卡片文本
     try:
-        with open(config["cards_db"], "rb") as f:
-            cards_db = json.load(f)
+        with open("./locales/zh-CN/cards.json", "rb") as f:
+            cards_db_CN = json.load(f)
     except:
         pass
-
+    try:
+        with open("./locales/zh-TW/cards.json", "rb") as f: 
+            cards_db_TW = json.load(f)
+    except:
+        pass
 
 def main():
     uac_reload()
