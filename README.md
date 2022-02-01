@@ -1,4 +1,4 @@
-# Yu-Gi-Oh! Master Duel 中文卡查
+# Yu-Gi-Oh! Master Duel 中文卡查 MDT
 
 Yu-Gi-Oh! Master Duel Translation Script
 
@@ -87,8 +87,6 @@ keep_on_top = 1
 ; gui窗口置顶 1置顶 0取消
 ui_lock = 0
 ; gui窗口ui锁定 1锁定 0取消
-show_all_info = 1
-; 1显示全部内容 0精简显示
 web_search = 1
 ; 1开启网页卡查 0关闭
 x_loc = 960
@@ -99,6 +97,12 @@ y_len = 600
 ; gui窗口大小
 locale = zh-CN
 ; zh-CN简体，zh-TW繁体
+win_border = 1
+; 无边框 1有边框 0无边框
+show_names = 1
+; 英日文卡名卡密 1开启 0取消
+show_types = 1
+; 卡片类型 1开启 0取消
 ```
 </details>
 
@@ -151,6 +155,8 @@ python mdt_cli.py
 <details>
    <summary>Q1：杀毒软件报告MDT有病毒？如何解决？</summary>
 确认你是从本页所列途径下载的版本那就是误报。源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。
+
+目前MDT以功能开发为主，不打算主动解决此问题，请直接添加信任。
 </details>
 
 <details>
@@ -180,6 +186,12 @@ python mdt_cli.py
 * 或其他途径。
 
 ## Changelog
+
+*v0.2.5*
+* 添加无边框窗口支持。
+* 悬停时添加右键提示。
+* 拆分英日文卡名和卡类型显示选项，现在可以分别勾选。
+* 主题配色改为暗色。
 
 *v0.2.4*
 * 添加对繁体中文的i18n支持。右键可以切换语言。UI文本由 @ranke96 贡献，卡片翻译来自 @stillfiy0529 。
