@@ -297,7 +297,7 @@ def main():
     ]
     layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.4 @SkywalkerJi GPLv3",
+        "MDT v0.2.5 @SkywalkerJi GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -606,7 +606,7 @@ def main():
                     f.write(ydk)
                     f.close()
                 with open(_("卡组文本") + now + ".txt", "w", encoding="utf8") as f:
-                    f.write(deck_string)
+                    f.write("#created by MDT https://github.com/SkywalkerJi/mdt \n"+deck_string)
                     f.close()
     service.exit()
     window.close()
