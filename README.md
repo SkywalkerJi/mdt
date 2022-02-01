@@ -125,7 +125,7 @@ python mdt_cli.py
 
 *v0.2.5版本*
 
-[bilibili](https://www.bilibili.com/video/av636233915)   [Youtube](https://www.youtube.com/watch?v=YUNeiOCAd6M)
+[bilibili](https://www.bilibili.com/video/av636233915)   [Youtube](https://www.youtube.com/watch?v=ITXjWSsmEmc)
 
 *卡图反和谐补丁*
 
