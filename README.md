@@ -2,7 +2,7 @@
 
 Yu-Gi-Oh! Master Duel Translation Script
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/SkywalkerJi/mdt) ![GitHub all releases](https://img.shields.io/github/downloads/SkywalkerJi/mdt/total) [![GitHub forks](https://img.shields.io/github/forks/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/network) [![GitHub stars](https://img.shields.io/github/stars/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/stargazers) [![GitHub license](https://img.shields.io/github/license/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/SkywalkerJi/mdt)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/releases/latest) [![GitHub all releases](https://img.shields.io/github/downloads/SkywalkerJi/mdt/total)](https://github.com/SkywalkerJi/mdt#download) [![GitHub forks](https://img.shields.io/github/forks/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/network) [![GitHub stars](https://img.shields.io/github/stars/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/stargazers) [![GitHub license](https://img.shields.io/github/license/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE) ![Chinese translation](https://img.shields.io/badge/%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91-100%25-green) ![GitHub top language](https://img.shields.io/github/languages/top/SkywalkerJi/mdt)
 
 * 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay模式。
 * 高正确性，除非卡片数据本身有错。
@@ -127,11 +127,11 @@ python mdt_cli.py
 
 *v0.2.5版本*
 
-[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479?format=short?style=social?label=BiliBili)](https://www.bilibili.com/video/av636233915)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social)](https://www.youtube.com/watch?v=ITXjWSsmEmc)
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av636233915)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=ITXjWSsmEmc)
 
 *卡图反和谐补丁*
 
-[bilibili](https://www.bilibili.com/video/av765979539)   [![YouTube Video Views](https://img.shields.io/youtube/views/ickw082Snwo?style=social)](https://www.youtube.com/watch?v=ickw082Snwo)
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av765979539)   [![YouTube Video Views](https://img.shields.io/youtube/views/ickw082Snwo?style=social&label=YouTube)](https://www.youtube.com/watch?v=ickw082Snwo)
 
 <details>
    <summary>旧版演示</summary>
@@ -216,7 +216,9 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=725&snA=54550&tnum=1)
 * [Q群 710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
 * [Telegram](https://t.me/ygomasterduel)
-* [![Twitter Follow](https://img.shields.io/twitter/follow/Skywalker_Ji?style=social)](https://twitter.com/Skywalker_Ji)
+* [![Twitter Follow](https://img.shields.io/twitter/follow/Skywalker_Ji?style=social&label=Follow)](https://twitter.com/Skywalker_Ji)
+* [![Followers](https://bilistats.lonelyion.com/followers?uid=2012479&style=social&format=short&label=BiliBili%20关注)](https://space.bilibili.com/2012479)
+* [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC3kA_NGfQFHMMn-kja8GTFA?style=social)](https://www.youtube.com/channel/UC3kA_NGfQFHMMn-kja8GTFA?sub_confirmation=1)
 * 或其他途径。
 
 ## Changelog
