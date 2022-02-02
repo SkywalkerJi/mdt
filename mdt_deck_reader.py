@@ -1,7 +1,9 @@
 import pymem
 import json
 import i18n
+
 _ = i18n.t
+
 
 def pointer_to_address(process, base, offsets):
     offset_final = offsets.pop()
@@ -95,57 +97,57 @@ def get_deck_dict():
             "ex_cid_list": ex_cid_list,
         }
         return deck_dict
-    except Exception as e:
-        print(e)
+    except:  # Exception as e:
+        # print(e)
         return deck_dict
 
 
 def get_deck_string(locale: str):
-    db_name = "./locales/"+locale+"/cards.json"
+    db_name = "./locales/" + locale + "/cards.json"
     deck_string = ""
     try:
         cards_db = get_database(db_name)
         deck = get_deck_dict()
-    except Exception as e:
-        print(e)
+    except:  # Exception as e:
+        # print(e)
         deck_string += _("无法读取卡组信息")
         return deck_string
+    if "error" not in deck:
+        deck_string += f"----------------主卡组: {deck['ma_count']}----------------\n"
+        c = 0
+        for cid in deck["ma_cid_list"]:
+            c += 1
+            card_string = ""
+            try:
+                card_info = cards_db[str(cid)]
+            except:
+                card_string += "查无此卡"
 
-    deck_string += f"----------------主卡组: {deck['ma_count']}----------------\n"
-    c = 0
-    for cid in deck["ma_cid_list"]:
-        c += 1
-        card_string = ""
-        try:
-            card_info = cards_db[str(cid)]
-        except:
-            card_string += "查无此卡"
+            try:
+                card_string += f"{card_info['cn_name']}    "
+                card_string += f"{card_info['jp_name']}    "
+                card_string += f"{card_info['en_name']}"
+            except:
+                card_string += "    " + "该卡信息有缺失"
+            deck_string += f"{c:<2} {card_string}\n"
 
-        try:
-            card_string += f"{card_info['cn_name']}    "
-            card_string += f"{card_info['jp_name']}    "
-            card_string += f"{card_info['en_name']}"
-        except:
-            card_string += "    "+"该卡信息有缺失"
-        deck_string += f"{c:<2} {card_string}\n"
+        deck_string += f"----------------额外卡组: {deck['ex_count']}----------------\n"
+        c = 0
+        for cid in deck["ex_cid_list"]:
+            c += 1
+            card_string = ""
+            try:
+                card_info = cards_db[str(cid)]
+            except:
+                card_string += "查无此卡"
 
-    deck_string += f"----------------额外卡组: {deck['ex_count']}----------------\n"
-    c = 0
-    for cid in deck["ex_cid_list"]:
-        c += 1
-        card_string = ""
-        try:
-            card_info = cards_db[str(cid)]
-        except:
-            card_string += "查无此卡"
-
-        try:
-            card_string += f"{card_info['cn_name']}    "
-            card_string += f"{card_info['jp_name']}    "
-            card_string += f"{card_info['en_name']}"
-        except:
-            card_string += "    "+"该卡信息有缺失"
-        deck_string += f"{c:<2} {card_string}\n"
+            try:
+                card_string += f"{card_info['cn_name']}    "
+                card_string += f"{card_info['jp_name']}    "
+                card_string += f"{card_info['en_name']}"
+            except:
+                card_string += "    " + "该卡信息有缺失"
+            deck_string += f"{c:<2} {card_string}\n"
 
     return deck_string
 

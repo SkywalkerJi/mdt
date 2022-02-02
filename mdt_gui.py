@@ -517,7 +517,7 @@ def main():
                         [
                             [
                                 sg.Button(
-                                    _("保存卡组"),
+                                    _("导出卡组"),
                                     button_color=("white", "#238636"),
                                     border_width=1,
                                 )
@@ -592,7 +592,7 @@ def main():
                     set_ui_lock(settings_win, True)
                 else:
                     set_ui_lock(settings_win, False)
-            elif ev == _("保存卡组"):
+            elif ev == _("导出卡组"):
                 now = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))
                 deck = service.get_deck_dict()
                 deck_string = service.get_deck_string(locale)

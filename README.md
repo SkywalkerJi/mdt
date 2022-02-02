@@ -2,6 +2,10 @@
 
 Yu-Gi-Oh! Master Duel Translation Script
 
+[![GitHub forks](https://img.shields.io/github/forks/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/network)[![GitHub stars](https://img.shields.io/github/stars/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/stargazers)[![GitHub license](https://img.shields.io/github/license/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE)
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/SkywalkerJi/mdt)![GitHub all releases](https://img.shields.io/github/downloads/SkywalkerJi/mdt/total)![GitHub top language](https://img.shields.io/github/languages/top/SkywalkerJi/mdt)
+
 * 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay模式。
 * 高正确性，除非卡片数据本身有错。
 * 超快识别速度，低于0.000001s。
@@ -125,7 +129,7 @@ python mdt_cli.py
 
 *v0.2.5版本*
 
-[bilibili](https://www.bilibili.com/video/av636233915)   [Youtube](https://www.youtube.com/watch?v=ITXjWSsmEmc)
+[bilibili](https://www.bilibili.com/video/av636233915)   [Youtube](https://www.youtube.com/watch?v=ITXjWSsmEmc)![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social)
 
 *卡图反和谐补丁*
 
@@ -214,7 +218,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=725&snA=54550&tnum=1)
 * [Q群 710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
 * [Telegram](https://t.me/ygomasterduel)
-* [Twitter](https://twitter.com/Skywalker_Ji)
+* [Twitter](https://twitter.com/Skywalker_Ji)![Twitter Follow](https://img.shields.io/twitter/follow/Skywalker_Ji?style=social)
 * 或其他途径。
 
 ## Changelog
