@@ -25,9 +25,9 @@ oppo_addr = None
 sleep_time = 0.1
 show_all_info = 1
 cards_db = {}
-exit_hotkey="ctrl+q"
-pause_hotkey="ctrl+p"
-switch_hotkey="ctrl+s"
+exit_hotkey = "ctrl+q"
+pause_hotkey = "ctrl+p"
+switch_hotkey = "ctrl+s"
 
 
 def read_longlongs(pm, base, offsets):

@@ -32,7 +32,7 @@ locale = "zh-CN"
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
+    except Exception:
         return False
 
 
@@ -97,7 +97,7 @@ def config_load():
         x_len = int(config["x_len"])
         y_len = int(config["y_len"])
         locale = config["locale"]
-    except:
+    except Exception:
         pass
         # print(f"未找到{config_file}配置文件或配置文件格式有误。")
 
@@ -350,7 +350,7 @@ def main():
                 else:
                     window["-pdesc_frame-"].update(visible=False)
                 window["-desc-"].update(card_t["text"]["desc"])
-            except:
+            except Exception:
                 pass
                 # print("数据库中未查到该卡")
         if event in (sg.WIN_CLOSED, "Exit", _("关闭")):
@@ -614,14 +614,14 @@ def main():
                 web_search = vals["-web_search-"]
             # 置顶选项
             elif ev == "-keep_on_top-":
-                if vals["-keep_on_top-"] == True:
+                if vals["-keep_on_top-"]:
                     window.keep_on_top_set()
-                elif vals["-keep_on_top-"] == False:
+                elif not vals["-keep_on_top-"]:
                     window.keep_on_top_clear()
                 config_set("keep_on_top", str(int(vals["-keep_on_top-"])))
             # ui锁定
             elif ev == "-ui_lock-":
-                if vals["-ui_lock-"] == True:
+                if vals["-ui_lock-"]:
                     set_ui_lock(settings_win, True)
                 else:
                     set_ui_lock(settings_win, False)

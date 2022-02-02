@@ -22,8 +22,8 @@ oppo_addr = None
 sleep_time = 0.1
 cards_db_CN = {}
 cards_db_TW = {}
-pause_hotkey="ctrl+p"
-switch_hotkey="ctrl+s"
+pause_hotkey = "ctrl+p"
+switch_hotkey = "ctrl+s"
 
 
 def read_longlongs(pm, base, offsets):
@@ -45,14 +45,14 @@ def get_cid(type: int):
             )
             deck_cid = pm.read_int(deck_pointer_value)
             return deck_cid
-        except:
+        except Exception:
             return 0
     while type == 2:
         try:
             duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x0]) + 0x44
             duel_cid = pm.read_int(duel_pointer_value)
             return duel_cid
-        except:
+        except Exception:
             return 0
     while type == 3:
         try:
@@ -61,7 +61,7 @@ def get_cid(type: int):
             )
             oppo_cid = pm.read_int(oppo_pointer_value)
             return oppo_cid
-        except:
+        except Exception:
             return 0
 
 
@@ -81,7 +81,7 @@ def translate():
     if baseAddress is None:
         try:
             get_baseAddress()
-        except:
+        except Exception:
             return
     cid_deck = get_cid(1)
     cid_duel = get_cid(2)
@@ -135,7 +135,7 @@ def get_baseAddress():
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
+    except Exception:
         return False
 
 
@@ -161,26 +161,27 @@ def config_load():
         config = dict(config)
         pause_hotkey = config["pause_hotkey"]
         switch_hotkey = config["switch_hotkey"]
-    except:
+    except Exception:
         pass
     # 加载卡片文本
     try:
         with open("./locales/zh-CN/cards.json", "rb") as f:
             cards_db_CN = json.load(f)
-    except:
+    except Exception:
         pass
     try:
-        with open("./locales/zh-TW/cards.json", "rb") as f: 
+        with open("./locales/zh-TW/cards.json", "rb") as f:
             cards_db_TW = json.load(f)
-    except:
+    except Exception:
         pass
+
 
 def main():
     uac_reload()
     # 加载游戏
     try:
         get_baseAddress()
-    except:
+    except Exception:
         pass
     config_load()
     keyboard.add_hotkey(switch_hotkey, status_change, args=(True, False, False))

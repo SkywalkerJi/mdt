@@ -97,7 +97,7 @@ def get_deck_dict():
             "ex_cid_list": ex_cid_list,
         }
         return deck_dict
-    except:  # Exception as e:
+    except Exception:  # as e:
         # print(e)
         return deck_dict
 
@@ -108,7 +108,7 @@ def get_deck_string(locale: str):
     try:
         cards_db = get_database(db_name)
         deck = get_deck_dict()
-    except:  # Exception as e:
+    except Exception:  # Exception as e:
         # print(e)
         deck_string += _("无法读取卡组信息")
         return deck_string
@@ -120,14 +120,14 @@ def get_deck_string(locale: str):
             card_string = ""
             try:
                 card_info = cards_db[str(cid)]
-            except:
+            except Exception:
                 card_string += "查无此卡"
 
             try:
                 card_string += f"{card_info['cn_name']}    "
                 card_string += f"{card_info['jp_name']}    "
                 card_string += f"{card_info['en_name']}"
-            except:
+            except Exception:
                 card_string += "    " + "该卡信息有缺失"
             deck_string += f"{c:<2} {card_string}\n"
 
@@ -138,14 +138,14 @@ def get_deck_string(locale: str):
             card_string = ""
             try:
                 card_info = cards_db[str(cid)]
-            except:
+            except Exception:
                 card_string += "查无此卡"
 
             try:
                 card_string += f"{card_info['cn_name']}    "
                 card_string += f"{card_info['jp_name']}    "
                 card_string += f"{card_info['en_name']}"
-            except:
+            except Exception:
                 card_string += "    " + "该卡信息有缺失"
             deck_string += f"{c:<2} {card_string}\n"
 
