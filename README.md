@@ -20,11 +20,11 @@ Yu-Gi-Oh! Master Duel Translation Script
 
 ## Download
 
-你可以在[Releases](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的MDT版本。
+你可以在[![GitHub release (latest by date)](https://img.shields.io/github/v/release/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/releases/latest)下载预打包的MDT版本。
 
 如果是Windows7系统请下载后缀`_win7`的版本，如果想使用CLI请下载`_CLI`的版本。
 
-中国大陆用户可在[此处下载](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
+中国大陆用户可在[蓝奏云下载](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
 
 你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
 
@@ -103,10 +103,14 @@ locale = zh-CN
 ; zh-CN简体，zh-TW繁体
 borderless = 1
 ; 无边框 1开启 0取消
-show_names = 1
-; 英日文卡名卡密 1开启 0取消
 show_types = 1
 ; 卡片类型 1开启 0取消
+show_en_name = 1
+; 英文卡名 1开启 0取消
+show_jp_name = 1
+; 日文卡名 1开启 0取消
+show_card_id = 1
+; 卡密显示 1开启 0取消
 ```
 </details>
 
@@ -165,9 +169,9 @@ python mdt_cli.py
   
 确认你是从本页所列途径下载的版本那就是误报。
 
-源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。
+源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。MDT在GitHub统计已经超过6k download，有足够多的人进行了源代码审查，没有出现过安全问题。
 
-目前MDT以功能开发为主，不打算主动解决此问题，请直接添加信任。
+目前MDT以功能开发为主，现阶段对抗杀毒软件需要大量的精力而且毫无必要。因此不打算主动解决此问题，请直接添加信任。
 </details>
 
 <details>
@@ -175,13 +179,17 @@ python mdt_cli.py
 
 先确认你是从本页所列途径下载的版本。
 
-然后在你使用的杀毒软件以及Windows自带的安全系统里添加信任。
+然后在你使用的杀毒软件以及Windows自带的安全系统里添加信任。参见Q1。
+
+不同的杀毒软件的安全策略不同，给出的隔离清除方式也不同，因此会导致各种奇怪的问题无法一一叙述。如果尝试后依然无法解决，请提交[issue](https://github.com/SkywalkerJi/mdt/issues/new)。
 </details>
 
 <details>
    <summary>Q3：是否可以排位？是否会封号？</summary>
 
 不会。我第一赛季是白金1结算。
+
+MDT以玩家数据安全为己任，不会在有风险情况下进行检测，目前Master duel游戏无法侦察MDT的读取行为，不需要担心。未来有机会可以加入CV引擎进行辅助，目前来说没有必要。
 
 另外这个游戏没有反作弊，从经济角度考虑一个99%依赖服务端的游戏根本必要进行检测，参考游戏王duel link。
 
@@ -200,6 +208,8 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 请遵循[GPLv3协议](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE)。
 
 如果你参与我们的社区，请遵循[贡献者契约行为准则](https://github.com/SkywalkerJi/mdt/blob/master/CODE_OF_CONDUCT.md)。
+
+如果你喜欢MDT，请分享给你的朋友。
 
 </details>
 
@@ -222,6 +232,12 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * 或其他途径。
 
 ## Changelog
+
+*v0.2.6*
+* 修复点击关闭后进程未结束的问题。
+* 修复不在deck界面时选择导出卡组会发生崩溃的bug。
+* 现在可以单独勾选英、日文卡名、卡密显示。
+* 修改文本“保存卡组”为“导出卡组”，避免混淆。
 
 *v0.2.5*
 * 支持masterduel卡组一键导出！由 @zealyahweh 贡献。可同时生成ygopro卡组`.ydk`格式和文本格式。

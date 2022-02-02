@@ -15,7 +15,9 @@ keep_on_top = True
 ui_lock = False
 cfg = configparser.ConfigParser()
 sync_ui = 0
-show_names = True
+show_en_name = True
+show_jp_name = True
+show_card_id = True
 show_types = True
 borderless = True
 web_search = True
@@ -50,7 +52,9 @@ def set_ui_lock(window, bool):
     window["-keep_on_top-"].update(disabled=bool)
     window["-window_alpha-"].update(disabled=bool)
     window["-font_size-"].update(disabled=bool)
-    window["-show_names-"].update(disabled=bool)
+    window["-show_en_name-"].update(disabled=bool)
+    window["-show_card_id-"].update(disabled=bool)
+    window["-show_jp_name-"].update(disabled=bool)
     window["-show_types-"].update(disabled=bool)
     window["-borderless-"].update(disabled=bool)
     window["-web_search-"].update(disabled=bool)
@@ -63,7 +67,9 @@ def config_load():
     global keep_on_top
     global borderless
     global ui_lock
-    global show_names
+    global show_en_name
+    global show_card_id
+    global show_jp_name
     global show_types
     global web_search
     global x_loc
@@ -81,7 +87,9 @@ def config_load():
         keep_on_top = bool(int(config["keep_on_top"]))
         ui_lock = bool(int(config["ui_lock"]))
         borderless = bool(int(config["borderless"]))
-        show_names = bool(int(config["show_names"]))
+        show_en_name = bool(int(config["show_en_name"]))
+        show_jp_name = bool(int(config["show_jp_name"]))
+        show_card_id = bool(int(config["show_card_id"]))
         show_types = bool(int(config["show_types"]))
         web_search = bool(int(config["web_search"]))
         x_loc = int(config["x_loc"])
@@ -231,7 +239,7 @@ def main():
                         ],
                     ],
                     title_color="#61E7DC",
-                    visible=show_names,
+                    visible=show_en_name,
                     key="-en_name_frame-",
                     tooltip=_("右键选择更多功能"),
                 ),
@@ -252,7 +260,7 @@ def main():
                         ],
                     ],
                     title_color="#61E7DC",
-                    visible=show_names,
+                    visible=show_jp_name,
                     key="-jp_name_frame-",
                     tooltip=_("右键选择更多功能"),
                 ),
@@ -273,7 +281,7 @@ def main():
                         ],
                     ],
                     title_color="#61E7DC",
-                    visible=show_names,
+                    visible=show_card_id,
                     key="-id_frame-",
                     tooltip=_("右键选择更多功能"),
                 ),
@@ -297,7 +305,7 @@ def main():
     ]
     layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.5 @SkywalkerJi GPLv3",
+        "MDT v0.2.6 @SkywalkerJi GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -346,6 +354,7 @@ def main():
                 pass
                 # print("数据库中未查到该卡")
         if event in (sg.WIN_CLOSED, "Exit", _("关闭")):
+            service.exit()
             break
         elif event in text_keys:
             pyperclip.copy(window[event].get())
@@ -391,7 +400,9 @@ def main():
             config_set("keep_on_top", "1")
             config_set("font_size", "12")
             config_set("window_alpha", "0.96")
-            config_set("show_names", "1")
+            config_set("show_en_name", "1")
+            config_set("show_jp_name", "1")
+            config_set("show_card_id", "1")
             config_set("show_types", "1")
             config_set("web_search", "1")
             # 只恢复窗口UI，不恢复窗口属性
@@ -471,8 +482,22 @@ def main():
                 ],
                 [
                     sg.Checkbox(
-                        key="-show_names-",
-                        text=_("原始卡名"),
+                        key="-show_en_name-",
+                        text=_("显示英文名"),
+                        enable_events=True,
+                    )
+                ],
+                [
+                    sg.Checkbox(
+                        key="-show_jp_name-",
+                        text=_("显示日文名"),
+                        enable_events=True,
+                    )
+                ],
+                [
+                    sg.Checkbox(
+                        key="-show_card_id-",
+                        text=_("显示卡密"),
                         enable_events=True,
                     )
                 ],
@@ -543,7 +568,9 @@ def main():
                 settings_win["-font_size-"].update(value=font_size)
                 settings_win["-ui_lock-"].update(value=ui_lock)
                 settings_win["-borderless-"].update(value=borderless)
-                settings_win["-show_names-"].update(value=show_names)
+                settings_win["-show_en_name-"].update(value=show_en_name)
+                settings_win["-show_jp_name-"].update(value=show_jp_name)
+                settings_win["-show_card_id-"].update(value=show_card_id)
                 settings_win["-show_types-"].update(value=show_types)
                 settings_win["-web_search-"].update(value=web_search)
                 set_ui_lock(settings_win, ui_lock)
@@ -563,11 +590,17 @@ def main():
                     )
                 config_set("font_size", str(int(vals["-font_size-"])))
             # 显示额外卡名
-            elif ev == "-show_names-":
-                window["-en_name_frame-"].update(visible=vals["-show_names-"])
-                window["-jp_name_frame-"].update(visible=vals["-show_names-"])
-                window["-id_frame-"].update(visible=vals["-show_names-"])
-                config_set("show_names", str(int(vals["-show_names-"])))
+            elif ev == "-show_en_name-":
+                window["-en_name_frame-"].update(visible=vals["-show_en_name-"])
+                config_set("show_en_name", str(int(vals["-show_en_name-"])))
+            # 显示类型
+            elif ev == "-show_jp_name-":
+                window["-jp_name_frame-"].update(visible=vals["-show_jp_name-"])
+                config_set("show_jp_name", str(int(vals["-show_jp_name-"])))
+            # 显示类型
+            elif ev == "-show_card_id-":
+                window["-id_frame-"].update(visible=vals["-show_card_id-"])
+                config_set("show_card_id", str(int(vals["-show_card_id-"])))
             # 显示类型
             elif ev == "-show_types-":
                 window["-types_frame-"].update(visible=vals["-show_types-"])
@@ -597,18 +630,21 @@ def main():
                 deck = service.get_deck_dict()
                 deck_string = service.get_deck_string(locale)
                 ydk = "#created by MDT https://github.com/SkywalkerJi/mdt \n#main\n"
-                for cid in deck["ma_cid_list"]:
-                    ydk += f"{cards_db[str(cid)]['id']}\n"
-                ydk += "#extra\n"
-                for cid in deck["ex_cid_list"]:
-                    ydk += f"{cards_db[str(cid)]['id']}\n"
-                with open(_("ygopro卡组") + now + ".ydk", "w", encoding="utf8") as f:
-                    f.write(ydk)
-                    f.close()
-                with open(_("卡组文本") + now + ".txt", "w", encoding="utf8") as f:
-                    f.write("#created by MDT https://github.com/SkywalkerJi/mdt \n"+deck_string)
-                    f.close()
-    service.exit()
+                if "error" not in deck:
+                    for cid in deck["ma_cid_list"]:
+                        ydk += f"{cards_db[str(cid)]['id']}\n"
+                    ydk += "#extra\n"
+                    for cid in deck["ex_cid_list"]:
+                        ydk += f"{cards_db[str(cid)]['id']}\n"
+                    with open(_("ygopro卡组") + now + ".ydk", "w", encoding="utf8") as f:
+                        f.write(ydk)
+                        f.close()
+                    with open(_("卡组文本") + now + ".txt", "w", encoding="utf8") as f:
+                        f.write(
+                            "#created by MDT https://github.com/SkywalkerJi/mdt \n"
+                            + deck_string
+                        )
+                        f.close()
     window.close()
 
 
