@@ -573,6 +573,7 @@ def main():
                 settings_win["-show_card_id-"].update(value=show_card_id)
                 settings_win["-show_types-"].update(value=show_types)
                 settings_win["-web_search-"].update(value=web_search)
+                print(web_search)
                 set_ui_lock(settings_win, ui_lock)
                 sync_ui = 1
             if ev == sg.WIN_CLOSED or ev == _("关闭"):
@@ -612,6 +613,7 @@ def main():
             # 网页卡查
             elif ev == "-web_search-":
                 web_search = vals["-web_search-"]
+                config_set("web_search", str(int(vals["-web_search-"])))
             # 置顶选项
             elif ev == "-keep_on_top-":
                 if vals["-keep_on_top-"]:
