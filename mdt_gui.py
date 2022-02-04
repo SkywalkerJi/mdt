@@ -1,4 +1,5 @@
-import ctypes, sys
+import ctypes
+import sys
 import PySimpleGUI as sg
 import mdt_service as service
 import pyperclip

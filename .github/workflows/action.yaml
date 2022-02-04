@@ -1,0 +1,29 @@
+name: GitHub Actions Build and Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+        with:
+          persist-credentials: false
+
+      - name: Install and Build 🔧
+        run: |
+          cd ./web
+          npm ci
+          npx patch-package
+          npm run build
+          mv ./web/dist $GITHUB_WORKSPACE
+          
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
+          CLEAN: true

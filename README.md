@@ -169,7 +169,7 @@ python mdt_cli.py
   
 确认你是从本页所列途径下载的版本那就是误报。
 
-源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。MDT在GitHub统计已经超过6k download，有足够多的人进行了源代码审查，没有出现过安全问题。
+源代码是公开的，不可能加入病毒，如果实在不放心可以直接执行源代码。MDT在GitHub统计已经[![GitHub all releases](https://img.shields.io/github/downloads/SkywalkerJi/mdt/total)](https://github.com/SkywalkerJi/mdt#download)，有足够多的人进行了源代码审查，没有出现过安全问题。
 
 目前MDT以功能开发为主，现阶段对抗杀毒软件需要大量的精力而且毫无必要。因此不打算主动解决此问题，请直接添加信任。
 </details>
@@ -235,6 +235,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 *v0.2.7*
 * 修复网页卡查设置不保存的bug。
+* 优化繁中翻译。
 
 *v0.2.6*
 * 修复点击关闭后进程未结束的bug。

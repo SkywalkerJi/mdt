@@ -4,7 +4,8 @@ import keyboard
 import time
 import json
 import configparser
-import ctypes, sys
+import ctypes
+import sys
 
 config_file = "config.ini"
 cid_temp = 0
