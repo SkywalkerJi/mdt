@@ -18,7 +18,7 @@ jobs:
           npm ci
           npx patch-package
           npm run build
-          mv ./web/dist $GITHUB_WORKSPACE
+          mv ./dist $GITHUB_WORKSPACE
           
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.3
