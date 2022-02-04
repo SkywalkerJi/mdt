@@ -1,7 +1,0 @@
-pyinstaller
-pymem
-keyboard
-pywin32
-PySimpleGUI
-pyperclip
-python-i18n
