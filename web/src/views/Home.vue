@@ -157,7 +157,7 @@ export default {
       return (
         "https://cdn.233.momobako.com/ygopro/pics/" +
         id.toString() +
-        ".jpg!half"
+        ".jpg!thumb2"
       );
     },
     onSingleCellClick(e) {
