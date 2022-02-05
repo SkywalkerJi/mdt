@@ -42,8 +42,9 @@ Yu-Gi-Oh! Master Duel Translation Script
 4. 右键可打开更多功能。繁体中文用户右键切换语言。
 
 **使用网页工具[MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)**
-1.打开[MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)
-2.目前可模糊检索全部154个Secret Pack包内容。同样支持一键卡查，一键复制。
+
+1. 打开[MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)
+2. 目前可模糊检索全部154个Secret Pack包内容。同样支持一键卡查，一键复制。
 
 **使用预打包的CLI版本**
 
@@ -137,6 +138,11 @@ python mdt_cli.py
 *v0.2.5版本*
 
 [![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av636233915)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=ITXjWSsmEmc)
+
+
+*MDT-web*
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av551332211)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=AnzWFG2RZr0)
+
 
 *卡图反和谐补丁*
 
