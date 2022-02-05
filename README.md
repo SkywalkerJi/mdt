@@ -26,9 +26,9 @@ Yu-Gi-Oh! Master Duel Translation Script
 
 中国大陆用户可在[蓝奏云下载](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
 
-你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
+你可以通过[YGO.御坂美琴.CN](https://ygo.xn--uesr8qr0rdwk.cn/)访问MDT网页工具。
 
-你可以通过[YGO.御坂美琴.CN](https://ygo.xn--uesr8qr0rdwk.cn/)访问MDT网站。
+你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
 
 ## Usage
 
@@ -141,7 +141,8 @@ python mdt_cli.py
 
 
 *MDT-web*
-[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av551332211)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=AnzWFG2RZr0)
+
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av551332211)  [![YouTube Video Views](https://img.shields.io/youtube/views/AnzWFG2RZr0?style=social&label=YouTube)](https://www.youtube.com/watch?v=AnzWFG2RZr0)
 
 
 *卡图反和谐补丁*
