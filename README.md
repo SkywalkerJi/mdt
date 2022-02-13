@@ -28,7 +28,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 
 你可以通过[YGO.御坂美琴.CN](https://ygo.xn--uesr8qr0rdwk.cn/)访问MDT网页工具。
 
-你还可以在[Uncensor Patch](https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch)下载反和谐卡图补丁。
+你还可以在[Uncensored GFX](https://www.nexusmods.com/yugiohmasterduel/mods/1)下载反和谐卡图补丁。
 
 ## Usage
 
@@ -245,19 +245,23 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Changelog
 
+*v0.2.8*
+* 添加反和谐补丁mod发布地址。
+* 调整卡片类型显示位置。
+
 *v0.2.7*
 * 修复网页卡查设置不保存的bug。
 * 优化繁中翻译。
 * 增加一个[Secret Pack查询工具](https://ygo.xn--uesr8qr0rdwk.cn/)。
+
+<details>
+   <summary>展开过往版本</summary>
 
 *v0.2.6*
 * 修复点击关闭后进程未结束的bug。
 * 修复不在deck界面时点击导出卡组会发生崩溃的bug。
 * 现在可以单独勾选英、日文卡名、卡密显示。
 * 修改文本“保存卡组”为“导出卡组”，避免混淆。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.5*
 * 支持masterduel卡组一键导出！由 @zealyahweh 贡献。可同时生成ygopro卡组`.ydk`格式和文本格式。
@@ -360,7 +364,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Related Efforts
 
-* [Yu-Gi-Oh! Master Duel - Uncensor Patch](https://www.youtube.com/watch?v=hXGVXXHT6us) 反和谐卡图替换补丁
+* [Uncensored GFX](https://www.nexusmods.com/yugiohmasterduel/mods/1) 反和谐卡图替换补丁
 * [MasterDuelSimpleTranslateTool](https://github.com/PatchouliTC/MasterDuelSimpleTranslateTool) 基于图像指纹识别的翻译工具，提供了本项目的CLI版本UI基础。
 
 ## License

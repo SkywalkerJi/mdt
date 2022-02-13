@@ -160,6 +160,27 @@ def main():
         [
             sg.pin(
                 sg.Frame(
+                    _("类型"),
+                    [
+                        [
+                            sg.T(
+                                key="-types-",
+                                enable_events=True,
+                                s=(40, 2),
+                            )
+                        ],
+                    ],
+                    title_color="#61E7DC",
+                    visible=show_types,
+                    key="-types_frame-",
+                    tooltip=_("右键选择更多功能"),
+                ),
+                expand_x=True,
+            )
+        ],
+        [
+            sg.pin(
+                sg.Frame(
                     _("灵摆"),
                     [
                         [
@@ -203,27 +224,6 @@ def main():
                 expand_x=True,
                 expand_y=True,
                 tooltip=_("右键选择更多功能"),
-            )
-        ],
-        [
-            sg.pin(
-                sg.Frame(
-                    _("类型"),
-                    [
-                        [
-                            sg.T(
-                                key="-types-",
-                                enable_events=True,
-                                s=(40, 2),
-                            )
-                        ],
-                    ],
-                    title_color="#61E7DC",
-                    visible=show_types,
-                    key="-types_frame-",
-                    tooltip=_("右键选择更多功能"),
-                ),
-                expand_x=True,
             )
         ],
         [
@@ -306,7 +306,7 @@ def main():
     ]
     layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.6 @SkywalkerJi GPLv3",
+        "MDT v0.2.8 GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -423,7 +423,7 @@ def main():
             webbrowser.open("https://github.com/SkywalkerJi/mdt/releases/latest")
         elif event == _("反和谐补丁"):
             webbrowser.open(
-                "https://github.com/SkywalkerJi/mdt/releases/tag/v1.0.1-UncensorPatch"
+                "https://www.nexusmods.com/yugiohmasterduel/mods/1"
             )
         elif event == _("联系开发者"):
             webbrowser.open("https://github.com/SkywalkerJi/mdt#contact-us")

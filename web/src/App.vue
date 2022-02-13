@@ -60,6 +60,7 @@ export default {
     drawer: false,
     items: [
       { title: "Secret Pack", icon: "mdi-card-search-outline", to: "/" },
+      //{ title: "Convert", icon: "mdi-swap-horizontal", to: "/convert" },
       // { title: "关于", icon: "mdi-information-variant", to: "/about" },
     ],
   }),

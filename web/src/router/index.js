@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Convert from "../views/Convert.vue";
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,11 @@ const routes = [
     path: "/",
     name: "Secret Pack",
     component: Home,
+  },
+  {
+    path: "/convert",
+    name: "Convert",
+    component: Convert,
   },
   {
     path: "/about",

@@ -98,11 +98,6 @@ export default {
           sortable: true,
           value: "sp_id",
         },
-        // {
-        //   text: "卡图",
-        //   sortable: false,
-        //   value: "img",
-        // },
         { text: "封面卡片", value: "sp_cn" },
         { text: "卡包英文名", value: "sp_en" },
         { text: "卡包日文名", value: "sp_jp" },
