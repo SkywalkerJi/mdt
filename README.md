@@ -249,13 +249,13 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * 添加反和谐补丁mod发布地址。
 * 调整卡片类型显示位置。
 
+<details>
+   <summary>展开过往版本</summary>
+
 *v0.2.7*
 * 修复网页卡查设置不保存的bug。
 * 优化繁中翻译。
 * 增加一个[Secret Pack查询工具](https://ygo.xn--uesr8qr0rdwk.cn/)。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.6*
 * 修复点击关闭后进程未结束的bug。
