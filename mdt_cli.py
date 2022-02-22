@@ -6,7 +6,8 @@ import json
 import win32gui
 import win32con
 import configparser
-import ctypes, sys
+import ctypes
+import sys
 from click import clear
 
 config_file = "config.ini"
@@ -49,14 +50,14 @@ def get_cid(type: int):
             )
             deck_cid = pm.read_int(deck_pointer_value)
             return deck_cid
-        except:
+        except Exception:
             return 0
     while type == 2:
         try:
-            duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x0]) + 0x44
+            duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x10]) + 0x44
             duel_cid = pm.read_int(duel_pointer_value)
             return duel_cid
-        except:
+        except Exception:
             return 0
     while type == 3:
         try:
@@ -65,7 +66,7 @@ def get_cid(type: int):
             )
             oppo_cid = pm.read_int(oppo_pointer_value)
             return oppo_cid
-        except:
+        except Exception:
             return 0
 
 
@@ -86,7 +87,7 @@ def translate():
     if baseAddress is None:
         try:
             get_baseAddress()
-        except:
+        except Exception:
             print("游戏未找到，请打开游戏")
             return
     cid_deck = get_cid(1)
@@ -135,12 +136,12 @@ def print_card(cid: int):
                     print(
                         f"英文名:{card_t['en_name']}\n日文名:{card_t['jp_name']})\n{card_t['text']['types']}"
                     )
-                except:
+                except Exception:
                     print(f"cid:{cid}卡信息有误，请提交issue。\n")
             if card_t["text"]["pdesc"]:
                 print(f"灵摆效果:{card_t['text']['pdesc']}\n")
             print(f"{card_t['text']['desc']}\n")
-        except:
+        except Exception:
             print(f"数据库中未查到该卡,cid:{cid}，如果是新卡请提交issue。如果是token衍生物请忽略。")
     else:
         return 0
@@ -183,16 +184,16 @@ def get_baseAddress():
     ).lpBaseOfDll
     print("成功找到模块")
     # deck 组卡界面 duel 决斗界面 oppo 回放
-    deck_addr = baseAddress + int("0x01CCD278", base=16)
-    duel_addr = baseAddress + int("0x01cb2b90", base=16)
-    oppo_addr = baseAddress + int("0x01CCD278", base=16)
+    deck_addr = baseAddress + int("0x01CCE3C0", base=16)
+    duel_addr = baseAddress + int("0x01BD3FD8", base=16)
+    oppo_addr = baseAddress + int("0x01CCE3C0", base=16)
 
 
 # UAC判断
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
+    except Exception:
         return False
 
 
@@ -221,7 +222,7 @@ def config_load():
         exit_hotkey = config["exit_hotkey"]
         switch_hotkey = config["switch_hotkey"]
         show_all_info = int(config["show_all_info"])
-    except:
+    except Exception:
         print(f"未找到{config_file}配置文件或配置文件格式有误。")
     # cli置顶功能
     if (config["window_on_top"] == "1") and config["lp_window_name"]:
@@ -237,7 +238,7 @@ def config_load():
                 0,
             )
             print(f"CLI窗口置顶成功,如需调整默认位置大小，可配置{config_file}")
-        except:
+        except Exception:
             print(
                 f"CLI置顶失败,目前配置中窗口名为：{config['lp_window_name']}。请在{config_file}配置文件中更改lp_window_name与CLI窗口名一致，一般等于mdt.exe路径。"
             )
@@ -249,8 +250,8 @@ def config_load():
     try:
         with open("./locales/zh-CN/cards.json", "rb") as f:
             cards_db = json.load(f)
-    except:
-        print(f"未找到cards_db.json,请下载后放在/locales/zh-CN/下")
+    except Exception:
+        print("未找到cards_db.json,请下载后放在/locales/zh-CN/下")
 
 
 def main():
@@ -258,7 +259,7 @@ def main():
     # 加载游戏
     try:
         get_baseAddress()
-    except:
+    except Exception:
         print("未找到地址，可能是游戏未启动 或 没有使用管理员权限运行MDT")
     config_load()
     keyboard.add_hotkey(switch_hotkey, status_change, args=(True, False, False))
