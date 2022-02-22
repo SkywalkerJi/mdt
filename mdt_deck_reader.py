@@ -56,13 +56,13 @@ def get_database(path):
 def get_deck_dict():
     main_name = "masterduel.exe"
     module_name = "GameAssembly.dll"
-    ma_count_static = 0x01CCD278
+    ma_count_static = 0x01CCE3C0
     ma_count_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x90, 0x18]
-    ex_count_static = 0x01CCD278
+    ex_count_static = 0x01CCE3C0
     ex_count_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x98, 0x18]
-    ma_cards_static = 0x01CCD278
+    ma_cards_static = 0x01CCE3C0
     ma_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x90, 0x10, 0x20]
-    ex_cards_static = 0x01CCD278
+    ex_cards_static = 0x01CCE3C0
     ex_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C0, 0x98, 0x10, 0x20]
     deck_dict = {"error": _("无法读取卡组信息")}
     try:
