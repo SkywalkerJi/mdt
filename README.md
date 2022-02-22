@@ -135,10 +135,9 @@ python mdt_cli.py
 
 **视频演示**
 
-*v0.2.5版本*
+*v0.2.9版本*
 
-[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av636233915)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=ITXjWSsmEmc)
-
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av809137781)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=uyDORr6GIbM)
 
 *MDT-web*
 
@@ -151,6 +150,10 @@ python mdt_cli.py
 
 <details>
    <summary>旧版演示</summary>
+
+*v0.2.5版本*
+
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av636233915)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=ITXjWSsmEmc)
 
 *v0.2.3版本*
 
