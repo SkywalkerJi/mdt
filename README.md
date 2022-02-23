@@ -230,7 +230,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Contributing
 
-有其他指针或功能欢迎提交 [issue](https://github.com/SkywalkerJi/mdt/issues/new) 或 Pull Request。
+有其他指正或功能欢迎提交 [issue](https://github.com/SkywalkerJi/mdt/issues/new) 或 Pull Request。
 
 ## Contact us
 
