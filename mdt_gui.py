@@ -20,8 +20,9 @@ show_en_name = True
 show_jp_name = True
 show_card_id = True
 show_types = True
-borderless = True
+borderless = False
 web_search = True
+no_scrollbar = True
 x_loc = 960
 y_loc = 540
 x_len = 400
@@ -58,6 +59,7 @@ def set_ui_lock(window, bool):
     window["-show_jp_name-"].update(disabled=bool)
     window["-show_types-"].update(disabled=bool)
     window["-borderless-"].update(disabled=bool)
+    window["-no_scrollbar-"].update(disabled=bool)
     window["-web_search-"].update(disabled=bool)
     config_set("ui_lock", str(int(bool)))
 
@@ -67,6 +69,7 @@ def config_load():
     global window_alpha
     global keep_on_top
     global borderless
+    global no_scrollbar
     global ui_lock
     global show_en_name
     global show_card_id
@@ -88,6 +91,7 @@ def config_load():
         keep_on_top = bool(int(config["keep_on_top"]))
         ui_lock = bool(int(config["ui_lock"]))
         borderless = bool(int(config["borderless"]))
+        no_scrollbar = bool(int(config["no_scrollbar"]))
         show_en_name = bool(int(config["show_en_name"]))
         show_jp_name = bool(int(config["show_jp_name"]))
         show_card_id = bool(int(config["show_card_id"]))
@@ -192,6 +196,7 @@ def main():
                                 write_only=True,
                                 auto_refresh=True,
                                 rstrip=True,
+                                no_scrollbar=no_scrollbar,
                             )
                         ],
                     ],
@@ -217,6 +222,7 @@ def main():
                             rstrip=True,
                             expand_x=True,
                             expand_y=True,
+                            no_scrollbar=no_scrollbar,
                         )
                     ]
                 ],
@@ -307,7 +313,7 @@ def main():
     ]
     layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.9 GPLv3",
+        "MDT v0.2.10 GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -407,6 +413,7 @@ def main():
             config_set("show_card_id", "1")
             config_set("show_types", "1")
             config_set("web_search", "1")
+            config_set("no_scrollbar", "1")
             # 只恢复窗口UI，不恢复窗口属性
             # config_set("x_loc", "960")
             # config_set("y_loc", "540")
@@ -423,9 +430,7 @@ def main():
         elif event == _("检查更新"):
             webbrowser.open("https://github.com/SkywalkerJi/mdt/releases/latest")
         elif event == _("反和谐补丁"):
-            webbrowser.open(
-                "https://www.nexusmods.com/yugiohmasterduel/mods/1"
-            )
+            webbrowser.open("https://www.nexusmods.com/yugiohmasterduel/mods/1")
         elif event == _("卡包查询"):
             webbrowser.open("https://ygo.xn--uesr8qr0rdwk.cn/")
         elif event == _("联系开发者"):
@@ -514,6 +519,13 @@ def main():
                 ],
                 [
                     sg.Checkbox(
+                        key="-no_scrollbar-",
+                        text=_("隐藏滚动条"),
+                        enable_events=True,
+                    )
+                ],
+                [
+                    sg.Checkbox(
                         key="-ui_lock-",
                         text=_("界面锁定"),
                         enable_events=True,
@@ -572,6 +584,7 @@ def main():
                 settings_win["-font_size-"].update(value=font_size)
                 settings_win["-ui_lock-"].update(value=ui_lock)
                 settings_win["-borderless-"].update(value=borderless)
+                settings_win["-no_scrollbar-"].update(value=no_scrollbar)
                 settings_win["-show_en_name-"].update(value=show_en_name)
                 settings_win["-show_jp_name-"].update(value=show_jp_name)
                 settings_win["-show_card_id-"].update(value=show_card_id)
@@ -612,6 +625,9 @@ def main():
             # 无边框
             elif ev == "-borderless-":
                 config_set("borderless", str(int(vals["-borderless-"])))
+                restart()
+            elif ev == "-no_scrollbar-":
+                config_set("no_scrollbar", str(int(vals["-no_scrollbar-"])))
                 restart()
             # 网页卡查
             elif ev == "-web_search-":
