@@ -40,6 +40,22 @@ def get_cards_db(locale: str):
             return None
 
 
+def get_card_tier(cid: str):
+    if mdt.card_tier_list:
+        if cid in mdt.card_tier_list:
+            return mdt.card_tier_list[cid]["tier"]
+    else:
+        return None
+
+
+def get_break_point(cid: str):
+    if mdt.break_point:
+        if cid in mdt.break_point:
+            return mdt.break_point[cid]["tier"]
+    else:
+        return None
+
+
 def get_deck_dict():
     return reader.get_deck_dict()
 

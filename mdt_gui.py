@@ -117,6 +117,26 @@ def i18n_set(locale: str):
     i18n.set("locale", locale)
 
 
+def show_card_tier(window, cid):
+    tier = service.get_card_tier(str(cid))
+    if tier:
+        if tier == 1:
+            window["-id-"].update(text_color="#FF6666")
+        if tier == 2:
+            window["-id-"].update(text_color="#99CC66")
+    else:
+        window["-id-"].update(text_color="white")
+
+
+def show_break_point(window, cid):
+    tier = service.get_break_point(str(cid))
+    print(tier)
+    if tier == 99:
+        window["-id-"].update(background_color="#FF9933")
+    else:
+        window["-id-"].update(background_color="#3F3F3F")
+
+
 def main():
     global sync_ui
     global web_search
@@ -358,6 +378,8 @@ def main():
                 else:
                     window["-pdesc_frame-"].update(visible=False)
                 window["-desc-"].update(card_t["text"]["desc"])
+                show_card_tier(window, cid)
+                show_break_point(window, cid)
             except Exception:
                 pass
                 # print("数据库中未查到该卡")

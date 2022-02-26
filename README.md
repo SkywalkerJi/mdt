@@ -15,6 +15,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 一键导出Master Duel游戏卡组，兼容ygopro格式。
 * 可一键直达网页卡查和官方数据库，MDT也有目前最好的 [Secret Pack查询工具](https://ygo.xn--uesr8qr0rdwk.cn/)。
 * 支持全屏置顶、无边框、半透明。
+* 支持对重要UR，主流断点进行警示。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.5.png "MDT v0.2.5")
 
@@ -145,7 +146,6 @@ python mdt_cli.py
 
 [![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av551332211)  [![YouTube Video Views](https://img.shields.io/youtube/views/AnzWFG2RZr0?style=social&label=YouTube)](https://www.youtube.com/watch?v=AnzWFG2RZr0)
 
-
 *卡图反和谐补丁*
 
 [![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av765979539)   [![YouTube Video Views](https://img.shields.io/youtube/views/ickw082Snwo?style=social&label=YouTube)](https://www.youtube.com/watch?v=ickw082Snwo)
@@ -230,6 +230,30 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 </details>
 
+<details>
+   <summary>Q6：以前能使用，现在无法使用？切换不同账号后无法使用？我确定开启条件正确，但是一直显示“等待检测”？</summary>
+
+先在游戏的开始页面（game start 那个页面），确认左上角的游戏版本号和readme中支持的游戏版本号一致。如果不一致请更新MDT或更新游戏。
+
+确认其他条件正确，比如：使用管理员权限开启，已经完整解压全部文件，右键exe属性中解除锁定，在安全软件中添加信任，点击一张卡等。
+
+如果条件都正确，请尝试更改steam存档缓存文件后缀。一般在游戏安装位置，目录地址类似`SteamLibrary\steamapps\common\Yu-Gi-Oh! Master Duel\LocalData`。里面有一个形如`93b16f2`的文件夹。先备份一下，然后在这个文件夹后面加几个1，`93b16f21111111111111111`。再开游戏和mdt试一下。
+
+</details>
+
+<details>
+   <summary>Q6：MDT为何不支持抽卡界面汉化？</summary>
+
+目前对抽卡界面进行汉化需要对游戏进行注入，操作风险较高。所以还在考虑当中。
+
+还有一种办法是引入CV引擎进行匹配，侵入性小，但是会消耗部分性能。
+
+另外商店卡片是固定的，卡表可以在[MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)查询。
+
+如果你有更好的实现方式欢迎[issue](https://github.com/SkywalkerJi/mdt/issues/new)或 Pull Request。
+
+</details>
+
 ## Contributing
 
 有其他指针或功能欢迎提交 [issue](https://github.com/SkywalkerJi/mdt/issues/new) 或 Pull Request。
@@ -239,19 +263,22 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 如果你有错误报告、建议、想法，请随时通过以下方式联系开发者：
 
 * [issue](https://github.com/SkywalkerJi/mdt/issues/new)
+* [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC3kA_NGfQFHMMn-kja8GTFA?style=social)](https://www.youtube.com/channel/UC3kA_NGfQFHMMn-kja8GTFA?sub_confirmation=1)
+* [Telegram](https://t.me/ygomasterduel)
+* [![Twitter Follow](https://img.shields.io/twitter/follow/Skywalker_Ji?style=social&label=Follow)](https://twitter.com/Skywalker_Ji)
 * [NGA](https://bbs.nga.cn/read.php?tid=30415633)
 * [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=725&snA=54550&tnum=1)
 * [Q群 710144213](https://jq.qq.com/?_wv=1027&k=uyFt3qi0)
-* [Telegram](https://t.me/ygomasterduel)
-* [![Twitter Follow](https://img.shields.io/twitter/follow/Skywalker_Ji?style=social&label=Follow)](https://twitter.com/Skywalker_Ji)
 * [![Followers](https://bilistats.lonelyion.com/followers?uid=2012479&style=social&format=short&label=BiliBili%20关注)](https://space.bilibili.com/2012479)
-* [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC3kA_NGfQFHMMn-kja8GTFA?style=social)](https://www.youtube.com/channel/UC3kA_NGfQFHMMn-kja8GTFA?sub_confirmation=1)
 * 或其他途径。
 
 ## Changelog
 
 *v0.2.10*
 * 支持配置隐藏滚动条。
+* 添加重要UR提示，数据基于NTUCGM。重要UR的卡密颜色会变更：红色为可以定义环境的强力卡片，是T1主流套牌的核心部件，不建议分解。绿色为部分卡组的构筑主力，如果要分解请务必确认。白色为普通UR，可考虑分解。
+* 添加主流卡组断点提示。主流卡组核心断点会进行警告，卡密背景底色变为橙色。目前支持：黄金国，龙辉巧，闪刀姬，幻影骑士团，电脑堺，恩底弥翁，召唤师，龙女仆，魔救，雷龙，英雄，调皮宝贝，源数，割草，抒情歌鸲，魔偶甜点，龙link。
+* 提示卡表可在data文件夹中自定义。或开启issue，我将在确定卡表后在下个版本中进行添加。
 
 *v0.2.9*
 * 对游戏steam版本V1.0.2进行支持。

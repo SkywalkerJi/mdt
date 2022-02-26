@@ -23,6 +23,8 @@ oppo_addr = None
 sleep_time = 0.1
 cards_db_CN = {}
 cards_db_TW = {}
+card_tier_list = {}
+break_point = {}
 pause_hotkey = "ctrl+p"
 switch_hotkey = "ctrl+s"
 
@@ -155,6 +157,8 @@ def config_load():
     global switch_hotkey
     global cards_db_CN
     global cards_db_TW
+    global card_tier_list
+    global break_point
     con = configparser.ConfigParser()
     try:
         con.read(config_file, encoding="utf-8")
@@ -173,6 +177,16 @@ def config_load():
     try:
         with open("./locales/zh-TW/cards.json", "rb") as f:
             cards_db_TW = json.load(f)
+    except Exception:
+        pass
+    try:
+        with open("./data/tier.json", "rb") as f:
+            card_tier_list = json.load(f)
+    except Exception:
+        pass
+    try:
+        with open("./data/breakpoint.json", "rb") as f:
+            break_point = json.load(f)
     except Exception:
         pass
 
