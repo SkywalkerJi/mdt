@@ -138,9 +138,9 @@ python mdt_cli.py
 
 **视频演示**
 
-*v0.2.9版本*
+*v0.2.10版本*
 
-[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av809137781)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=uyDORr6GIbM)
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av766762394)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=oWNtD6Ko0yo)
 
 *MDT-web*
 
@@ -152,6 +152,10 @@ python mdt_cli.py
 
 <details>
    <summary>旧版演示</summary>
+
+*v0.2.9版本*
+
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av809137781)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=uyDORr6GIbM)
 
 *v0.2.5版本*
 
@@ -242,7 +246,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 </details>
 
 <details>
-   <summary>Q6：MDT为何不支持抽卡界面汉化？</summary>
+   <summary>Q7：MDT为何不支持抽卡界面汉化？</summary>
 
 目前对抽卡界面进行汉化需要对游戏进行注入，操作风险较高。所以还在考虑当中。
 
@@ -251,6 +255,13 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 另外商店卡片是固定的，卡表可以在[MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)查询。
 
 如果你有更好的实现方式欢迎[issue](https://github.com/SkywalkerJi/mdt/issues/new)或 Pull Request。
+
+</details>
+
+<details>
+   <summary>Q8：如何调整无边框模式下的窗口大小？</summary>
+
+先在边框模式下调整大小。然后右键保存窗口位置。再在设置中切换为无边框。
 
 </details>
 
@@ -272,13 +283,15 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * [![Followers](https://bilistats.lonelyion.com/followers?uid=2012479&style=social&format=short&label=BiliBili%20关注)](https://space.bilibili.com/2012479)
 * 或其他途径。
 
+报告故障时请附上全屏截图、Windows系统版本、MDT版本号和游戏版本号，方便快速定位。
+
 ## Changelog
 
 *v0.2.10*
 * 支持配置隐藏滚动条。
 * 添加重要UR提示，数据基于NTUCGM。重要UR的卡密颜色会变更：红色为可以定义环境的强力卡片，是T1主流套牌的核心部件，不建议分解。绿色为部分卡组的构筑主力，如果要分解请务必确认。白色为普通UR，可考虑分解。
 * 添加主流卡组断点提示。主流卡组核心断点会进行警告，卡密背景底色变为橙色。目前支持：黄金国，龙辉巧，闪刀姬，幻影骑士团，电脑堺，恩底弥翁，召唤师，龙女仆，魔救，雷龙，英雄，调皮宝贝，源数，割草，抒情歌鸲，魔偶甜点，龙link。
-* 提示卡表可在data文件夹中自定义。或开启issue，我将在确定卡表后在下个版本中进行添加。
+* 提示卡表可在data文件夹中自定义。或开启issue提交，我将在确定卡表后在下个版本中进行添加。
 
 *v0.2.9*
 * 对游戏steam版本V1.0.2进行支持。
