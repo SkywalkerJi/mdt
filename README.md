@@ -140,6 +140,11 @@ python mdt_cli.py
 
 **视频演示**
 
+*v0.2.11版本*
+
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av211976664)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=7u684z4KVIQ)
+
+
 *v0.2.10版本*
 
 [![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av766762394)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=oWNtD6Ko0yo)
@@ -296,7 +301,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * 设置中可选是否启用提示信息（包括重要UR，重要SR，主流断点提示）。 
 * 提示框可一键跳转 masterduelmeta.com，可查询当前卡牌实时使用统计。
 * 添加对影依融合、No.75的断点提示。
-* MDT-web 添加 YGOpro 卡组格式转换功能，可点击将日文、英文卡名复制到 master duel进行卡组导入。
+* MDT-web 添加 YGOpro 卡组格式转换功能，可点击将日文、英文卡名复制到 master duel进行卡组导入，支持手机。
 
 *v0.2.10*
 * 支持配置隐藏滚动条。
