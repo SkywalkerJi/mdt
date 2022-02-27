@@ -19,6 +19,7 @@ sync_ui = 0
 show_en_name = True
 show_jp_name = True
 show_card_id = True
+show_notice = True
 show_types = True
 borderless = False
 web_search = True
@@ -56,6 +57,7 @@ def set_ui_lock(window, bool):
     window["-font_size-"].update(disabled=bool)
     window["-show_en_name-"].update(disabled=bool)
     window["-show_card_id-"].update(disabled=bool)
+    window["-show_notice-"].update(disabled=bool)
     window["-show_jp_name-"].update(disabled=bool)
     window["-show_types-"].update(disabled=bool)
     window["-borderless-"].update(disabled=bool)
@@ -73,6 +75,7 @@ def config_load():
     global ui_lock
     global show_en_name
     global show_card_id
+    global show_notice
     global show_jp_name
     global show_types
     global web_search
@@ -95,6 +98,7 @@ def config_load():
         show_en_name = bool(int(config["show_en_name"]))
         show_jp_name = bool(int(config["show_jp_name"]))
         show_card_id = bool(int(config["show_card_id"]))
+        show_notice = bool(int(config["show_notice"]))
         show_types = bool(int(config["show_types"]))
         web_search = bool(int(config["web_search"]))
         x_loc = int(config["x_loc"])
@@ -121,20 +125,26 @@ def show_card_tier(window, cid):
     tier = service.get_card_tier(str(cid))
     if tier:
         if tier == 1:
-            window["-id-"].update(text_color="#FF6666")
-        if tier == 2:
-            window["-id-"].update(text_color="#99CC66")
+            window["-notice-"].update(_("非常重要UR"))
+        elif tier == 2:
+            window["-notice-"].update(_("重要UR"))
+        elif tier == 3:
+            window["-notice-"].update(_("重要SR"))
+        else:
+            window["-notice-"].update("")
     else:
-        window["-id-"].update(text_color="white")
+        window["-notice-"].update("")
 
 
 def show_break_point(window, cid):
     tier = service.get_break_point(str(cid))
-    print(tier)
+    text = window["-notice-"].get()
     if tier == 99:
-        window["-id-"].update(background_color="#FF9933")
+        window["-notice-"].update(
+            value=text + " " + _("断点警告"), background_color="#3700B3"
+        )
     else:
-        window["-id-"].update(background_color="#3F3F3F")
+        window["-notice-"].update(background_color="#3F3F3F")
 
 
 def main():
@@ -160,6 +170,7 @@ def main():
         "-en_name-",
         "-jp_name-",
         "-id-",
+        "-notice-",
     )
     sg.theme("Dark")
     card_frame = [
@@ -295,25 +306,46 @@ def main():
             )
         ],
         [
-            sg.pin(
-                sg.Frame(
-                    _("卡密"),
-                    [
+            [
+                sg.pin(
+                    sg.Frame(
+                        _("卡密"),
                         [
-                            sg.T(
-                                key="-id-",
-                                enable_events=True,
-                                s=(40, 1),
-                            )
+                            [
+                                sg.T(
+                                    key="-id-",
+                                    enable_events=True,
+                                    s=(10, 1),
+                                )
+                            ],
                         ],
-                    ],
-                    title_color="#61E7DC",
-                    visible=show_card_id,
-                    key="-id_frame-",
-                    tooltip=_("右键选择更多功能"),
+                        title_color="#61E7DC",
+                        visible=show_card_id,
+                        key="-id_frame-",
+                        tooltip=_("右键选择更多功能"),
+                    ),
+                    expand_x=True,
                 ),
-                expand_x=True,
-            )
+                sg.pin(
+                    sg.Frame(
+                        _("提示"),
+                        [
+                            [
+                                sg.T(
+                                    key="-notice-",
+                                    enable_events=True,
+                                    s=(40, 1),
+                                )
+                            ],
+                        ],
+                        title_color="#61E7DC",
+                        visible=show_notice,
+                        key="-notice_frame-",
+                        tooltip=_("右键选择更多功能"),
+                    ),
+                    expand_x=True,
+                ),
+            ]
         ],
     ]
     right_click_menu = [
@@ -333,7 +365,7 @@ def main():
     ]
     layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.10 GPLv3",
+        "MDT v0.2.11 GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -404,6 +436,10 @@ def main():
                         webbrowser.open(
                             f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=ja"
                         )
+                if event == "-notice-":
+                    en_name = cards_db[str(cid)]["en_name"]
+                    pyperclip.copy(en_name)
+                    webbrowser.open(f"https://www.masterduelmeta.com/cards/{en_name}")
         # 切换语言
         elif event == _("切换语言"):
             if locale == "zh-CN":
@@ -433,6 +469,7 @@ def main():
             config_set("show_en_name", "1")
             config_set("show_jp_name", "1")
             config_set("show_card_id", "1")
+            config_set("show_notice", "1")
             config_set("show_types", "1")
             config_set("web_search", "1")
             config_set("no_scrollbar", "1")
@@ -534,6 +571,13 @@ def main():
                 ],
                 [
                     sg.Checkbox(
+                        key="-show_notice-",
+                        text=_("显示提示"),
+                        enable_events=True,
+                    )
+                ],
+                [
+                    sg.Checkbox(
                         key="-borderless-",
                         text=_("无边框"),
                         enable_events=True,
@@ -610,6 +654,7 @@ def main():
                 settings_win["-show_en_name-"].update(value=show_en_name)
                 settings_win["-show_jp_name-"].update(value=show_jp_name)
                 settings_win["-show_card_id-"].update(value=show_card_id)
+                settings_win["-show_notice-"].update(value=show_notice)
                 settings_win["-show_types-"].update(value=show_types)
                 settings_win["-web_search-"].update(value=web_search)
                 set_ui_lock(settings_win, ui_lock)
@@ -640,6 +685,9 @@ def main():
             elif ev == "-show_card_id-":
                 window["-id_frame-"].update(visible=vals["-show_card_id-"])
                 config_set("show_card_id", str(int(vals["-show_card_id-"])))
+            elif ev == "-show_notice-":
+                window["-notice_frame-"].update(visible=vals["-show_notice-"])
+                config_set("show_notice", str(int(vals["-show_notice-"])))
             # 显示类型
             elif ev == "-show_types-":
                 window["-types_frame-"].update(visible=vals["-show_types-"])

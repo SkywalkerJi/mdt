@@ -41,9 +41,13 @@ def get_cards_db(locale: str):
 
 
 def get_card_tier(cid: str):
-    if mdt.card_tier_list:
-        if cid in mdt.card_tier_list:
-            return mdt.card_tier_list[cid]["tier"]
+    if mdt.ur_tier_list and mdt.sr_tier_list:
+        if cid in mdt.ur_tier_list:
+            return mdt.ur_tier_list[cid]["tier"]
+        elif cid in mdt.sr_tier_list:
+            return mdt.sr_tier_list[cid]["tier"]
+        else:
+            return None
     else:
         return None
 
