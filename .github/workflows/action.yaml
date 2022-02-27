@@ -16,7 +16,6 @@ jobs:
         run: |
           cd ./web
           npm ci
-          npx patch-package
           npm run build
           mv ./dist $GITHUB_WORKSPACE
           

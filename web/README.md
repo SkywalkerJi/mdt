@@ -3,7 +3,6 @@
 ## Project setup
 ```
 npm install
-npx patch-package
 ```
 
 ### Compiles and hot-reloads for development

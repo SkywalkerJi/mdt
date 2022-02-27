@@ -16,7 +16,7 @@
         item-key="sp_id"
         show-expand
         class="elevation-1"
-        style="opacity: 0.9"
+        style="opacity: 1"
         :v-if="spList.length"
         :footer-props="{ 'items-per-page-options': [15, 30, 50, 100, -1] }"
       >

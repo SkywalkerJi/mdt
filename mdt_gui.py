@@ -356,6 +356,7 @@ def main():
             _("恢复默认"),
             _("切换语言"),
             _("重启检测"),
+            _("导入卡组"),
             _("卡包查询"),
             _("检查更新"),
             _("联系开发者"),
@@ -492,6 +493,8 @@ def main():
             webbrowser.open("https://www.nexusmods.com/yugiohmasterduel/mods/1")
         elif event == _("卡包查询"):
             webbrowser.open("https://ygo.xn--uesr8qr0rdwk.cn/")
+        elif event == _("导入卡组"):
+            webbrowser.open("https://ygo.xn--uesr8qr0rdwk.cn/#/convert")   
         elif event == _("联系开发者"):
             webbrowser.open("https://github.com/SkywalkerJi/mdt#contact-us")
         if not settings_active and event == _("设置"):
