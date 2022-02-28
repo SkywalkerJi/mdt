@@ -18,7 +18,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 支持全屏置顶、无边框、半透明。
 * 支持对重要UR，主流断点进行警示。
 
-![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.5.png "MDT v0.2.5")
+![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.12.png "MDT v0.2.12")
 
 ## Download
 
@@ -42,6 +42,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 2. 右键使用**管理员权限**运行`mdt.exe`。
 3. 在组卡界面点击一张卡。
 4. 右键可打开更多功能。繁体中文用户右键切换语言。
+5. 右键设置中可以切换内存或图像识别模式。图像识别模式下可以进行商店和抽卡页面汉化。
 
 **使用网页工具 [MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)**
 
@@ -143,6 +144,10 @@ python mdt_cli.py
 
 **视频演示**
 
+*v0.2.12版本*
+
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av681943783)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=lsfBUmYeQRw)
+
 *v0.2.11版本*
 
 [![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av211976664)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=7u684z4KVIQ)
@@ -224,6 +229,7 @@ MDT以玩家数据安全为己任，不会在有风险情况下进行检测，�
 
 另外这个游戏没有反作弊，从经济角度考虑一个99%依赖服务端的游戏根本没必要进行检测，参考游戏王duel link。
 
+如果你实在担心的话可以在设置中切换使用图像识别模式。
 </details>
 
 <details>
@@ -300,6 +306,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * 加入图像指纹识别。感谢 md_hover@wangyi041228 的贡献。
 * 在图像模式下，支持商店页面和抽卡界面汉化识别。
 * 可以在右键设置中进行模式切换。
+* 一个漂亮的ico，感谢bootstrap。
 
 <details>
    <summary>展开过往版本</summary>
