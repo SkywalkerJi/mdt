@@ -27,6 +27,13 @@ def get_cid():
         return None
 
 
+def set_cv_mode():
+    if mdt.cv_mode == 0:
+        mdt.cv_mode = 1
+    else:
+        mdt.cv_mode = 0
+
+
 def get_cards_db(locale: str):
     if locale == "zh-CN":
         if mdt.cards_db_CN:

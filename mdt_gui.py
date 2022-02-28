@@ -13,6 +13,7 @@ config_file = "config.ini"
 font_size = 12
 window_alpha = 0.96
 keep_on_top = True
+cv_mode = False
 ui_lock = False
 cfg = configparser.ConfigParser()
 sync_ui = 0
@@ -70,6 +71,7 @@ def config_load():
     global font_size
     global window_alpha
     global keep_on_top
+    global cv_mode
     global borderless
     global no_scrollbar
     global ui_lock
@@ -92,6 +94,7 @@ def config_load():
         font_size = int(config["font_size"])
         window_alpha = float(config["window_alpha"])
         keep_on_top = bool(int(config["keep_on_top"]))
+        cv_mode = bool(int(config["cv_mode"]))
         ui_lock = bool(int(config["ui_lock"]))
         borderless = bool(int(config["borderless"]))
         no_scrollbar = bool(int(config["no_scrollbar"]))
@@ -151,10 +154,13 @@ def main():
     global sync_ui
     global web_search
     global locale
+    global cv_mode
     settings_active = False
     uac_reload()
     service.start()
     config_load()
+    if cv_mode:
+        service.set_cv_mode()
     i18n.set("filename_format", "{locale}.{format}")
     i18n.set("available_locales", ["zh-CN", "zh-TW"])
     i18n.set("file_format", "json")
@@ -352,6 +358,7 @@ def main():
         "&Right",
         [
             _("设置"),
+            # _("切换图像模式"),
             _("保存窗口位置"),
             _("恢复默认"),
             _("切换语言"),
@@ -366,7 +373,7 @@ def main():
     ]
     layout = [[card_frame]]
     window = sg.Window(
-        "MDT v0.2.11 GPLv3",
+        "MDT v0.2.12 GPLv3",
         layout,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -437,10 +444,10 @@ def main():
                         webbrowser.open(
                             f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=ja"
                         )
-                if event == "-notice-":
-                    en_name = cards_db[str(cid)]["en_name"]
-                    pyperclip.copy(en_name)
-                    webbrowser.open(f"https://www.masterduelmeta.com/cards/{en_name}")
+                    elif event == "-notice-":
+                        en_name = cards_db[str(cid)]["en_name"]
+                        pyperclip.copy(en_name)
+                        webbrowser.open(f"https://www.masterduelmeta.com/cards/{en_name}")
         # 切换语言
         elif event == _("切换语言"):
             if locale == "zh-CN":
@@ -451,6 +458,8 @@ def main():
             config_set("locale", locale)
             restart()
         # 重启
+        # elif event == _("切换图像模式"):
+        #     service.set_cv_mode()
         elif event == _("重启检测"):
             restart()
         # 恢复默认
@@ -494,7 +503,7 @@ def main():
         elif event == _("卡包查询"):
             webbrowser.open("https://ygo.xn--uesr8qr0rdwk.cn/")
         elif event == _("导入卡组"):
-            webbrowser.open("https://ygo.xn--uesr8qr0rdwk.cn/#/convert")   
+            webbrowser.open("https://ygo.xn--uesr8qr0rdwk.cn/#/convert")
         elif event == _("联系开发者"):
             webbrowser.open("https://github.com/SkywalkerJi/mdt#contact-us")
         if not settings_active and event == _("设置"):
@@ -538,6 +547,29 @@ def main():
                                 )
                             ]
                         ],
+                        title_color="#61E7DC",
+                    )
+                ],
+                [
+                    sg.Frame(
+                        _("识别模式"),
+                        [
+                            [
+                                sg.Radio(
+                                    _("内存"),
+                                    "RADIO1",
+                                    key="-memory_mode-",
+                                    enable_events=True,
+                                ),
+                                sg.Radio(
+                                    _("图像"),
+                                    "RADIO1",
+                                    key="-cv_mode-",
+                                    enable_events=True,
+                                ),
+                            ]
+                        ],
+                        tooltip=_("图像模式支持商店和抽卡汉化，但是更耗费资源。"),
                         title_color="#61E7DC",
                     )
                 ],
@@ -660,11 +692,22 @@ def main():
                 settings_win["-show_notice-"].update(value=show_notice)
                 settings_win["-show_types-"].update(value=show_types)
                 settings_win["-web_search-"].update(value=web_search)
+                settings_win["-cv_mode-"].update(value=cv_mode)
+                settings_win["-memory_mode-"].update(value=not cv_mode)
                 set_ui_lock(settings_win, ui_lock)
                 sync_ui = 1
             if ev == sg.WIN_CLOSED or ev == _("关闭"):
                 settings_active = False
                 settings_win.close()
+            # 切换模式
+            elif ev == "-cv_mode-":
+                cv_mode = True
+                service.set_cv_mode()
+                config_set("cv_mode", "1")
+            elif ev == "-memory_mode-":
+                cv_mode = False
+                service.set_cv_mode()
+                config_set("cv_mode", "0")
             # 透明度滑块
             elif ev == "-window_alpha-":
                 window.set_alpha(vals["-window_alpha-"])

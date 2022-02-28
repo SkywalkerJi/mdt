@@ -4,7 +4,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/releases/latest) [![GitHub all releases](https://img.shields.io/github/downloads/SkywalkerJi/mdt/total)](https://github.com/SkywalkerJi/mdt#download) [![GitHub forks](https://img.shields.io/github/forks/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/network) [![GitHub stars](https://img.shields.io/github/stars/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/stargazers) [![GitHub license](https://img.shields.io/github/license/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE) ![Chinese translation](https://img.shields.io/badge/%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91-100%25-green) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SkywalkerJi/mdt/GitHub%20Actions%20Build%20and%20Deploy) [![Steam Game Ver](https://img.shields.io/badge/Steam-1.0.2-informational)](https://store.steampowered.com/app/1449850/YuGiOh_Master_Duel/)
 
-* 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay模式。
+* 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay、Shop模式。
 * 高正确性，除非卡片数据本身有错。
 * 超快识别速度，低于0.000001s。
 * 极低占用，CPU占用忽略不计。
@@ -12,6 +12,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 开源，你可以直接执行源代码并定制你自己的版本。
 * i18n，支持简体中文和繁体中文。
 * 高兼容性，点开即用，支持各种游戏内语言，最低可支持win7。
+* 支持内存检测和图像指纹两种识别模式。
 * 一键导出Master Duel游戏卡组，兼容YGOpro格式。同时提供在线转换YGOpro格式导入。
 * 可一键直达网页卡查和官方数据库，MDT也有 [Secret Pack查询工具](https://ygo.xn--uesr8qr0rdwk.cn/)。
 * 支持全屏置顶、无边框、半透明。
@@ -122,6 +123,8 @@ show_notice = 1
 ; 显示提示 1开启 0取消
 no_scrollbar = 1
 ; 隐藏滚动条 1隐藏 0显示
+cv_mode = 0
+; 识别模式 1图像 0内存
 ```
 </details>
 
@@ -253,24 +256,23 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 </details>
 
 <details>
-   <summary>Q7：MDT为何不支持抽卡界面汉化？</summary>
-
-目前对抽卡界面进行汉化需要对游戏进行注入，操作风险较高。所以还在考虑当中。
-
-还有一种办法是引入CV引擎进行匹配，侵入性小，但是会消耗部分性能。
-
-另外商店卡片是固定的，卡表可以在[MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)查询。
-
-如果你有更好的实现方式欢迎[issue](https://github.com/SkywalkerJi/mdt/issues/new)或 Pull Request。
-
-</details>
-
-<details>
    <summary>Q8：如何调整无边框模式下的窗口大小？</summary>
 
 先在边框模式下调整大小。然后右键保存窗口位置。再在设置中切换为无边框。
 
 </details>
+
+<details>
+   <summary>Q9：为何MDT之前一直不支持商店和抽卡页面汉化？现在又开始支持？</summary>
+
+之前通过内存读取的方式暂时无法在抽卡页面获得稳定指针地址，如果要实施检测需要对游戏进行注入，风险较高。所以一直在考虑中没有实施。
+
+在v0.2.12版本后，引入了图像指纹识别，mdt在图像模式下可以通过窗口截图对游戏进行非侵入式检测，所以可以对抽卡和商店界面进行汉化支持。
+
+如果有更好的基于内存的识别模式，还是一样欢迎提交 issue 或 PR。
+
+</details>
+
 
 ## Contributing
 
@@ -294,6 +296,14 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Changelog
 
+*v0.2.12*
+* 加入图像指纹识别。感谢 md_hover@wangyi041228 的贡献。
+* 在图像模式下，支持商店页面和抽卡界面汉化识别。
+* 可以在右键设置中进行模式切换。
+
+<details>
+   <summary>展开过往版本</summary>
+
 *v0.2.11*
 * 考虑无障碍视觉，取消了上一版本中的红蓝颜色区分，改为文字显示。
 * 修改断点提示底色，提高文字可读性。
@@ -308,9 +318,6 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * 添加重要UR提示，数据基于 NTUCGM。重要UR的卡密颜色会变更：红色为可以定义环境的强力卡片，是T1主流套牌的核心部件，不建议分解。绿色为部分卡组的构筑主力，如果要分解请务必确认。白色为普通UR，可考虑分解。
 * 添加主流卡组断点提示。主流卡组核心断点会进行警告，卡密背景底色变为橙色。目前支持：黄金国，龙辉巧，闪刀姬，幻影骑士团，电脑堺，恩底弥翁，召唤师，龙女仆，魔救，雷龙，英雄，调皮宝贝，源数，割草，抒情歌鸲，魔偶甜点，龙link。
 * 提示卡表可在data文件夹中自定义。或开启issue提交，我将在确定卡表后在下个版本中进行添加。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.9*
 * 对游戏steam版本V1.0.2进行支持。
@@ -431,6 +438,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Related Efforts
 
+* [md_hover](https://github.com/wangyi041228/md_hover) 提供了本项目的图像指纹识别功能。
 * [Uncensored GFX](https://www.nexusmods.com/yugiohmasterduel/mods/1) 反和谐卡图替换补丁
 * [MasterDuelSimpleTranslateTool](https://github.com/PatchouliTC/MasterDuelSimpleTranslateTool) 基于图像指纹识别的翻译工具，提供了本项目的CLI版本UI基础。
 

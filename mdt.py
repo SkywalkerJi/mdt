@@ -6,6 +6,7 @@ import json
 import configparser
 import ctypes
 import sys
+import mdt_cv
 
 config_file = "config.ini"
 cid_temp = 0
@@ -21,6 +22,7 @@ deck_addr = None
 duel_addr = None
 oppo_addr = None
 sleep_time = 0.1
+cv_mode = 0
 cards_db_CN = {}
 cards_db_TW = {}
 ur_tier_list = {}
@@ -82,24 +84,27 @@ def translate():
     global cid_temp_oppo
     global cid_show_gui
     global baseAddress
-    if baseAddress is None:
-        try:
-            get_baseAddress()
-        except Exception:
-            return
-    cid_deck = get_cid(1)
-    cid_duel = get_cid(2)
-    cid_oppo = get_cid(3)
+    if cv_mode == 0:
+        if baseAddress is None:
+            try:
+                get_baseAddress()
+            except Exception:
+                return
+        cid_deck = get_cid(1)
+        cid_duel = get_cid(2)
+        cid_oppo = get_cid(3)
 
-    if valid_cid(cid_oppo) and cid_oppo != cid_temp_oppo:
-        cid_temp_oppo = cid_oppo
-        cid_show_gui = cid_oppo
-    if valid_cid(cid_deck) and cid_deck != cid_temp_deck:
-        cid_temp_deck = cid_deck
-        cid_show_gui = cid_deck
-    if valid_cid(cid_duel) and cid_duel != cid_temp_duel:
-        cid_temp_duel = cid_duel
-        cid_show_gui = cid_duel
+        if valid_cid(cid_oppo) and cid_oppo != cid_temp_oppo:
+            cid_temp_oppo = cid_oppo
+            cid_show_gui = cid_oppo
+        if valid_cid(cid_deck) and cid_deck != cid_temp_deck:
+            cid_temp_deck = cid_deck
+            cid_show_gui = cid_deck
+        if valid_cid(cid_duel) and cid_duel != cid_temp_duel:
+            cid_temp_duel = cid_duel
+            cid_show_gui = cid_duel
+    elif cv_mode == 1:
+        cid_show_gui = mdt_cv.get_scan()
 
 
 def translate_check_thread():
