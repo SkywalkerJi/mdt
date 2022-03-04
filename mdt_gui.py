@@ -394,15 +394,15 @@ def main():
         config_set("x_loc", str(screen[0] / 2))
         config_set("y_len", str(screen[1] / 2))
         uac_reload(True)
-
     while True:
         event, values = window.read(timeout=100)
         cid = service.get_cid()
         # print(event, values)
         # 载入db
-
         if not cards_db:
             cards_db = service.get_cards_db(locale)
+            window['-pdesc-'].Widget.configure(wrap='char')
+            window['-desc-'].Widget.configure(wrap='char')
         if cid != cid_temp:
             cid_temp = cid
             try:
@@ -447,7 +447,9 @@ def main():
                     elif event == "-notice-":
                         en_name = cards_db[str(cid)]["en_name"]
                         pyperclip.copy(en_name)
-                        webbrowser.open(f"https://www.masterduelmeta.com/cards/{en_name}")
+                        webbrowser.open(
+                            f"https://www.masterduelmeta.com/cards/{en_name}"
+                        )
         # 切换语言
         elif event == _("切换语言"):
             if locale == "zh-CN":

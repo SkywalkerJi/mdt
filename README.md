@@ -48,6 +48,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 
 1. 打开 [MDT-web](https://ygo.xn--uesr8qr0rdwk.cn/)
 2. 目前可模糊检索全部154个Secret Pack包内容。同样支持一键卡查，一键复制。
+3. 支持转换YGOpro卡组格式为日英双语，点击可复制到游戏中。
 
 **使用预打包的CLI版本**
 
@@ -262,14 +263,14 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 </details>
 
 <details>
-   <summary>Q8：如何调整无边框模式下的窗口大小？</summary>
+   <summary>Q7：如何调整无边框模式下的窗口大小？</summary>
 
 先在边框模式下调整大小。然后右键保存窗口位置。再在设置中切换为无边框。
 
 </details>
 
 <details>
-   <summary>Q9：为何MDT之前一直不支持商店和抽卡页面汉化？现在又开始支持？</summary>
+   <summary>Q8：为何MDT之前一直不支持商店和抽卡页面汉化？现在又可以支持？</summary>
 
 之前通过内存读取的方式暂时无法在抽卡页面获得稳定指针地址，如果要实施检测需要对游戏进行注入，风险较高。所以一直在考虑中没有实施。
 
