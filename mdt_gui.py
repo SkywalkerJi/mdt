@@ -144,7 +144,15 @@ def show_break_point(window, cid):
     text = window["-notice-"].get()
     if tier == 99:
         window["-notice-"].update(
-            value=text + " " + _("断点警告"), background_color="#3700B3"
+            value=text + " " + _("断点·建议无效"), background_color="#3700B3"
+        )
+    elif tier == 98:
+        window["-notice-"].update(
+            value=text + " " + _("断点·建议除外"), background_color="#3700B3"
+        )
+    elif tier == 97:
+        window["-notice-"].update(
+            value=text + " " + _("断点·建议破坏"), background_color="#3700B3"
         )
     else:
         window["-notice-"].update(background_color="#3F3F3F")
