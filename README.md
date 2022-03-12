@@ -50,10 +50,8 @@ Yu-Gi-Oh! Master Duel Translation Script
 2. 目前可模糊检索全部154个Secret Pack包内容。同样支持一键卡查，一键复制。
 3. 支持转换YGOpro卡组格式为日英双语，点击可复制到游戏中。
 
-**使用预打包的CLI版本**
-
 <details>
-   <summary>点击CLI使用说明</summary>
+   <summary>使用预打包的CLI版本</summary>
 
 命令行界面这是MDT v0.1.x版本的默认UI，在v0.2.3开始进行了拆分。
 
@@ -69,8 +67,17 @@ Yu-Gi-Oh! Master Duel Translation Script
 | ctrl+p | 暂停检测 |
 | ctrl+q | 退出程序 |
 
-4. 可在`config.ini`文件中进行功能配置。以下是一份样例，可以直接复制粘贴。
-   如果要进行CLI窗口置顶设置，尤其要注意窗口名（`lp_window_name`）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。注意ini时注意注释行开头必须是`; `
+1. 如果要进行CLI窗口置顶设置，要注意config.ini文件中窗口名（`lp_window_name`）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。可查看下一节，配置文件说明。
+</details>
+
+<details>
+   <summary>功能配置文件说明</summary>
+
+1. 可在`config.ini`文件中进行功能配置。以下是一份带有注释的样例。
+
+   cli组为CLI版本设置项，gui组为GUI版本设置项。
+
+   编辑ini时注意注释行开头必须是`; `
 ```
 [cli] 
 ; CLI基本设置
@@ -127,13 +134,56 @@ no_scrollbar = 1
 ; 隐藏滚动条 1隐藏 0显示
 cv_mode = 0
 ; 识别模式 1图像 0内存
+play_diy_bgm = 1
+; 播放自定义BGM 1开启 0关闭
 ```
+
+2. 自定义BGM。（v0.2.13后支持）
+
+   在选中一张卡牌时，自动播放BGM或召唤词。样例为青眼亚白龙。可以在设置中开启。
+```
+自定义BGM配置文件位于`/data/bgm.json`。
+json格式
+
+{
+    "12253": {
+        "cn_name": "青眼亚白龙",
+        "file": "Blue_audio.wav"
+    },
+    "666666666666": {
+        "cn_name": "样例",
+        "file": "wav音频文件"
+    }
+}
+
+数字为cid值，可以在选中卡片后点击英文或日文名跳转官方数据库，在网址url中找到 cid=某个数字 。
+中文名只做标识用。
+音频文件目前只支持wav格式，其他音频格式（MP3，aac等）请转码为wav格式。
+```
+
+3. 自定义卡表
+```
+自定义卡表文件也位于`/data/`目录下。
+sr.json SR优先级卡表
+ur.json UR优先级卡表
+breakpoint.json 断点卡表
+格式类似自定义BGM
+```
+| TIER值 | 含义     |
+| ------ | -------- |
+| 1 | 非常重要UR |
+| 2 | 重要UR |
+| 3| 重要SR |
+| 99|无效断点 |
+| 98| 除外断点 |
+| 97| 破坏断点 |
+
+对卡表进行PR前，推荐开启issue。
+
 </details>
 
-**从源代码执行**
-
 <details>
-   <summary>点击展开</summary>
+   <summary>从源代码执行</summary>
 
 ```
 pip install -r requirements.txt
@@ -149,15 +199,6 @@ python mdt_cli.py
 
 [![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av681943783)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=lsfBUmYeQRw)
 
-*v0.2.11版本*
-
-[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av211976664)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=7u684z4KVIQ)
-
-
-*v0.2.10版本*
-
-[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av766762394)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=oWNtD6Ko0yo)
-
 *MDT-web*
 
 [![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av551332211)  [![YouTube Video Views](https://img.shields.io/youtube/views/AnzWFG2RZr0?style=social&label=YouTube)](https://www.youtube.com/watch?v=AnzWFG2RZr0)
@@ -168,6 +209,15 @@ python mdt_cli.py
 
 <details>
    <summary>旧版演示</summary>
+
+*v0.2.11版本*
+
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av211976664)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=7u684z4KVIQ)
+
+
+*v0.2.10版本*
+
+[![Video Views](https://bilistats.lonelyion.com/views?uid=2012479&style=social&label=BiliBili&format=short)](https://www.bilibili.com/video/av766762394)  [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UC3kA_NGfQFHMMn-kja8GTFA?style=social&label=YouTube)](https://www.youtube.com/watch?v=oWNtD6Ko0yo)
 
 *v0.2.9版本*
 

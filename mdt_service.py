@@ -1,6 +1,7 @@
+from threading import Thread
+
 import mdt as mdt
 import mdt_deck_reader as reader
-from threading import Thread
 
 
 def start():
@@ -63,6 +64,14 @@ def get_break_point(cid: str):
     if mdt.break_point:
         if cid in mdt.break_point:
             return mdt.break_point[cid]["tier"]
+    else:
+        return None
+
+
+def get_bgm(cid: str):
+    if mdt.bgm_list:
+        if cid in mdt.bgm_list:
+            return mdt.bgm_list[cid]["file"]
     else:
         return None
 

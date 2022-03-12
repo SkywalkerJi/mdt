@@ -1,6 +1,7 @@
-import pymem
 import json
+
 import i18n
+import pymem
 
 _ = i18n.t
 

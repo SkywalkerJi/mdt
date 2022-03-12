@@ -1,13 +1,14 @@
-from threading import Thread
-import pymem
-import keyboard
-import time
-import json
-import win32gui
-import win32con
 import configparser
 import ctypes
+import json
 import sys
+import time
+from threading import Thread
+
+import keyboard
+import pymem
+import win32con
+import win32gui
 from click import clear
 
 config_file = "config.ini"

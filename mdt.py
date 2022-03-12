@@ -1,11 +1,13 @@
-from threading import Thread
-import pymem
-import keyboard
-import time
-import json
 import configparser
 import ctypes
+import json
 import sys
+import time
+from threading import Thread
+
+import keyboard
+import pymem
+
 import mdt_cv
 
 config_file = "config.ini"
@@ -28,6 +30,7 @@ cards_db_TW = {}
 ur_tier_list = {}
 sr_tier_list = {}
 break_point = {}
+bgm_list = {}
 pause_hotkey = "ctrl+p"
 switch_hotkey = "ctrl+s"
 
@@ -166,6 +169,7 @@ def config_load():
     global ur_tier_list
     global sr_tier_list
     global break_point
+    global bgm_list
     con = configparser.ConfigParser()
     try:
         con.read(config_file, encoding="utf-8")
@@ -199,6 +203,11 @@ def config_load():
     try:
         with open("./data/breakpoint.json", "rb") as f:
             break_point = json.load(f)
+    except Exception:
+        pass
+    try:
+        with open("./data/bgm.json", "rb") as f:
+            bgm_list = json.load(f)
     except Exception:
         pass
 

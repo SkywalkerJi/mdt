@@ -1,13 +1,16 @@
-import ctypes
-import sys
-import PySimpleGUI as sg
-import mdt_service as service
-import pyperclip
 import configparser
-import webbrowser
-import i18n
+import ctypes
 import os
+import sys
 import time
+import webbrowser
+import winsound
+
+import i18n
+import pyperclip
+import PySimpleGUI as sg
+
+import mdt_service as service
 
 config_file = "config.ini"
 font_size = 12
@@ -24,6 +27,7 @@ show_notice = True
 show_types = True
 borderless = False
 web_search = True
+play_diy_bgm = True
 no_scrollbar = True
 x_loc = 960
 y_loc = 540
@@ -64,6 +68,7 @@ def set_ui_lock(window, bool):
     window["-borderless-"].update(disabled=bool)
     window["-no_scrollbar-"].update(disabled=bool)
     window["-web_search-"].update(disabled=bool)
+    window["-play_diy_bgm-"].update(disabled=bool)
     config_set("ui_lock", str(int(bool)))
 
 
@@ -81,6 +86,7 @@ def config_load():
     global show_jp_name
     global show_types
     global web_search
+    global play_diy_bgm
     global x_loc
     global y_loc
     global x_len
@@ -104,13 +110,14 @@ def config_load():
         show_notice = bool(int(config["show_notice"]))
         show_types = bool(int(config["show_types"]))
         web_search = bool(int(config["web_search"]))
+        play_diy_bgm = bool(int(config["play_diy_bgm"]))
         x_loc = int(config["x_loc"])
         y_loc = int(config["y_loc"])
         x_len = int(config["x_len"])
         y_len = int(config["y_len"])
         locale = config["locale"]
-    except Exception:
-        pass
+    except Exception as e:
+        print(e)
         # print(f"未找到{config_file}配置文件或配置文件格式有误。")
 
 
@@ -158,9 +165,21 @@ def show_break_point(window, cid):
         window["-notice-"].update(background_color="#3F3F3F")
 
 
+def play_bgm(cid):
+    if play_diy_bgm:
+        file = service.get_bgm(str(cid))
+        if file:
+            audio_file = os.path.dirname(__file__) + "\\data\\bgm\\" + file
+            try:
+                winsound.PlaySound(audio_file, winsound.SND_ASYNC)
+            except Exception as e:
+                print(e)
+
+
 def main():
     global sync_ui
     global web_search
+    global play_diy_bgm
     global locale
     global cv_mode
     settings_active = False
@@ -379,10 +398,9 @@ def main():
             _("关闭"),
         ],
     ]
-    layout = [[card_frame]]
     window = sg.Window(
         "MDT v0.2.12 GPLv3",
-        layout,
+        card_frame,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
         right_click_menu_font=("Microsoft YaHei", font_size),
@@ -428,6 +446,7 @@ def main():
                 window["-desc-"].update(card_t["text"]["desc"])
                 show_card_tier(window, cid)
                 show_break_point(window, cid)
+                play_bgm(cid)
             except Exception:
                 pass
                 # print("数据库中未查到该卡")
@@ -479,6 +498,7 @@ def main():
             window["-jp_name_frame-"].update(visible=True)
             window["-id_frame-"].update(visible=True)
             web_search = True
+            play_diy_bgm = True
             window.keep_on_top_set()
             window.set_alpha(0.96)
             for key in text_keys:
@@ -492,6 +512,7 @@ def main():
             config_set("show_notice", "1")
             config_set("show_types", "1")
             config_set("web_search", "1")
+            config_set("play_diy_bgm", "1")
             config_set("no_scrollbar", "1")
             # 只恢复窗口UI，不恢复窗口属性
             # config_set("x_loc", "960")
@@ -649,6 +670,13 @@ def main():
                         enable_events=True,
                     )
                 ],
+                [
+                    sg.Checkbox(
+                        key="-play_diy_bgm-",
+                        text=_("自定义语音"),
+                        enable_events=True,
+                    )
+                ],
             ]
 
             settings_layout = [
@@ -702,6 +730,7 @@ def main():
                 settings_win["-show_notice-"].update(value=show_notice)
                 settings_win["-show_types-"].update(value=show_types)
                 settings_win["-web_search-"].update(value=web_search)
+                settings_win["-play_diy_bgm-"].update(value=play_diy_bgm)
                 settings_win["-cv_mode-"].update(value=cv_mode)
                 settings_win["-memory_mode-"].update(value=not cv_mode)
                 set_ui_lock(settings_win, ui_lock)
@@ -759,6 +788,10 @@ def main():
             elif ev == "-web_search-":
                 web_search = vals["-web_search-"]
                 config_set("web_search", str(int(vals["-web_search-"])))
+            # 自定义语音
+            elif ev == "-play_diy_bgm-":
+                play_diy_bgm = vals["-play_diy_bgm-"]
+                config_set("play_diy_bgm", str(int(vals["-play_diy_bgm-"])))
             # 置顶选项
             elif ev == "-keep_on_top-":
                 if vals["-keep_on_top-"]:

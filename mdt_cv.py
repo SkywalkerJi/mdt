@@ -1,11 +1,12 @@
-import dhash
-from json import loads
+import os
+import sys
 from ctypes import windll
+from json import loads
+
+import dhash
 import win32gui
 import win32ui
-import sys
 from PIL import Image
-import os
 
 cid_show_gui = 0
 n_flags = 3
