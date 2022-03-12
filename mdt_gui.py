@@ -409,8 +409,8 @@ def main():
         # 载入db
         if not cards_db:
             cards_db = service.get_cards_db(locale)
-            window['-pdesc-'].Widget.configure(wrap='char')
-            window['-desc-'].Widget.configure(wrap='char')
+            window["-pdesc-"].Widget.configure(wrap="char")
+            window["-desc-"].Widget.configure(wrap="char")
         if cid != cid_temp:
             cid_temp = cid
             try:
