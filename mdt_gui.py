@@ -169,7 +169,7 @@ def play_bgm(cid):
     if play_diy_bgm:
         file = service.get_bgm(str(cid))
         if file:
-            audio_file = os.path.dirname(__file__) + "\\data\\bgm\\" + file
+            audio_file = "./data/bgm/" + file
             try:
                 winsound.PlaySound(audio_file, winsound.SND_ASYNC)
             except Exception as e:
@@ -423,7 +423,6 @@ def main():
     while True:
         event, values = window.read(timeout=100)
         cid = service.get_cid()
-        print(cid)
         # print(event, values)
         # 载入db
         if not cards_db:
