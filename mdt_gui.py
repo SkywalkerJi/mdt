@@ -151,15 +151,15 @@ def show_break_point(window, cid):
     text = window["-notice-"].get()
     if tier == 99:
         window["-notice-"].update(
-            value=text + " " + _("断点·建议无效"), background_color="#3700B3"
+            value=text + " " + _("无效·断点"), background_color="#3700B3"
         )
     elif tier == 98:
         window["-notice-"].update(
-            value=text + " " + _("断点·建议除外"), background_color="#3700B3"
+            value=text + " " + _("除外·断点"), background_color="#3700B3"
         )
     elif tier == 97:
         window["-notice-"].update(
-            value=text + " " + _("断点·建议破坏"), background_color="#3700B3"
+            value=text + " " + _("破坏·断点"), background_color="#3700B3"
         )
     else:
         window["-notice-"].update(background_color="#3F3F3F")
@@ -348,7 +348,7 @@ def main():
                                 sg.T(
                                     key="-id-",
                                     enable_events=True,
-                                    s=(10, 1),
+                                    s=(9, 1),
                                 )
                             ],
                         ],
@@ -361,7 +361,7 @@ def main():
                 ),
                 sg.pin(
                     sg.Frame(
-                        _("提示"),
+                        _("建议"),
                         [
                             [
                                 sg.T(
@@ -423,13 +423,14 @@ def main():
     while True:
         event, values = window.read(timeout=100)
         cid = service.get_cid()
+        print(cid)
         # print(event, values)
         # 载入db
         if not cards_db:
             cards_db = service.get_cards_db(locale)
             window["-pdesc-"].Widget.configure(wrap="char")
             window["-desc-"].Widget.configure(wrap="char")
-        if cid != cid_temp:
+        if cid != cid_temp and cid:
             cid_temp = cid
             try:
                 card_t = cards_db[str(cid)]
@@ -462,17 +463,17 @@ def main():
                         webbrowser.open(f"https://ygocdb.com/?search={id}")
                     elif event == "-id-":
                         webbrowser.open(f"https://www.ourocg.cn/search/{id}/")
-                if cid:
+                if cid_temp:
                     if event == "-en_name-":
                         webbrowser.open(
-                            f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=en"
+                            f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid_temp}&request_locale=en"
                         )
                     elif event == "-jp_name-":
                         webbrowser.open(
-                            f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid}&request_locale=ja"
+                            f"https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid={cid_temp}&request_locale=ja"
                         )
                     elif event == "-notice-":
-                        en_name = cards_db[str(cid)]["en_name"]
+                        en_name = cards_db[str(cid_temp)]["en_name"]
                         pyperclip.copy(en_name)
                         webbrowser.open(
                             f"https://www.masterduelmeta.com/cards/{en_name}"
@@ -638,7 +639,7 @@ def main():
                 [
                     sg.Checkbox(
                         key="-show_notice-",
-                        text=_("显示提示"),
+                        text=_("显示建议"),
                         enable_events=True,
                     )
                 ],

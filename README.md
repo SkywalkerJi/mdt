@@ -17,6 +17,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 * 可一键直达网页卡查和官方数据库，MDT也有 [Secret Pack查询工具](https://ygo.xn--uesr8qr0rdwk.cn/)。
 * 支持全屏置顶、无边框、半透明。
 * 支持对重要UR，主流断点进行警示。
+* 支持自定义语音、BGM、召唤词。
 
 ![MDT](https://github.com/SkywalkerJi/mdt/raw/master/IMG/v0.2.12.png "MDT v0.2.12")
 
@@ -67,7 +68,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 | ctrl+p | 暂停检测 |
 | ctrl+q | 退出程序 |
 
-1. 如果要进行CLI窗口置顶设置，要注意config.ini文件中窗口名（`lp_window_name`）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。可查看下一节，配置文件说明。
+4. 如果要进行CLI窗口置顶设置，要注意config.ini文件中窗口名（`lp_window_name`）选项。使用默认配置文件时可以把软件放在C:\mdt 目录下即可进行窗口置顶。可查看下一节，配置文件说明。
 </details>
 
 <details>
@@ -359,6 +360,7 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 * 图像模式兼容对手卡组页面。
 * 调整断点表。
 * 调整UR优先级。基于 NTUCGM 3/3版本。
+* 修复图像模式下部分网页卡查跳转失效问题。
 
 *v0.2.12*
 * 加入图像指纹识别。感谢 md_hover@wangyi041228 的贡献。
