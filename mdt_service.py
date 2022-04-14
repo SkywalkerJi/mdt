@@ -82,3 +82,7 @@ def get_deck_dict():
 
 def get_deck_string(locale: str):
     return reader.get_deck_string(locale)
+
+def ydk_converter(ydk_deck: str, game_client_locale: str='en'):
+    tmp=reader.ydk_converter(ydk_deck, game_client_locale)
+    print(tmp)

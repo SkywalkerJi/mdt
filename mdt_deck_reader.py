@@ -176,13 +176,19 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
     result = []
     for line in ydk_deck.split('\n'):
         cards_id = line.strip()
-        # 跳过注释
         if cards_id.startswith('#') or cards_id == '':
+            # 跳过注释和空行
             continue
         elif cards_id.startswith('!'):
+            # side deck
             break
+        elif not cards_id.isdigit():
+            # 用户粘贴的未知字符
+            print(_("格式有误"))
+            return None
 
         try:
+            # 获取卡片信息
             card_info = cards_db_cache[int(cards_id)]
         except Exception as e:
             print(e)
@@ -190,6 +196,7 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
             return None
 
         try:
+            # 获取卡片名称
             result.append(f"{card_info[f'{game_client_locale}_name']}")
         except Exception as e:
             print(e)

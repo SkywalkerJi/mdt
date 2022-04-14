@@ -9,6 +9,8 @@ import winsound
 import i18n
 import pyperclip
 import PySimpleGUI as sg
+import win32con
+import win32clipboard
 
 import mdt_service as service
 
@@ -93,6 +95,7 @@ def config_load():
     global y_len
     global cfg
     global locale
+    global game_client_locale
     try:
         cfg.read(config_file, encoding="utf-8")
         config = cfg.items("gui")
@@ -116,6 +119,7 @@ def config_load():
         x_len = int(config["x_len"])
         y_len = int(config["y_len"])
         locale = config["locale"]
+        game_client_locale = config["game_client_locale"]
     except Exception as e:
         print(e)
         # print(f"未找到{config_file}配置文件或配置文件格式有误。")
@@ -704,6 +708,17 @@ def main():
                             ]
                         ]
                     ),
+                    sg.Column(
+                        [
+                            [
+                                sg.Button(
+                                    _("ydk格式剪贴板导入"),
+                                    button_color=("white", "#238636"),
+                                    border_width=1,
+                                )
+                            ]
+                        ]
+                    ),
                 ],
             ]
             settings_win = sg.Window(
@@ -825,6 +840,16 @@ def main():
                             + deck_string
                         )
                         f.close()
+            elif ev == _("ydk格式剪贴板导入"):
+                try:
+                    # 直接从剪贴板读入ydk卡组
+                    win32clipboard.OpenClipboard()
+                    text = win32clipboard.GetClipboardData(win32con.CF_TEXT).decode("utf-8")
+                    service.ydk_converter(ydk_deck=text, game_client_locale=game_client_locale)
+                except TypeError:
+                    print('Error: No text on the clipboard!')
+                finally:
+                    win32clipboard.CloseClipboard()
     window.close()
 
 
