@@ -1,8 +1,15 @@
 from threading import Thread
+from unicodedata import name
 
 import mdt as mdt
 import mdt_deck_reader as reader
 
+import win32api
+import win32con
+import win32gui
+import time
+import pyautogui
+import pyperclip
 
 def start():
     mdt_service = Thread(target=mdt.main)
@@ -85,4 +92,29 @@ def get_deck_string(locale: str):
 
 def ydk_converter(ydk_deck: str, game_client_locale: str='en'):
     tmp=reader.ydk_converter(ydk_deck, game_client_locale)
-    print(tmp)
+    hWnd = win32gui.FindWindow(None, "masterduel")
+    win32gui.SetForegroundWindow(hWnd)
+    
+    tmp.sort()
+    blank=(1083, 171)
+    search=(1400, 295)
+    clear=(1670, 295)
+    card=(1400, 440)
+    if tmp is not None:
+        for index, element in enumerate(tmp):
+            if index == 0 or element != tmp[index-1]:
+                print(index)
+                pyautogui.click(blank, interval=.2)
+                pyautogui.click(clear)
+                pyautogui.click(blank, interval=.2)
+                pyautogui.click(search)
+                pyperclip.copy(element)
+                pyperclip.paste()
+                pyautogui.hotkey('ctrl', 'v')
+                pyautogui.press('enter')
+                time.sleep(1.5)
+            print(f"{element}\n")
+            pyautogui.rightClick(card)
+
+if __name__ == "__main__":
+    ydk_converter("", "")

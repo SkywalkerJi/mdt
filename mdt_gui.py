@@ -845,11 +845,14 @@ def main():
                     # 直接从剪贴板读入ydk卡组
                     win32clipboard.OpenClipboard()
                     text = win32clipboard.GetClipboardData(win32con.CF_TEXT).decode("utf-8")
-                    service.ydk_converter(ydk_deck=text, game_client_locale=game_client_locale)
                 except TypeError:
                     print('Error: No text on the clipboard!')
                 finally:
                     win32clipboard.CloseClipboard()
+                try:
+                    service.ydk_converter(ydk_deck=text, game_client_locale=game_client_locale)
+                except Exception as e:
+                    print(e)
     window.close()
 
 
