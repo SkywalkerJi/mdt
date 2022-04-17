@@ -165,9 +165,13 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
         db_name = "./locales/zh-CN/cards.json"
         # cid -> id, en, jp
         cards_db = get_database(db_name)
-        # id -> en, jp
+        # id -> en, jp, cid
         cards_db_cache = {
-            card_info['id']: {"jp_name": card_info['jp_name'], "en_name": card_info['en_name']} for(cid, card_info) in cards_db.items()
+            card_info['id']: {
+                "jp_name": card_info['jp_name'], 
+                "en_name": card_info['en_name'],
+                "cid": cid
+            } for(cid, card_info) in cards_db.items()
         }
     except Exception:
         print(_("无法读取卡组信息"))
@@ -197,7 +201,7 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
 
         try:
             # 获取卡片名称
-            result.append(f"{card_info[f'{game_client_locale}_name']}")
+            result.append((f"{card_info[f'{game_client_locale}_name']}", card_info['cid']))
         except Exception as e:
             print(e)
             print(_("格式有误"))
