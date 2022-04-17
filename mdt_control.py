@@ -6,7 +6,7 @@ import numpy as np
 
 from mdt_cv import get_reset_button_postion, get_scale, get_search_button_postion
 
-
+pyautogui.FAILSAFE= True
 blank_offset = (0, -150)
 clear_offset = (335, 0)
 card_offset = (0, 170)
@@ -21,7 +21,6 @@ def ydk_converter(ydk_deck: list[str]):
     # TODO: background click
     # TODO: 卡组校验
     # TODO: 出现多张候选时进行遍历
-    # TODO: 随时停止
     # TODO: 清空当前牌组
     if ydk_deck is None or ydk_deck == []:
         return
