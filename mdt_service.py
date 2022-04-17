@@ -92,11 +92,11 @@ def get_deck_dict():
 def get_deck_string(locale: str):
     return reader.get_deck_string(locale)
 
-def ydk_converter(ydk_deck: str, game_client_locale: str='en'):
+def ydk_converter(ydk_deck: str, game_client_locale: str='en',locale: str='zh-CN'):
     tmp=reader.ydk_converter(ydk_deck, game_client_locale)
     tmp.sort(key=lambda tup: tup[0])
     # TODO: 防止二次生成
-    thread = Thread(target=mdt_control.ydk_converter, args=(tmp,))
+    thread = Thread(target=mdt_control.ydk_converter, args=(tmp, locale))
     thread.start()
 
 if __name__ == "__main__":

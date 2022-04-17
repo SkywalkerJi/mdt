@@ -5,6 +5,7 @@ import pyautogui
 import pyperclip
 import numpy as np
 from mdt import get_current_cid
+import mdt_deck_reader
 
 from mdt_cv import get_reset_button_postion, get_scale, get_search_button_postion
 
@@ -24,12 +25,11 @@ def _add(a: tuple, b: tuple, scale=1.0):
     return a[0]+b[0]*scale, a[1]+b[1]*scale
 
 
-def ydk_converter(ydk_deck: list[str]):
+def ydk_converter(ydk_deck: list[tuple], locale: str):
     """
     Convert YDK deck list to MDT deck.
     """
     # TODO: background click
-    # TODO: 卡组校验
     # TODO: 清空当前牌组
     # TODO: 等待搜索时间可调
     if ydk_deck is None or ydk_deck == []:
@@ -70,6 +70,8 @@ def ydk_converter(ydk_deck: list[str]):
                                                        int(cid))
         print(f"{element}\n")
         pyautogui.rightClick(target_card_position)
+    
+    mdt_deck_reader.check_deck([int(i[1]) for i in ydk_deck], locale)
 
 
 def travel_through_deck(start, width_step, height_step, target_cid=-1):
@@ -89,11 +91,3 @@ def travel_through_deck(start, width_step, height_step, target_cid=-1):
 
             last_cid = cid
             last_target_position = click_position
-
-
-def main():
-    ydk_converter([1])
-
-
-if __name__ == "__main__":
-    main()

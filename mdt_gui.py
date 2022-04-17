@@ -850,7 +850,7 @@ def main():
                 finally:
                     win32clipboard.CloseClipboard()
                 try:
-                    service.ydk_converter(ydk_deck=text, game_client_locale=game_client_locale)
+                    service.ydk_converter(ydk_deck=text, game_client_locale=game_client_locale, locale=locale)
                 except Exception as e:
                     print(e)
     window.close()

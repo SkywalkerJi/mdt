@@ -209,6 +209,38 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
 
     return result
 
+def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
+    l, r = 0, 0
+    error1 = []
+    error2 = []
+    while l < len(deck1) or r < len(deck2):
+        if l < len(deck1) and r < len(deck2) and deck1[l] == deck2[r]:
+            l += 1
+            r += 1
+        elif l < len(deck1) and (r == len(deck2)-1 or deck1[l] < deck2[r]):
+            error1.append(deck1[l])
+            l += 1
+        elif r < len(deck2):
+            error2.append(deck2[r])
+            r += 1
+    return error1, error2
+
+
+def check_deck(ydk_deck: list[int], locale):
+    _dict = get_deck_dict()
+    if not "error" in _dict:
+        deck1 = sorted(list(map(int, _dict["ma_cid_list"] + _dict["ex_cid_list"])))
+        deck2 = sorted(ydk_deck)
+        error1, error2 = _check_two_array_not_same(deck1, deck2)
+
+        db_name = "./locales/" + locale + "/cards.json"
+        cards_db = get_database(db_name)
+
+        print([cards_db[str(cid)]["cn_name"] for cid in error1], "imported wrong in your deck.")
+        print([cards_db[str(cid)]["cn_name"] for cid in error2], "in ydk deck haven't been imported")
+    else:
+        print("卡组读取错误")
+
 
 if __name__ == "__main__":
     print(get_deck_dict())
