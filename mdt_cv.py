@@ -7,6 +7,8 @@ import dhash
 import win32gui
 import win32ui
 from PIL import Image
+import cv2
+import numpy as np
 
 cid_show_gui = 0
 n_flags = 3
@@ -84,7 +86,7 @@ def screenshot():
     global n_flags
     hwnd = win32gui.FindWindow(None, "masterduel")
     if hwnd:
-        box = win32gui.GetWindowRect(hwnd)
+        box = win32gui.GetClientRect(hwnd)
         box_w = box[2] - box[0]
         box_h = box[3] - box[1]
         hwnd_dc = win32gui.GetWindowDC(hwnd)
@@ -158,6 +160,21 @@ def get_scan():
             return result[1]
     return 0
 
+def get_search_button_postion():
+    return position_by_template_matching('search')
+
+def position_by_template_matching(template_name):
+    # 高, 宽
+    # 截屏
+    full_img = np.asarray(screenshot())
+    imgx, imgy, _ = full_img.shape
+    # 按钮模板
+    template_image = cv2.imread(f"./data/template/1920x1080{template_name}.png")
+    template_image = cv2.resize(template_image, (int(imgx/1080*template_image.shape[0]), int(imgy/1920*template_image.shape[1])))
+    # 模板匹配
+    result = cv2.matchTemplate(full_img, template_image, cv2.TM_CCOEFF_NORMED)
+    _, _, _, top_left = cv2.minMaxLoc(result)
+    return top_left[0]+template_image.shape[0]/2, top_left[1]+template_image.shape[1]/2
 
 def main():
     print(get_scan())
