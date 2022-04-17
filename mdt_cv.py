@@ -163,18 +163,32 @@ def get_scan():
 def get_search_button_postion():
     return position_by_template_matching('search')
 
+def get_reset_button_postion():
+    return position_by_template_matching('reset')
+
+def get_scale():
+    # 窗口分辨率可能在程序运行时改变，所以不能是静态变量
+    hwnd = win32gui.FindWindow(None, "masterduel")
+    box = win32gui.GetClientRect(hwnd)
+    box_w = box[2] - box[0]
+    scale = box_w / 1920
+    return scale
+
+
 def position_by_template_matching(template_name):
-    # 高, 宽
     # 截屏
-    full_img = np.asarray(screenshot())
+    full_img = cv2.cvtColor(np.array(screenshot()), cv2.COLOR_RGB2BGR)
+    # 高, 宽
     imgx, imgy, _ = full_img.shape
     # 按钮模板
     template_image = cv2.imread(f"./data/template/1920x1080{template_name}.png")
-    template_image = cv2.resize(template_image, (int(imgx/1080*template_image.shape[0]), int(imgy/1920*template_image.shape[1])))
+    template_image = cv2.resize(template_image, (int(get_scale()*template_image.shape[1]), int(get_scale()*template_image.shape[0])))
     # 模板匹配
     result = cv2.matchTemplate(full_img, template_image, cv2.TM_CCOEFF_NORMED)
+    # 先横后竖
     _, _, _, top_left = cv2.minMaxLoc(result)
-    return top_left[0]+template_image.shape[0]/2, top_left[1]+template_image.shape[1]/2
+    return int(top_left[0]+template_image.shape[1]/2), int(top_left[1]+template_image.shape[0]/2)
+
 
 def main():
     print(get_scan())

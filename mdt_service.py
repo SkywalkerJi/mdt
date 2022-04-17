@@ -2,6 +2,8 @@ from threading import Thread
 from unicodedata import name
 
 import mdt as mdt
+from mdt_cv import get_search_button_postion
+import mdt_control
 import mdt_deck_reader as reader
 
 import win32api
@@ -92,29 +94,10 @@ def get_deck_string(locale: str):
 
 def ydk_converter(ydk_deck: str, game_client_locale: str='en'):
     tmp=reader.ydk_converter(ydk_deck, game_client_locale)
-    hWnd = win32gui.FindWindow(None, "masterduel")
-    win32gui.SetForegroundWindow(hWnd)
-    
-    tmp.sort()
-    blank=(1083, 171)
-    search=(1400, 295)
-    clear=(1670, 295)
-    card=(1400, 440)
-    if tmp is not None:
-        for index, element in enumerate(tmp):
-            if index == 0 or element != tmp[index-1]:
-                print(index)
-                pyautogui.click(blank, interval=.2)
-                pyautogui.click(clear)
-                pyautogui.click(blank, interval=.2)
-                pyautogui.click(search)
-                pyperclip.copy(element)
-                pyperclip.paste()
-                pyautogui.hotkey('ctrl', 'v')
-                pyautogui.press('enter')
-                time.sleep(1.5)
-            print(f"{element}\n")
-            pyautogui.rightClick(card)
+    # tmp.sort()
+    # TODO: 防止二次生成
+    thread = Thread(target=mdt_control.ydk_converter, args=(tmp,))
+    thread.start()
 
 if __name__ == "__main__":
     ydk_converter("", "")
