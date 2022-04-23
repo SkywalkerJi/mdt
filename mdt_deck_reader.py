@@ -210,6 +210,11 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
     return result
 
 def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
+    """
+    给两个拥有重复元素的列表，返回各自中独立存在的元素
+    例：[1, 2, 2, 4] [2, 3, 4, 4] -> [1, 2] [3, 4]
+    复杂度：O(n)
+    """
     l, r = 0, 0
     error1 = []
     error2 = []
