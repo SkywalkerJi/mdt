@@ -541,6 +541,15 @@ def main():
             webbrowser.open("https://ygo.xn--uesr8qr0rdwk.cn/#/convert")
         elif event == _("联系开发者"):
             webbrowser.open("https://github.com/SkywalkerJi/mdt#contact-us")
+        elif event == "DECK_CHECK_ERROR":
+            print(values)
+            sg.popup(f"{', '.join([f'【{card}】' for card in values['DECK_CHECK_ERROR']['error2']])} 未成功导入!", 
+                    title="ERROR", font=("Microsoft YaHei", font_size))
+        elif event == "DECK_CHECK_OK":
+            sg.popup("卡组导入成功，请点击确认", title="ERROR", font=("Microsoft YaHei", font_size))
+        elif event == "CARD_NOT_FOUND_ERROR":
+            sg.popup("卡组格式错误，请重新从微信小程序游戏王卡查器获取", title="ERROR", font=("Microsoft YaHei", font_size))
+
         if not settings_active and event == _("设置"):
             settings_active = True
             sync_ui = 0
@@ -841,18 +850,41 @@ def main():
                         )
                         f.close()
             elif ev == _("ydk格式剪贴板导入"):
-                try:
-                    # 直接从剪贴板读入ydk卡组
-                    win32clipboard.OpenClipboard()
-                    text = win32clipboard.GetClipboardData(win32con.CF_TEXT).decode("utf-8")
-                except TypeError:
-                    print('Error: No text on the clipboard!')
-                finally:
-                    win32clipboard.CloseClipboard()
-                try:
-                    service.ydk_converter(ydk_deck=text, game_client_locale=game_client_locale, locale=locale)
-                except Exception as e:
-                    print(e)
+                # win32api 发送消息没成功
+                # spy++ 检测手动与自动消息是一样的，不知道原因
+                warning_layout = [
+                    [sg.Text('1. 请保证处于卡组添加区域且卡组为空。')],
+                    [sg.Text('2. 请保证右侧卡组搜索面板无遮挡。')],
+                    [sg.Text('3. 请打开未拥有卡片。')],
+                    [sg.Text('4. 添加卡片使用的是PyAutoGUI，如果过程中出现意外，请将鼠标移动到左上角解除操作。')],
+                    [sg.Text('5. 取消可以终止此次操作。')],
+                    [sg.Button('Ok'), sg.Button('Cancel')]
+                ]
+                warning_window = sg.Window('Warning', warning_layout, font=("Microsoft YaHei", font_size))
+                flag = False
+                while True:
+                    event, values = warning_window.read()
+                    if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+                        flag = False
+                        break
+                    elif event == 'Ok':
+                        flag = True
+                        break
+                warning_window.close()
+                if flag:
+                    try:
+                        # 直接从剪贴板读入ydk卡组
+                        win32clipboard.OpenClipboard()
+                        text = win32clipboard.GetClipboardData(win32con.CF_TEXT).decode("utf-8")
+                    except TypeError:
+                        sg.popup('Error: No text on the clipboard!')
+                    finally:
+                        win32clipboard.CloseClipboard()
+                    
+                    try:
+                        service.ydk_converter(ydk_deck=text, window=window, game_client_locale=game_client_locale, locale=locale)
+                    except Exception as e:
+                        print(e)
     window.close()
 
 

@@ -240,11 +240,13 @@ def check_deck(ydk_deck: list[int], locale):
 
         db_name = "./locales/" + locale + "/cards.json"
         cards_db = get_database(db_name)
-
-        print([cards_db[str(cid)]["cn_name"] for cid in error1], "imported wrong in your deck.")
-        print([cards_db[str(cid)]["cn_name"] for cid in error2], "in ydk deck haven't been imported")
+        error1 = [cards_db[str(cid)]["cn_name"] for cid in error1]
+        error2 = [cards_db[str(cid)]["cn_name"] for cid in error2]
+        print(error1, "imported wrong in your deck.")
+        print(error2, "in ydk deck haven't been imported")
     else:
         print("卡组读取错误")
+    return {"error1": error1, "error2": error2}
 
 
 if __name__ == "__main__":
