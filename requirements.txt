@@ -7,3 +7,6 @@ pyperclip
 python-i18n
 dhash
 Pillow
+opencv-pyhton
+pyautogui
+numpy
