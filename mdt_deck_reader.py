@@ -210,6 +210,11 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
     return result
 
 def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
+    """
+    给两个拥有重复元素的列表，返回各自中独立存在的元素
+    例：[1, 2, 2, 4] [2, 3, 4, 4] -> [1, 2] [3, 4]
+    复杂度：O(n)
+    """
     l, r = 0, 0
     error1 = []
     error2 = []
@@ -235,11 +240,13 @@ def check_deck(ydk_deck: list[int], locale):
 
         db_name = "./locales/" + locale + "/cards.json"
         cards_db = get_database(db_name)
-
-        print([cards_db[str(cid)]["cn_name"] for cid in error1], "imported wrong in your deck.")
-        print([cards_db[str(cid)]["cn_name"] for cid in error2], "in ydk deck haven't been imported")
+        error1 = [cards_db[str(cid)]["cn_name"] for cid in error1]
+        error2 = [cards_db[str(cid)]["cn_name"] for cid in error2]
+        print(error1, "imported wrong in your deck.")
+        print(error2, "in ydk deck haven't been imported")
     else:
         print("卡组读取错误")
+    return {"error1": error1, "error2": error2}
 
 
 if __name__ == "__main__":

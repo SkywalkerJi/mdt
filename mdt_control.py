@@ -9,14 +9,17 @@ import mdt_deck_reader
 
 from mdt_cv import get_reset_button_postion, get_scale, get_search_button_postion
 
+# pyautogui 强制关闭
 pyautogui.FAILSAFE = True
 
+# 1920x1080 分辨率下的偏移量，可以通过分辨率换算进行变换
 blank_offset = (0, -150)
 clear_offset = (335, 0)
 card_offset = (0, 170)
 card_width_offset = 89
 card_height_offset = 144
 
+# 用来处理同一个名字搜索出多个卡片的全局变量
 last_cid = -1
 last_target_position = None
 
@@ -25,7 +28,7 @@ def _add(a: tuple, b: tuple, scale=1.0):
     return a[0]+b[0]*scale, a[1]+b[1]*scale
 
 
-def ydk_converter(ydk_deck: list[tuple], locale: str):
+def ydk_converter(ydk_deck: list[tuple], locale: str, window):
     """
     Convert YDK deck list to MDT deck.
     """
@@ -64,14 +67,23 @@ def ydk_converter(ydk_deck: list[tuple], locale: str):
             pyautogui.press('enter')
             # 等待搜索完成
             time.sleep(1.2)
+            # 处理搜索得到多卡片的情况
             target_card_position = travel_through_deck(card,
                                                        card_width_offset*scale,
                                                        card_height_offset*scale,
                                                        int(cid))
+            if target_card_position is None:
+                continue
+            
         print(f"{element}\n")
         pyautogui.rightClick(target_card_position)
     
-    mdt_deck_reader.check_deck([int(i[1]) for i in ydk_deck], locale)
+    # 对卡组进行校验
+    result = mdt_deck_reader.check_deck([int(i[1]) for i in ydk_deck], locale)
+    if len(result['error1']) != 0 or len(result['error2']) != 0:
+        window.write_event_value('DECK_CHECK_ERROR', result)
+    else:
+        window.write_event_value('DECK_CHECK_OK', result)
 
 
 def travel_through_deck(start, width_step, height_step, target_cid=-1):
@@ -86,8 +98,7 @@ def travel_through_deck(start, width_step, height_step, target_cid=-1):
             cid = get_current_cid()
             if cid == target_cid:
                 return click_position
-            elif cid == last_cid:
-                return last_target_position
 
             last_cid = cid
             last_target_position = click_position
+    return None
