@@ -211,9 +211,11 @@ def config_load():
     except Exception:
         pass
 
+
 def get_current_cid():
     translate()
     return int(cid_show_gui)
+
 
 def main():
     uac_reload()

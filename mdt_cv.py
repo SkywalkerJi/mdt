@@ -160,11 +160,14 @@ def get_scan():
             return result[1]
     return 0
 
+
 def get_search_button_postion():
-    return position_by_template_matching('search')
+    return position_by_template_matching("search")
+
 
 def get_reset_button_postion():
-    return position_by_template_matching('reset')
+    return position_by_template_matching("reset")
+
 
 def get_scale():
     # 窗口分辨率可能在程序运行时改变，所以不能是静态变量
@@ -182,12 +185,20 @@ def position_by_template_matching(template_name):
     imgx, imgy, _ = full_img.shape
     # 按钮模板
     template_image = cv2.imread(f"./data/template/1920x1080{template_name}.png")
-    template_image = cv2.resize(template_image, (int(get_scale()*template_image.shape[1]), int(get_scale()*template_image.shape[0])))
+    template_image = cv2.resize(
+        template_image,
+        (
+            int(get_scale() * template_image.shape[1]),
+            int(get_scale() * template_image.shape[0]),
+        ),
+    )
     # 模板匹配
     result = cv2.matchTemplate(full_img, template_image, cv2.TM_CCOEFF_NORMED)
     # 先横后竖
     _, _, _, top_left = cv2.minMaxLoc(result)
-    return int(top_left[0]+template_image.shape[1]/2), int(top_left[1]+template_image.shape[0]/2)
+    return int(top_left[0] + template_image.shape[1] / 2), int(
+        top_left[1] + template_image.shape[0] / 2
+    )
 
 
 def main():

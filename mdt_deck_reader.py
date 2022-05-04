@@ -31,7 +31,7 @@ def deck_bytes_to_list(bytes: bytes, count: int):
     card_list = []
     for i in range(count):
         card_list.append(
-            int.from_bytes(bytes[i * inc: i * inc + 2], byteorder="little")
+            int.from_bytes(bytes[i * inc : i * inc + 2], byteorder="little")
         )
     return card_list
 
@@ -81,15 +81,13 @@ def get_deck_dict():
         )
         ma_cid_list = deck_bytes_to_list(
             read_memory_bytes(
-                pm, pointer_to_address(
-                    pm, ma_cards_addr, ma_cards_offsets), ma_count
+                pm, pointer_to_address(pm, ma_cards_addr, ma_cards_offsets), ma_count
             ),
             ma_count,
         )
         ex_cid_list = deck_bytes_to_list(
             read_memory_bytes(
-                pm, pointer_to_address(
-                    pm, ex_cards_addr, ex_cards_offsets), ex_count
+                pm, pointer_to_address(pm, ex_cards_addr, ex_cards_offsets), ex_count
             ),
             ex_count,
         )
@@ -167,23 +165,24 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
         cards_db = get_database(db_name)
         # id -> en, jp, cid
         cards_db_cache = {
-            card_info['id']: {
-                "jp_name": card_info['jp_name'], 
-                "en_name": card_info['en_name'],
-                "cid": cid
-            } for(cid, card_info) in cards_db.items()
+            card_info["id"]: {
+                "jp_name": card_info["jp_name"],
+                "en_name": card_info["en_name"],
+                "cid": cid,
+            }
+            for (cid, card_info) in cards_db.items()
         }
     except Exception:
         print(_("无法读取卡组信息"))
         return None
 
     result = []
-    for line in ydk_deck.split('\n'):
+    for line in ydk_deck.split("\n"):
         cards_id = line.strip()
-        if cards_id.startswith('#') or cards_id == '':
+        if cards_id.startswith("#") or cards_id == "":
             # 跳过注释和空行
             continue
-        elif cards_id.startswith('!'):
+        elif cards_id.startswith("!"):
             # side deck
             break
         elif not cards_id.isdigit():
@@ -201,13 +200,16 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
 
         try:
             # 获取卡片名称
-            result.append((f"{card_info[f'{game_client_locale}_name']}", card_info['cid']))
+            result.append(
+                (f"{card_info[f'{game_client_locale}_name']}", card_info["cid"])
+            )
         except Exception as e:
             print(e)
             print(_("格式有误"))
             return None
 
     return result
+
 
 def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
     """
@@ -222,7 +224,7 @@ def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
         if l < len(deck1) and r < len(deck2) and deck1[l] == deck2[r]:
             l += 1
             r += 1
-        elif l < len(deck1) and (r == len(deck2)-1 or deck1[l] < deck2[r]):
+        elif l < len(deck1) and (r == len(deck2) - 1 or deck1[l] < deck2[r]):
             error1.append(deck1[l])
             l += 1
         elif r < len(deck2):
@@ -233,7 +235,7 @@ def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
 
 def check_deck(ydk_deck: list[int], locale):
     _dict = get_deck_dict()
-    if not "error" in _dict:
+    if "error" not in _dict:
         deck1 = sorted(list(map(int, _dict["ma_cid_list"] + _dict["ex_cid_list"])))
         deck2 = sorted(ydk_deck)
         error1, error2 = _check_two_array_not_same(deck1, deck2)

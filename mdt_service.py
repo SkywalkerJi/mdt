@@ -1,9 +1,8 @@
 from threading import Thread
-
 import mdt as mdt
-from mdt_cv import get_search_button_postion
 import mdt_control
 import mdt_deck_reader as reader
+
 
 def start():
     mdt_service = Thread(target=mdt.main)
@@ -84,15 +83,19 @@ def get_deck_dict():
 def get_deck_string(locale: str):
     return reader.get_deck_string(locale)
 
-def ydk_converter(ydk_deck: str, window, game_client_locale: str='en',locale: str='zh-CN'):
-    tmp=reader.ydk_converter(ydk_deck, game_client_locale)
+
+def ydk_converter(
+    ydk_deck: str, window, game_client_locale: str = "en", locale: str = "zh-CN"
+):
+    tmp = reader.ydk_converter(ydk_deck, game_client_locale)
     if tmp is None:
-        window.write_event_value('CARD_NOT_FOUND_ERROR', None)
+        window.write_event_value("CARD_NOT_FOUND_ERROR", None)
 
     tmp.sort(key=lambda tup: tup[0])
     # TODO: 防止二次生成
     thread = Thread(target=mdt_control.ydk_converter, args=(tmp, locale, window))
     thread.start()
+
 
 if __name__ == "__main__":
     ydk_converter("", "")

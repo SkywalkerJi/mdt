@@ -355,6 +355,9 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 ## Changelog
 
 *v0.2.14 beta*
+* 添加ydk卡组自动导入功能。感谢@chunibyo-wly 的贡献。
+
+*v0.2.14 beta*
 * 支持4月新卡图像识别。感谢@wtof1996 的贡献。
 
 <details>
