@@ -50,7 +50,7 @@ def get_cid(type: int):
     while type == 1:
         try:
             deck_pointer_value = (
-                read_longlongs(pm, deck_addr, [0xB8, 0x0, 0xF8, 0x1D8]) + 0x20
+                read_longlongs(pm, deck_addr, [0xB8, 0x0, 0xF8, 0x1E0]) + 0x2C
             )
             deck_cid = pm.read_int(deck_pointer_value)
             return deck_cid
@@ -58,7 +58,7 @@ def get_cid(type: int):
             return 0
     while type == 2:
         try:
-            duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x10]) + 0x44
+            duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x10]) + 0x4C
             duel_cid = pm.read_int(duel_pointer_value)
             return duel_cid
         except Exception:
@@ -66,7 +66,7 @@ def get_cid(type: int):
     while type == 3:
         try:
             oppo_pointer_value = (
-                read_longlongs(pm, oppo_addr, [0xB8, 0x0, 0xF8, 0x140]) + 0x20
+                read_longlongs(pm, oppo_addr, [0xB8, 0x0, 0xF8, 0x138]) + 0x2C
             )
             oppo_cid = pm.read_int(oppo_pointer_value)
             return oppo_cid
@@ -138,9 +138,9 @@ def get_baseAddress():
         pm.process_handle, "GameAssembly.dll"
     ).lpBaseOfDll
     # deck 组卡界面 duel 决斗界面 oppo 回放
-    deck_addr = baseAddress + int("0x01CCE3C0", base=16)
-    duel_addr = baseAddress + int("0x01BD3FD8", base=16)
-    oppo_addr = baseAddress + int("0x01CCE3C0", base=16)
+    deck_addr = baseAddress + int("0x01E99C18", base=16)
+    duel_addr = baseAddress + int("0x01DBDC88", base=16)
+    oppo_addr = baseAddress + int("0x01E99C18", base=16)
 
 
 # UAC判断
