@@ -2,7 +2,7 @@ import time
 import win32gui
 import pyautogui
 import pyperclip
-from mdt import get_current_cid
+from mdt import get_current_cid, status_change
 import mdt_deck_reader
 
 from mdt_cv import get_reset_button_postion, get_scale, get_search_button_postion
@@ -36,51 +36,57 @@ def ydk_converter(ydk_deck: list[tuple], locale: str, window):
     if ydk_deck is None or ydk_deck == []:
         return
 
-    hWnd = win32gui.FindWindow(None, "masterduel")
-    win32gui.SetForegroundWindow(hWnd)
-    box = win32gui.ClientToScreen(hWnd, (0, 0))
+    status_change(False, True, False)
+    try:
+        hWnd = win32gui.FindWindow(None, "masterduel")
+        win32gui.SetForegroundWindow(hWnd)
+        box = win32gui.ClientToScreen(hWnd, (0, 0))
 
-    scale = get_scale()
-    # 先横后竖
-    search = get_search_button_postion()
-    search = _add(search, box)
-    reset = get_reset_button_postion()
-    reset = _add(reset, box)
-    blank = _add(search, blank_offset, scale)
-    clear = _add(search, clear_offset, scale)
-    card = _add(search, card_offset, scale)
-    target_card_position = None
+        scale = get_scale()
+        # 先横后竖
+        search = get_search_button_postion()
+        search = _add(search, box)
+        reset = get_reset_button_postion()
+        reset = _add(reset, box)
+        blank = _add(search, blank_offset, scale)
+        clear = _add(search, clear_offset, scale)
+        card = _add(search, card_offset, scale)
+        target_card_position = None
 
-    pyautogui.click(reset, interval=0.5)
-    for index, tup in enumerate(ydk_deck):
-        element, cid = tup
-        if index == 0 or element != ydk_deck[index - 1][0]:
-            pyautogui.click(clear, interval=0.1)
-            pyautogui.click(blank, interval=0.1)
-            pyautogui.click(search)
-            # 粘贴卡片名
-            pyperclip.copy(element)
-            pyperclip.paste()
-            pyautogui.hotkey("ctrl", "v")
-            pyautogui.press("enter")
-            # 等待搜索完成
-            time.sleep(1.2)
-            # 处理搜索得到多卡片的情况
-            target_card_position = travel_through_deck(
-                card, card_width_offset * scale, card_height_offset * scale, int(cid)
-            )
-            if target_card_position is None:
-                continue
+        pyautogui.click(reset, interval=0.5)
+        for index, tup in enumerate(ydk_deck):
+            element, cid = tup
+            if index == 0 or element != ydk_deck[index - 1][0]:
+                pyautogui.click(clear, interval=0.1)
+                pyautogui.click(blank, interval=0.1)
+                pyautogui.click(search)
+                # 粘贴卡片名
+                pyperclip.copy(element)
+                pyperclip.paste()
+                pyautogui.hotkey("ctrl", "v")
+                pyautogui.press("enter")
+                # 等待搜索完成
+                time.sleep(1.2)
+                # 处理搜索得到多卡片的情况
+                target_card_position = travel_through_deck(
+                    card, card_width_offset * scale, card_height_offset * scale, int(cid)
+                )
+                if target_card_position is None:
+                    continue
 
-        print(f"{element}\n")
-        pyautogui.rightClick(target_card_position)
+            print(f"{element}\n")
+            pyautogui.rightClick(target_card_position)
 
-    # 对卡组进行校验
-    result = mdt_deck_reader.check_deck([int(i[1]) for i in ydk_deck], locale)
-    if len(result["error1"]) != 0 or len(result["error2"]) != 0:
-        window.write_event_value("DECK_CHECK_ERROR", result)
-    else:
-        window.write_event_value("DECK_CHECK_OK", result)
+        # 对卡组进行校验
+        result = mdt_deck_reader.check_deck([int(i[1]) for i in ydk_deck], locale)
+        if len(result["error1"]) != 0 or len(result["error2"]) != 0:
+            window.write_event_value("DECK_CHECK_ERROR", result)
+        else:
+            window.write_event_value("DECK_CHECK_OK", result)
+    except Exception as e:
+        print(e)
+    finally:
+        status_change(True, False, False)
 
 
 def travel_through_deck(start, width_step, height_step, target_cid=-1):
