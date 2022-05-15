@@ -1,4 +1,6 @@
 from threading import Thread
+
+import pyperclip
 import mdt as mdt
 import mdt_control
 import mdt_deck_reader as reader
@@ -90,10 +92,16 @@ def ydk_converter(
     tmp = reader.ydk_converter(ydk_deck, game_client_locale)
     if tmp is None:
         window.write_event_value("CARD_NOT_FOUND_ERROR", None)
-
     tmp.sort(key=lambda tup: tup[0])
+
+    def ydk_converter_callback():
+        print(ydk_deck)
+        pyperclip.copy(ydk_deck)
+        start()
+
+    pause()
     # TODO: 防止二次生成
-    thread = Thread(target=mdt_control.ydk_converter, args=(tmp, locale, window))
+    thread = Thread(target=mdt_control.ydk_converter, args=(tmp, locale, window, ydk_converter_callback))
     thread.start()
 
 

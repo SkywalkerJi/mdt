@@ -17,16 +17,12 @@ card_offset = (0, 170)
 card_width_offset = 89
 card_height_offset = 144
 
-# 用来处理同一个名字搜索出多个卡片的全局变量
-last_cid = -1
-last_target_position = None
-
 
 def _add(a: tuple, b: tuple, scale=1.0):
     return a[0] + b[0] * scale, a[1] + b[1] * scale
 
 
-def ydk_converter(ydk_deck: list[tuple], locale: str, window):
+def ydk_converter(ydk_deck: list[tuple], locale: str, window, callback=None):
     """
     Convert YDK deck list to MDT deck.
     """
@@ -36,7 +32,6 @@ def ydk_converter(ydk_deck: list[tuple], locale: str, window):
     if ydk_deck is None or ydk_deck == []:
         return
 
-    status_change(False, True, False)
     try:
         hWnd = win32gui.FindWindow(None, "masterduel")
         win32gui.SetForegroundWindow(hWnd)
@@ -86,12 +81,10 @@ def ydk_converter(ydk_deck: list[tuple], locale: str, window):
     except Exception as e:
         print(e)
     finally:
-        status_change(True, False, False)
+        callback()
 
 
 def travel_through_deck(start, width_step, height_step, target_cid=-1):
-    global last_cid, last_target_position
-
     # 竖
     for i in range(5):
         # 横
@@ -102,6 +95,4 @@ def travel_through_deck(start, width_step, height_step, target_cid=-1):
             if cid == target_cid:
                 return click_position
 
-            last_cid = cid
-            last_target_position = click_position
     return None
