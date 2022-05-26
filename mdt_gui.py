@@ -204,8 +204,8 @@ def main():
         "-pdesc-",
         "-desc-",
         "-types-",
-        "-en_name-",
-        "-jp_name-",
+        # "-en_name-",
+        # "-jp_name-",
         "-id-",
         "-notice-",
     )
@@ -263,6 +263,7 @@ def main():
                                 text_color="white",
                                 write_only=True,
                                 auto_refresh=True,
+                                disabled=True,
                                 rstrip=True,
                                 no_scrollbar=no_scrollbar,
                             )
@@ -287,6 +288,7 @@ def main():
                             text_color="white",
                             write_only=True,
                             auto_refresh=True,
+                            disabled=True,
                             rstrip=True,
                             expand_x=True,
                             expand_y=True,
@@ -300,48 +302,48 @@ def main():
                 tooltip=_("右键选择更多功能"),
             )
         ],
-        [
-            sg.pin(
-                sg.Frame(
-                    _("英文名"),
-                    [
-                        [
-                            sg.T(
-                                key="-en_name-",
-                                enable_events=True,
-                                s=(40, 1),
-                            )
-                        ],
-                    ],
-                    title_color="#61E7DC",
-                    visible=show_en_name,
-                    key="-en_name_frame-",
-                    tooltip=_("右键选择更多功能"),
-                ),
-                expand_x=True,
-            )
-        ],
-        [
-            sg.pin(
-                sg.Frame(
-                    _("日文名"),
-                    [
-                        [
-                            sg.T(
-                                key="-jp_name-",
-                                enable_events=True,
-                                s=(40, 1),
-                            )
-                        ],
-                    ],
-                    title_color="#61E7DC",
-                    visible=show_jp_name,
-                    key="-jp_name_frame-",
-                    tooltip=_("右键选择更多功能"),
-                ),
-                expand_x=True,
-            )
-        ],
+        # [
+        #     sg.pin(
+        #         sg.Frame(
+        #             _("英文名"),
+        #             [
+        #                 [
+        #                     sg.T(
+        #                         key="-en_name-",
+        #                         enable_events=True,
+        #                         s=(40, 1),
+        #                     )
+        #                 ],
+        #             ],
+        #             title_color="#61E7DC",
+        #             visible=show_en_name,
+        #             key="-en_name_frame-",
+        #             tooltip=_("右键选择更多功能"),
+        #         ),
+        #         expand_x=True,
+        #     )
+        # ],
+        # [
+        #     sg.pin(
+        #         sg.Frame(
+        #             _("日文名"),
+        #             [
+        #                 [
+        #                     sg.T(
+        #                         key="-jp_name-",
+        #                         enable_events=True,
+        #                         s=(40, 1),
+        #                     )
+        #                 ],
+        #             ],
+        #             title_color="#61E7DC",
+        #             visible=show_jp_name,
+        #             key="-jp_name_frame-",
+        #             tooltip=_("右键选择更多功能"),
+        #         ),
+        #         expand_x=True,
+        #     )
+        # ],
         [
             [
                 sg.pin(
@@ -437,9 +439,9 @@ def main():
             cid_temp = cid
             try:
                 card_t = cards_db[str(cid)]
-                window["-cn_name-"].update(card_t["cn_name"])
-                window["-en_name-"].update(card_t["en_name"])
-                window["-jp_name-"].update(card_t["jp_name"])
+                window["-cn_name-"].update('\n'.join([card_t["cn_name"],card_t["en_name"],card_t["jp_name"]]))
+                # window["-en_name-"].update(card_t["en_name"])
+                # window["-jp_name-"].update(card_t["jp_name"])
                 window["-id-"].update(card_t["id"])
                 window["-types-"].update(card_t["text"]["types"])
                 if card_t["text"]["pdesc"]:

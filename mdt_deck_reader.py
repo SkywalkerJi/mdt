@@ -2,6 +2,7 @@ import json
 
 import i18n
 import pymem
+from typing import List
 
 _ = i18n.t
 
@@ -211,7 +212,7 @@ def ydk_converter(ydk_deck: str, game_client_locale: str = "en"):
     return result
 
 
-def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
+def _check_two_array_not_same(deck1: List[int], deck2: List[int]):
     """
     给两个拥有重复元素的列表，返回各自中独立存在的元素
     例：[1, 2, 2, 4] [2, 3, 4, 4] -> [1, 2] [3, 4]
@@ -233,7 +234,7 @@ def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
     return error1, error2
 
 
-def check_deck(ydk_deck: list[int], locale):
+def check_deck(ydk_deck: List[int], locale):
     _dict = get_deck_dict()
     if "error" not in _dict:
         deck1 = sorted(list(map(int, _dict["ma_cid_list"] + _dict["ex_cid_list"])))

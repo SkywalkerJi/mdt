@@ -4,7 +4,7 @@ import pyautogui
 import pyperclip
 from mdt import get_current_cid, status_change
 import mdt_deck_reader
-
+from typing import List
 from mdt_cv import get_reset_button_postion, get_scale, get_search_button_postion
 
 # pyautogui 强制关闭
@@ -22,7 +22,7 @@ def _add(a: tuple, b: tuple, scale=1.0):
     return a[0] + b[0] * scale, a[1] + b[1] * scale
 
 
-def ydk_converter(ydk_deck: list[tuple], locale: str, window, callback=None):
+def ydk_converter(ydk_deck: List[tuple], locale: str, window, callback=None):
     """
     Convert YDK deck list to MDT deck.
     """
