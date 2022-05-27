@@ -263,7 +263,6 @@ def main():
                                 text_color="white",
                                 write_only=True,
                                 auto_refresh=True,
-                                disabled=True,
                                 rstrip=True,
                                 no_scrollbar=no_scrollbar,
                             )
@@ -288,7 +287,6 @@ def main():
                             text_color="white",
                             write_only=True,
                             auto_refresh=True,
-                            disabled=True,
                             rstrip=True,
                             expand_x=True,
                             expand_y=True,
