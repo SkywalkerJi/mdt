@@ -13,7 +13,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 * i18n，支持简体中文和繁体中文。
 * 高兼容性，点开即用，支持各种游戏内语言，最低可支持win7。
 * 支持内存检测和图像指纹两种识别模式。
-* 一键导出Master Duel游戏卡组，兼容YGOpro格式。同时提供在线转换YGOpro格式导入。
+* 支持ydk格式卡组导入。
 * 可一键直达网页卡查和官方数据库，MDT也有 [Secret Pack查询工具](https://ygo.xn--uesr8qr0rdwk.cn/)。
 * 支持全屏置顶、无边框、半透明。
 * 支持对重要UR，主流断点进行警示。
@@ -27,7 +27,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 
 如果是Windows7系统请下载后缀`_win7`的版本，如果想使用CLI请下载`_CLI`的版本。
 
-中国大陆用户可在 [蓝奏云下载](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f
+中国大陆用户可在 [蓝奏云](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f 或者 [Microsoft OneDrive](https://1drv.ms/u/s!Apo8OlF1smGK6nS7sXukI9Bt9xOd?e=bbzDea) 分流下载。
 
 你可以通过 [YGO.御坂美琴.CN](https://ygo.xn--uesr8qr0rdwk.cn/) 访问MDT网页工具。
 
@@ -354,6 +354,15 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Changelog
 
+*v0.2.17*
+* 图像模式更新6月10日新卡hash。by wtof1996
+* 修复识别线程失效问题。by chunibyo
+* 将效果框置为只读。by funnyvalentine2363
+* 去除了失效的卡组导出功能。（可能需要新的实现方式）
+
+<details>
+   <summary>展开过往版本</summary>
+
 *v0.2.16*
 * 对游戏steam版本V1.1.1进行支持。
 
@@ -362,9 +371,6 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 *v0.2.14 beta*
 * 支持4月新卡图像识别。感谢@wtof1996 的贡献。
-
-<details>
-   <summary>展开过往版本</summary>
 
 *v0.2.13*
 * 自定义BGM支持，在选中一张卡牌时，自动播放BGM或召唤词。样例为青眼亚白龙。可以在设置中开启。

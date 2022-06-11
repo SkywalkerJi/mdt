@@ -262,7 +262,7 @@ def main():
                                 background_color="#3F3F3F",
                                 text_color="white",
                                 write_only=True,
-                                disabled = True,
+                                disabled=True,
                                 auto_refresh=True,
                                 rstrip=True,
                                 no_scrollbar=no_scrollbar,
@@ -405,7 +405,7 @@ def main():
         ],
     ]
     window = sg.Window(
-        "MDT v0.2.16 GPLv3",
+        "MDT v0.2.17 GPLv3",
         card_frame,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -437,6 +437,7 @@ def main():
             window["-desc-"].Widget.configure(wrap="char")
         if cid != cid_temp and cid:
             cid_temp = cid
+            print(cid)
             try:
                 card_t = cards_db[str(cid)]
                 window["-cn_name-"].update(card_t["cn_name"])
@@ -715,17 +716,17 @@ def main():
                             ]
                         ]
                     ),
-                    sg.Column(
-                        [
-                            [
-                                sg.Button(
-                                    _("导出卡组"),
-                                    button_color=("white", "#238636"),
-                                    border_width=1,
-                                )
-                            ]
-                        ]
-                    ),
+                    # sg.Column(
+                    #     [
+                    #         [
+                    #             sg.Button(
+                    #                 _("导出卡组"),
+                    #                 button_color=("white", "#238636"),
+                    #                 border_width=1,
+                    #             )
+                    #         ]
+                    #     ]
+                    # ),
                     sg.Column(
                         [
                             [

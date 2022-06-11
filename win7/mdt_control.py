@@ -22,7 +22,7 @@ def _add(a: tuple, b: tuple, scale=1.0):
     return a[0] + b[0] * scale, a[1] + b[1] * scale
 
 
-def ydk_converter(ydk_deck: list[tuple], locale: str, window, callback=None):
+def ydk_converter(ydk_deck: list, locale: str, window, callback=None):
     """
     Convert YDK deck list to MDT deck.
     """
