@@ -405,7 +405,7 @@ def main():
         ],
     ]
     window = sg.Window(
-        "MDT v0.2.17 GPLv3",
+        "MDT v0.2.18 GPLv3",
         card_frame,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
@@ -716,17 +716,17 @@ def main():
                             ]
                         ]
                     ),
-                    # sg.Column(
-                    #     [
-                    #         [
-                    #             sg.Button(
-                    #                 _("导出卡组"),
-                    #                 button_color=("white", "#238636"),
-                    #                 border_width=1,
-                    #             )
-                    #         ]
-                    #     ]
-                    # ),
+                    sg.Column(
+                        [
+                            [
+                                sg.Button(
+                                    _("导出卡组"),
+                                    button_color=("white", "#238636"),
+                                    border_width=1,
+                                )
+                            ]
+                        ]
+                    ),
                     sg.Column(
                         [
                             [

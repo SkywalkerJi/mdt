@@ -354,11 +354,14 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Changelog
 
+*v0.2.178*
+* 修复卡组导出功能。
+
 *v0.2.17*
 * 图像模式更新6月10日新卡hash。by wtof1996
 * 修复识别线程失效问题。by chunibyo
 * 将效果框置为只读。by funnyvalentine2363
-* 去除了失效的卡组导出功能。（可能需要新的实现方式）
+* 去除了失效的卡组导出功能。
 
 <details>
    <summary>展开过往版本</summary>
