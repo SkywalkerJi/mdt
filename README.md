@@ -2,7 +2,7 @@
 
 Yu-Gi-Oh! Master Duel Translation Script
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/releases/latest) [![GitHub all releases](https://img.shields.io/github/downloads/SkywalkerJi/mdt/total)](https://github.com/SkywalkerJi/mdt#download) [![GitHub forks](https://img.shields.io/github/forks/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/network) [![GitHub stars](https://img.shields.io/github/stars/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/stargazers) [![GitHub license](https://img.shields.io/github/license/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE) ![Chinese translation](https://img.shields.io/badge/%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91-100%25-green) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SkywalkerJi/mdt/GitHub%20Actions%20Build%20and%20Deploy) [![Steam Game Ver](https://img.shields.io/badge/Steam-1.1.1-informational)](https://store.steampowered.com/app/1449850/YuGiOh_Master_Duel/)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/releases/latest) [![GitHub all releases](https://img.shields.io/github/downloads/SkywalkerJi/mdt/total)](https://github.com/SkywalkerJi/mdt#download) [![GitHub forks](https://img.shields.io/github/forks/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/network) [![GitHub stars](https://img.shields.io/github/stars/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/stargazers) [![GitHub license](https://img.shields.io/github/license/SkywalkerJi/mdt)](https://github.com/SkywalkerJi/mdt/blob/master/LICENSE) ![Chinese translation](https://img.shields.io/badge/%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91-100%25-green) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SkywalkerJi/mdt/GitHub%20Actions%20Build%20and%20Deploy) [![Steam Game Ver](https://img.shields.io/badge/Steam-1.1.2-informational)](https://store.steampowered.com/app/1449850/YuGiOh_Master_Duel/)
 
 * 自动切换，自动查卡，全面覆盖Deck、Duel、Solo、Replay、Shop模式。
 * 高正确性，除非卡片数据本身有错。
@@ -13,7 +13,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 * i18n，支持简体中文和繁体中文。
 * 高兼容性，点开即用，支持各种游戏内语言，最低可支持win7。
 * 支持内存检测和图像指纹两种识别模式。
-* 支持ydk格式卡组导入。
+* 一键导入导出游戏卡组，支持`.ydk`格式。
 * 可一键直达网页卡查和官方数据库，MDT也有 [Secret Pack查询工具](https://ygo.xn--uesr8qr0rdwk.cn/)。
 * 支持全屏置顶、无边框、半透明。
 * 支持对重要UR，主流断点进行警示。
@@ -354,7 +354,10 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Changelog
 
-*v0.2.178*
+*v0.2.19*
+* 对游戏steam版本V1.1.2进行支持。。
+
+*v0.2.18*
 * 修复卡组导出功能。
 
 *v0.2.17*

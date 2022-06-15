@@ -138,9 +138,9 @@ def get_baseAddress():
         pm.process_handle, "GameAssembly.dll"
     ).lpBaseOfDll
     # deck 组卡界面 duel 决斗界面 oppo 回放
-    deck_addr = baseAddress + int("0x01E99C18", base=16)
-    duel_addr = baseAddress + int("0x01DBDC88", base=16)
-    oppo_addr = baseAddress + int("0x01E99C18", base=16)
+    deck_addr = baseAddress + int("0x01E9AC28", base=16)
+    duel_addr = baseAddress + int("0x01DBEC88", base=16)
+    oppo_addr = baseAddress + int("0x01E9AC28", base=16)
 
 
 # UAC判断
