@@ -75,10 +75,7 @@ def get_cid(type: int):
 
 
 def valid_cid(cid: int):
-    if cid > 4000 and cid < 20000:
-        return True
-    else:
-        return False
+    return cid > 4000 and cid < 20000
 
 
 def translate():

@@ -84,8 +84,7 @@ with open("./data/hash.json", "r", encoding="utf-8") as f:
 
 def screenshot():
     global n_flags
-    hwnd = win32gui.FindWindow(None, "masterduel")
-    if hwnd:
+    if hwnd := win32gui.FindWindow(None, "masterduel"):
         box = win32gui.GetClientRect(hwnd)
         box_w = box[2] - box[0]
         box_h = box[3] - box[1]

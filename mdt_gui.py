@@ -136,8 +136,7 @@ def i18n_set(locale: str):
 
 
 def show_card_tier(window, cid):
-    tier = service.get_card_tier(str(cid))
-    if tier:
+    if tier := service.get_card_tier(str(cid)):
         if tier == 1:
             window["-notice-"].update(_("非常重要UR"))
         elif tier == 2:
@@ -154,26 +153,22 @@ def show_break_point(window, cid):
     tier = service.get_break_point(str(cid))
     text = window["-notice-"].get()
     if tier == 99:
-        window["-notice-"].update(
-            value=text + " " + _("无效·断点"), background_color="#3700B3"
-        )
+        window["-notice-"].update(value=f"{text} " + _("无效·断点"), background_color="#3700B3")
+
     elif tier == 98:
-        window["-notice-"].update(
-            value=text + " " + _("除外·断点"), background_color="#3700B3"
-        )
+        window["-notice-"].update(value=f"{text} " + _("除外·断点"), background_color="#3700B3")
+
     elif tier == 97:
-        window["-notice-"].update(
-            value=text + " " + _("破坏·断点"), background_color="#3700B3"
-        )
+        window["-notice-"].update(value=f"{text} " + _("破坏·断点"), background_color="#3700B3")
+
     else:
         window["-notice-"].update(background_color="#3F3F3F")
 
 
 def play_bgm(cid):
     if play_diy_bgm:
-        file = service.get_bgm(str(cid))
-        if file:
-            audio_file = "./data/bgm/" + file
+        if file := service.get_bgm(str(cid)):
+            audio_file = f"./data/bgm/{file}"
             try:
                 winsound.PlaySound(audio_file, winsound.SND_ASYNC)
             except Exception as e:
