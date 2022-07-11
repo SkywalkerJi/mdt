@@ -354,14 +354,18 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 
 ## Changelog
 
+*v0.2.21*
+* 图像模式更新7月11日新卡hash。by wtof1996
+
+<details>
+   <summary>展开过往版本</summary>
+
 *v0.2.20*
 * 修复导出卡组时主卡组为0的bug。
 
 *v0.2.19*
 * 对游戏steam版本1.1.2进行支持。
 
-<details>
-   <summary>展开过往版本</summary>
 *v0.2.18*
 * 修复卡组导出功能。
 
