@@ -400,7 +400,7 @@ def main():
         ],
     ]
     window = sg.Window(
-        "MDT v0.2.21 GPLv3",
+        "MDT v0.2.22 beta GPLv3",
         card_frame,
         default_element_size=(12, 1),
         font=("Microsoft YaHei", font_size),
