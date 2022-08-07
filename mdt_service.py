@@ -97,7 +97,7 @@ def ydk_converter(
     def ydk_converter_callback():
         print(ydk_deck)
         pyperclip.copy(ydk_deck)
-        start()
+        run()
 
     pause()
     # TODO: 防止二次生成
