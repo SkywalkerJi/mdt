@@ -355,11 +355,13 @@ CLI版本在MDT v0.2.3版本进行拆分，拆分后对CLI版本只做基础可�
 ## Changelog
 
 *v0.2.23*
-*v0.2.22 beta*
 * 对游戏steam版本1.2.0进行支持。
 
 <details>
    <summary>展开过往版本</summary>
+
+*v0.2.22 beta*
+* 临时支持1.2.0。
 
 *v0.2.21*
 * 图像模式更新7月11日新卡hash。by wtof1996

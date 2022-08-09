@@ -1,4 +1,5 @@
 import configparser
+import contextlib
 import ctypes
 import json
 import sys
@@ -42,7 +43,7 @@ def read_longlongs(pm, base, offsets):
     return value
 
 
-def get_cid(type: int):
+def get_cid(type: int):  # sourcery skip: inline-immediately-returned-variable
     global pm
     global deck_addr
     global duel_addr
@@ -168,45 +169,31 @@ def config_load():
     global break_point
     global bgm_list
     con = configparser.ConfigParser()
-    try:
+    with contextlib.suppress(Exception):
         con.read(config_file, encoding="utf-8")
         config = con.items("cli")
         config = dict(config)
         pause_hotkey = config["pause_hotkey"]
         switch_hotkey = config["switch_hotkey"]
-    except Exception:
-        pass
     # 加载卡片文本
-    try:
+    with contextlib.suppress(Exception):
         with open("./locales/zh-CN/cards.json", "rb") as f:
             cards_db_CN = json.load(f)
-    except Exception:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         with open("./locales/zh-TW/cards.json", "rb") as f:
             cards_db_TW = json.load(f)
-    except Exception:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         with open("./data/ur.json", "rb") as f:
             ur_tier_list = json.load(f)
-    except Exception:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         with open("./data/sr.json", "rb") as f:
             sr_tier_list = json.load(f)
-    except Exception:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         with open("./data/breakpoint.json", "rb") as f:
             break_point = json.load(f)
-    except Exception:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         with open("./data/bgm.json", "rb") as f:
             bgm_list = json.load(f)
-    except Exception:
-        pass
 
 
 def get_current_cid():
@@ -217,10 +204,8 @@ def get_current_cid():
 def main():
     uac_reload()
     # 加载游戏
-    try:
+    with contextlib.suppress(Exception):
         get_baseAddress()
-    except Exception:
-        pass
     config_load()
     keyboard.add_hotkey(switch_hotkey, status_change, args=(True, False, False))
     keyboard.add_hotkey(pause_hotkey, status_change, args=(False, True, False))

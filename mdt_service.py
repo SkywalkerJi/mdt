@@ -101,7 +101,10 @@ def ydk_converter(
 
     pause()
     # TODO: 防止二次生成
-    thread = Thread(target=mdt_control.ydk_converter, args=(tmp, locale, window, ydk_converter_callback))
+    thread = Thread(
+        target=mdt_control.ydk_converter,
+        args=(tmp, locale, window, ydk_converter_callback),
+    )
     thread.start()
 
 

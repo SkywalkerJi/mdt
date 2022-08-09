@@ -57,14 +57,14 @@ def get_database(path):
 def get_deck_dict():
     main_name = "masterduel.exe"
     module_name = "GameAssembly.dll"
-    ma_count_static = 0x01E9AC28
-    ma_count_offsets = [0xB8, 0x00, 0xF8, 0x1C8, 0x150, 0x48]
-    ex_count_static = 0x01E9AC28
-    ex_count_offsets = [0xB8, 0x00, 0xF8, 0x1C8, 0x150, 0x18]
-    ma_cards_static = 0x01E9AC28
-    ma_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C8, 0x150, 0x40, 0x20]
-    ex_cards_static = 0x01E9AC28
-    ex_cards_offsets = [0xB8, 0x00, 0xF8, 0x1C8, 0x150, 0x10, 0x20]
+    ma_count_static = 0x01F501A8
+    ma_count_offsets = [0xB8, 0x00, 0xF8, 0x1E8, 0xF0, 0x18]
+    ex_count_static = 0x01F501A8
+    ex_count_offsets = [0xB8, 0x00, 0xF8, 0x1E8, 0x150, 0x18]
+    ma_cards_static = 0x01F501A8
+    ma_cards_offsets = [0xB8, 0x00, 0xF8, 0x1E8, 0x150, 0x40, 0x20]
+    ex_cards_static = 0x01F501A8
+    ex_cards_offsets = [0xB8, 0x00, 0xF8, 0x1E8, 0x150, 0x10, 0x20]
     deck_dict = {"error": _("无法读取卡组信息")}
     try:
         pm = get_process(main_name)
@@ -104,26 +104,22 @@ def get_deck_dict():
 
 
 def get_deck_string(locale: str):
-    db_name = "./locales/" + locale + "/cards.json"
+    db_name = f"./locales/{locale}/cards.json"
     deck_string = ""
     try:
         cards_db = get_database(db_name)
         deck = get_deck_dict()
-    except Exception:  # Exception as e:
-        # print(e)
+    except Exception:
         deck_string += _("无法读取卡组信息")
         return deck_string
     if "error" not in deck:
         deck_string += f"----------------主卡组: {deck['ma_count']}----------------\n"
-        c = 0
-        for cid in deck["ma_cid_list"]:
-            c += 1
+        for c, cid in enumerate(deck["ma_cid_list"], start=1):
             card_string = ""
             try:
                 card_info = cards_db[str(cid)]
             except Exception:
                 card_string += "查无此卡"
-
             try:
                 card_string += f"{card_info['cn_name']}    "
                 card_string += f"{card_info['jp_name']}    "
@@ -131,17 +127,13 @@ def get_deck_string(locale: str):
             except Exception:
                 card_string += "    " + "该卡信息有缺失"
             deck_string += f"{c:<2} {card_string}\n"
-
         deck_string += f"----------------额外卡组: {deck['ex_count']}----------------\n"
-        c = 0
-        for cid in deck["ex_cid_list"]:
-            c += 1
+        for c, cid in enumerate(deck["ex_cid_list"], start=1):
             card_string = ""
             try:
                 card_info = cards_db[str(cid)]
             except Exception:
                 card_string += "查无此卡"
-
             try:
                 card_string += f"{card_info['cn_name']}    "
                 card_string += f"{card_info['jp_name']}    "
@@ -149,7 +141,6 @@ def get_deck_string(locale: str):
             except Exception:
                 card_string += "    " + "该卡信息有缺失"
             deck_string += f"{c:<2} {card_string}\n"
-
     return deck_string
 
 
@@ -217,19 +208,21 @@ def _check_two_array_not_same(deck1: list[int], deck2: list[int]):
     例：[1, 2, 2, 4] [2, 3, 4, 4] -> [1, 2] [3, 4]
     复杂度：O(n)
     """
-    l, r = 0, 0
+    left, right = 0, 0
     error1 = []
     error2 = []
-    while l < len(deck1) or r < len(deck2):
-        if l < len(deck1) and r < len(deck2) and deck1[l] == deck2[r]:
-            l += 1
-            r += 1
-        elif l < len(deck1) and (r == len(deck2) - 1 or deck1[l] < deck2[r]):
-            error1.append(deck1[l])
-            l += 1
-        elif r < len(deck2):
-            error2.append(deck2[r])
-            r += 1
+    while left < len(deck1) or right < len(deck2):
+        if left < len(deck1) and right < len(deck2) and deck1[left] == deck2[right]:
+            left += 1
+            right += 1
+        elif left < len(deck1) and (
+            right == len(deck2) - 1 or deck1[left] < deck2[right]
+        ):
+            error1.append(deck1[left])
+            left += 1
+        elif right < len(deck2):
+            error2.append(deck2[right])
+            right += 1
     return error1, error2
 
 
@@ -239,8 +232,7 @@ def check_deck(ydk_deck: list[int], locale):
         deck1 = sorted(list(map(int, _dict["ma_cid_list"] + _dict["ex_cid_list"])))
         deck2 = sorted(ydk_deck)
         error1, error2 = _check_two_array_not_same(deck1, deck2)
-
-        db_name = "./locales/" + locale + "/cards.json"
+        db_name = f"./locales/{locale}/cards.json"
         cards_db = get_database(db_name)
         error1 = [cards_db[str(cid)]["cn_name"] for cid in error1]
         error2 = [cards_db[str(cid)]["cn_name"] for cid in error2]

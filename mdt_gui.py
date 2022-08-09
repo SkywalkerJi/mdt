@@ -153,13 +153,19 @@ def show_break_point(window, cid):
     tier = service.get_break_point(str(cid))
     text = window["-notice-"].get()
     if tier == 99:
-        window["-notice-"].update(value=f"{text} " + _("无效·断点"), background_color="#3700B3")
+        window["-notice-"].update(
+            value=f"{text} " + _("无效·断点"), background_color="#3700B3"
+        )
 
     elif tier == 98:
-        window["-notice-"].update(value=f"{text} " + _("除外·断点"), background_color="#3700B3")
+        window["-notice-"].update(
+            value=f"{text} " + _("除外·断点"), background_color="#3700B3"
+        )
 
     elif tier == 97:
-        window["-notice-"].update(value=f"{text} " + _("破坏·断点"), background_color="#3700B3")
+        window["-notice-"].update(
+            value=f"{text} " + _("破坏·断点"), background_color="#3700B3"
+        )
 
     else:
         window["-notice-"].update(background_color="#3F3F3F")

@@ -1,3 +1,4 @@
+import itertools
 import time
 import win32gui
 import pyautogui
@@ -29,7 +30,7 @@ def ydk_converter(ydk_deck: list[tuple], locale: str, window, callback=None):
     # TODO: background click
     # TODO: 清空当前牌组
     # TODO: 等待搜索时间可调
-    if ydk_deck is None or ydk_deck == []:
+    if ydk_deck is None or not ydk_deck:
         return
 
     try:
@@ -85,14 +86,11 @@ def ydk_converter(ydk_deck: list[tuple], locale: str, window, callback=None):
 
 
 def travel_through_deck(start, width_step, height_step, target_cid=-1):
-    # 竖
-    for i in range(5):
-        # 横
-        for j in range(6):
-            click_position = start[0] + width_step * j, start[1] + height_step * i
-            pyautogui.click(click_position)
-            cid = get_current_cid()
-            if cid == target_cid:
-                return click_position
-
+    # 竖 横
+    for i, j in itertools.product(range(5), range(6)):
+        click_position = start[0] + width_step * j, start[1] + height_step * i
+        pyautogui.click(click_position)
+        cid = get_current_cid()
+        if cid == target_cid:
+            return click_position
     return None
