@@ -9,6 +9,7 @@ import winsound
 import i18n
 import pyperclip
 import PySimpleGUI as sg
+import urllib.parse
 import win32con
 import win32clipboard
 
@@ -481,9 +482,10 @@ def main():
                         )
                     elif event == "-notice-":
                         en_name = cards_db[str(cid_temp)]["en_name"]
+                        encoded_name = urllib.parse.quote(en_name, safe='')
                         pyperclip.copy(en_name)
                         webbrowser.open(
-                            f"https://www.masterduelmeta.com/cards/{en_name}"
+                            f"https://www.masterduelmeta.com/cards/{encoded_name}"
                         )
         # 切换语言
         elif event == _("切换语言"):
