@@ -40,4 +40,7 @@ jobs:
     - name: Build the application
       run: |
         pyinstaller -F mdt_gui.py -p mdt_service.py -p mdt.py -p mdt_deck_reader.py -p mdt_control.py -p mdt_cv.py -n mdt_cv -n mdt -i controller.ico --distpath mdt --noconsole --uac-admin
-
+    - uses: actions/upload-artifact@v2
+      with:
+        name: name-of-artifact
+        path: src/dist/windows
