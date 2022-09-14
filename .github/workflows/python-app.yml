@@ -40,6 +40,11 @@ jobs:
     - name: Build the application
       run: |
         pyinstaller -F mdt_gui.py -p mdt_service.py -p mdt.py -p mdt_deck_reader.py -p mdt_control.py -p mdt_cv.py -n mdt_cv -n mdt -i controller.ico --distpath mdt --noconsole --uac-admin
+        Move-Item LICENSE mdt
+        Move-Item data mdt
+        Move-Item locales mdt
+        Move-Item README.md mdt
+        Move-Item config.ini mdt
     - uses: actions/upload-artifact@v2
       with:
         name: name-of-artifact
