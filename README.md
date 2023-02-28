@@ -27,7 +27,7 @@ Yu-Gi-Oh! Master Duel Translation Script
 
 如果是Windows7系统请下载后缀`_win7`的版本，如果想使用CLI请下载`_CLI`的版本。
 
-中国大陆用户可在 [蓝奏云](https://wwi.lanzouj.com/b0176jyjc) 密码:5j6f 或者 [Microsoft OneDrive](https://1drv.ms/u/s!Apo8OlF1smGK6nS7sXukI9Bt9xOd?e=bbzDea) 分流下载。
+中国大陆用户可在 [蓝奏云](https://wwtr.lanzoue.com/b0176jyjc) 密码:5j6f 或者 [Microsoft OneDrive](https://1drv.ms/u/s!Apo8OlF1smGK6nS7sXukI9Bt9xOd?e=bbzDea) 分流下载。
 
 你可以通过 [YGO.御坂美琴.CN](https://ygo.xn--uesr8qr0rdwk.cn/) 访问MDT网页工具。
 
