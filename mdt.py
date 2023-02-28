@@ -51,7 +51,7 @@ def get_cid(type: int):  # sourcery skip: inline-immediately-returned-variable
     while type == 1:
         try:
             deck_pointer_value = (
-                read_longlongs(pm, deck_addr, [0xB8, 0x0, 0x100, 0x208]) + 0x2C
+                read_longlongs(pm, deck_addr, [0xB8, 0x0, 0x108, 0x210]) + 0x2C
             )
             deck_cid = pm.read_int(deck_pointer_value)
             return deck_cid
@@ -59,7 +59,7 @@ def get_cid(type: int):  # sourcery skip: inline-immediately-returned-variable
             return 0
     while type == 2:
         try:
-            duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x10, 0xB0, 0xE0]) + 0x4C
+            duel_pointer_value = read_longlongs(pm, duel_addr, [0xB8, 0x0, 0x108, 0xB0, 0xE0]) + 0x19C
             duel_cid = pm.read_int(duel_pointer_value)
             return duel_cid
         except Exception:
@@ -67,7 +67,7 @@ def get_cid(type: int):  # sourcery skip: inline-immediately-returned-variable
     while type == 3:
         try:
             oppo_pointer_value = (
-                read_longlongs(pm, oppo_addr, [0xB8, 0x0, 0x100, 0x138]) + 0x2C
+                read_longlongs(pm, oppo_addr, [0xB8, 0x0, 0x108, 0x138]) + 0x2C
             )
             oppo_cid = pm.read_int(oppo_pointer_value)
             return oppo_cid
@@ -136,9 +136,9 @@ def get_baseAddress():
         pm.process_handle, "GameAssembly.dll"
     ).lpBaseOfDll
     # deck 组卡界面 duel 决斗界面 oppo 回放
-    deck_addr = baseAddress + int("0x01F93BF8", base=16)
-    duel_addr = baseAddress + int("0x01F9F680", base=16)
-    oppo_addr = baseAddress + int("0x01F93BF8", base=16)
+    deck_addr = baseAddress + int("0x01FF6F58", base=16)
+    duel_addr = baseAddress + int("0x01FF6F58", base=16)
+    oppo_addr = baseAddress + int("0x01FF6F58", base=16)
 
 
 # UAC判断
