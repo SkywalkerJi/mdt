@@ -145,7 +145,7 @@ export default {
     },
     handleClickCard(item) {
       if (this.webSearch) {
-        window.open("https://ygocdb.com/?search=" + item.cid, "_blank");
+        window.open("https://ygocdb.com/card/cid/" + item.cid, "_blank");
       }
     },
     getCardImgUrl(id) {
